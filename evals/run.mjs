@@ -24,7 +24,7 @@ if (!cases?.length) { console.error('No cases in ' + labelsPath); process.exit(2
 const EXPECTED_CENTS = { regular: 5, liquor: 10, none: 0, brewer: 0, unknown: null };
 let wrong = 0;
 const pad = (s, n) => String(s).padEnd(n);
-console.log(pad('barcode', 15) + pad('expected', 10) + pad('got', 10) + pad('cents', 7) + 'name');
+console.log(pad("barcode", 17) + pad('expected', 10) + pad('got', 10) + pad('cents', 7) + 'name');
 for (const c of cases) {
   let got = 'error', cents = '', name = '', detail = '';
   try {
@@ -36,7 +36,7 @@ for (const c of cases) {
   } catch (e) { detail = e.message; }
   const ok = got === c.expected && (c.expected === 'unknown' || cents === EXPECTED_CENTS[c.expected]);
   if (!ok) wrong++;
-  console.log(`${ok ? '  ' : 'X '}${pad(c.upc, 13)}${pad(c.expected, 10)}${pad(got, 10)}${pad(cents, 7)}${name || c.name || ''}${detail ? '  (' + detail + ')' : ''}`);
+  console.log(`${ok ? '  ' : 'X '}${pad(c.upc, 15)}${pad(c.expected, 10)}${pad(got, 10)}${pad(cents, 7)}${name || c.name || ''}${detail ? '  (' + detail + ')' : ''}`);
 }
 console.log(`\n${cases.length - wrong}/${cases.length} right${wrong ? `, ${wrong} WRONG` : ''}`);
 process.exit(wrong ? 1 : 0);

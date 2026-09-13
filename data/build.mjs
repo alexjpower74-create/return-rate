@@ -292,7 +292,7 @@ function toCandidate(p) {
   }
   // One barcode, one container. Cases and multipacks are dropped: the depot counts containers.
   const multipack = /\b\d+\s*[x×]\s*\d/i.test(`${p.quantity || ''} ${name}`) || /\b\d+\s*(pack|pk|cans|bottles)\b/i.test(name)
-    || (p.packagings || []).some((k) => Number(k.number_of_units) > 1);
+    || (p.packagings || []).some((k) => Number(k.number_of_units) > 1 && /bottle|can|carton|brick|pouch|box|vial|jug/.test(k.shape || ''));
   if (multipack) reasons.push('multipack or case');
   if ((material === 'aluminum' || material === 'steel') && size_ml > 1000) reasons.push('can over 1 L: a case, not a container');
   if (LIQUOR.has(drink) && /plastic/.test(material || '') && size_ml > 1500) reasons.push('wine in "plastic" over 1.5 L: probably a bag-in-box, which pays differently');
