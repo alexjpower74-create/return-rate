@@ -1,0 +1,114 @@
+// Screens and flow. Plain English on every screen; never a refund we didn't get from the API.
+(function () {
+  'use strict';
+
+  var api = window.ReturnRateApi;
+  var scan = window.ReturnRateScan;
+  var $ = function (id) { return document.getElementById(id); };
+
+  var screens = {};
+  Array.prototype.forEach.call(document.querySelectorAll('.screen'), function (el) {
+    screens[el.dataset.screen] = el;
+  });
+
+  function show(name) {
+    Object.keys(screens).forEach(function (k) { screens[k].hidden = (k !== name); });
+    document.body.dataset.screen = name;
+    window.scrollTo(0, 0);
+    if (name !== 'start') scan.stop();
+    var h = screens[name].querySelector('.refund, .lead, h1');
+    if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }
+  }
+
+  // The words for each class. Nothing else is ever shown as a class.
+  var KIND = {
+    regular: 'Pop, water, juice or beer',
+    liquor: 'Wine or spirits',
+    none: 'Milk and plant milks have no refund',
+    brewer: 'Refillable local beer bottle: take it back to the beer store or ask at the counter.'
+  };
+
+  function renderAnswer(item) {
+    var refund = $('refund');
+    refund.className = 'refund';
+    if (item.class === 'regular' || item.class === 'liquor') {
+      refund.textContent = item.refund_cents + '¢';
+    } else if (item.class === 'brewer') {
+      refund.textContent = 'Ask at the counter';
+      refund.classList.add('ask');
+    } else {
+      refund.textContent = 'No refund';
+      refund.classList.add('none');
+    }
+    var size = item.size_ml ? (item.size_ml >= 1000 ? (item.size_ml / 1000) + ' L' : item.size_ml + ' mL') : '';
+    $('product').textContent = [item.name, size].filter(Boolean).join(', ');
+    $('kind').textContent = KIND[item.class] || '';
+    // 'none' covers more than milk; the Worker's one-sentence why says which.
+    if (item.class === 'none' && item.why) $('kind').textContent = item.why;
+    $('why').textContent = (item.class === 'none') ? '' : (item.why || '');
+    show('answer');
+  }
+
+  var lastUpc = '';
+  function check(upc) {
+    lastUpc = upc;
+    show('busy');
+    api.lookup(upc).then(function (r) {
+      if (r.status === 'known') return renderAnswer(r.item);
+      if (r.status === 'unknown') { $('unknown-upc').textContent = 'Number ' + upc; return show('unknown'); }
+      if (r.status === 'bad') { showStart(); return typeError(r.message); }
+      if (r.status === 'busy') { $('offline-reason').textContent = r.message; return show('offline'); }
+      $('offline-reason').textContent = r.message || 'Your phone looks offline. Try again when you have a signal, or ask at the counter.';
+      show('offline');
+    });
+  }
+
+  function typeError(msg) {
+    var e = $('type-error');
+    e.textContent = msg || '';
+    e.hidden = !msg;
+  }
+
+  var cameraNote = $('camera-note');
+  function note(text) { cameraNote.textContent = text; cameraNote.hidden = !text; }
+
+  function startCamera() {
+    if (/[?&]camera=off(&|$)/.test(location.search)) { note('Camera is off. Type the number below.'); return; }
+    note('');
+    scan.start($('video'), function (upc) { $('upc').value = upc; check(upc); })
+      .then(function () { note(''); })
+      .catch(function (e) {
+        var why = e && e.reason;
+        if (why === 'refused') note("Camera is off, and that's fine. Type the number below.");
+        else if (why === 'unsupported') note("This browser can't use the camera here. Type the number below.");
+        else note("We can't reach the camera. Type the number below.");
+        $('upc').focus({ preventScroll: true });
+      });
+  }
+
+  function showStart() {
+    typeError('');
+    show('start');
+    startCamera();
+  }
+
+  $('type-form').addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var upc = scan.normalise($('upc').value);
+    if (!upc) return typeError("That doesn't look like a barcode number. It's 8, 12 or 13 digits.");
+    check(upc);
+  });
+  $('upc').addEventListener('input', function () { typeError(''); });
+
+  Array.prototype.forEach.call(document.querySelectorAll('.again'), function (b) {
+    if (b.id === 'retry') return;
+    b.addEventListener('click', function () { $('upc').value = ''; showStart(); });
+  });
+  $('retry').addEventListener('click', function () { if (lastUpc) check(lastUpc); else showStart(); });
+
+  window.addEventListener('offline', function () {
+    if (document.body.dataset.screen === 'busy') { $('offline-reason').textContent = 'Your phone looks offline. Try again when you have a signal, or ask at the counter.'; show('offline'); }
+  });
+
+  showStart();
+})();

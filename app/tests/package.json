@@ -1,0 +1,12 @@
+{
+  "name": "return-rate-app-tests",
+  "private": true,
+  "description": "c2's Playwright suite for the customer app. Run: npm test (from app/tests). Root package.json belongs to c4.",
+  "scripts": {
+    "test": "playwright test -c playwright.config.js"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "playwright": "1.63.0"
+  }
+}
