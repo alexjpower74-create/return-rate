@@ -17,7 +17,7 @@ test.describe('customer journey', () => {
     await expect(refund5).toHaveText('5¢');
     await expect(moneyOnScreen(page)).toBeVisible();
     const big = await largestFontIsRefund(page);
-    expect(big.isRefund, `largest font on the answer is "${big.text}" (${big.size}px), not the refund`).toBe(true);
+    expect(big.isRefund, `largest font on the answer is "${big.text}" (${big.size}px), not the verdict`).toBe(true);
     await page.screenshot({ path: `app/tests/qa/shots/answer-5c-${browserName}-${page.viewportSize().width}.png` });
 
     // Scan another → back to start

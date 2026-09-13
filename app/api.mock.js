@@ -9,17 +9,19 @@
   var ITEMS = {
     // SYNTHETIC 5¢: a pop bottle (regular).
     '0000000000017': { upc: '0000000000017', name: 'Test Cola (SYNTHETIC)', brand: 'Test', size_ml: 750,
-      class: 'regular', refund_cents: 5, material: 'clear-plastic', why: 'Pop in a plastic bottle: 5¢.', source: 'synthetic', note: NOTE },
+      accepted: true, verdict: 'Yes, we take this', depot_policy: false, class: 'regular', refund_cents: 5, material: 'clear-plastic', why: 'Pop in a plastic bottle: 5¢.', source: 'synthetic', note: NOTE },
     // SYNTHETIC 10¢: wine in glass (liquor).
     '0000000000024': { upc: '0000000000024', name: 'Test Red Wine (SYNTHETIC)', brand: 'Test', size_ml: 750,
-      class: 'liquor', refund_cents: 10, material: 'glass', why: 'Wine in a glass bottle: 10¢.', source: 'synthetic', note: NOTE },
+      accepted: true, verdict: 'Yes, we take this', depot_policy: false, class: 'liquor', refund_cents: 10, material: 'glass', why: 'Wine in a glass bottle: 10¢.', source: 'synthetic', note: NOTE },
     // SYNTHETIC no refund: milk.
     '0000000000048': { upc: '0000000000048', name: 'Test 2% Milk (SYNTHETIC)', brand: 'Test', size_ml: 2000,
-      class: 'none', refund_cents: 0, material: 'other-plastic', why: "Milk has no deposit, so there's no refund.", source: 'synthetic', note: NOTE },
+      accepted: false, verdict: "No, we don't take this", depot_policy: false, class: 'none', refund_cents: 0, material: 'other-plastic', why: "Milk has no deposit, so there's no refund.", source: 'synthetic', note: NOTE },
     // SYNTHETIC brewer: a local refillable beer bottle.
     '0000000000055': { upc: '0000000000055', name: 'Test Lager refillable bottle (SYNTHETIC)', brand: 'Test', size_ml: 341,
-      class: 'brewer', refund_cents: 0, material: 'glass', why: "A local brewer's refillable bottle goes back to the beer store; ask at the counter.", source: 'synthetic', note: NOTE }
+      accepted: true, verdict: 'Yes, we take this', depot_policy: true, class: 'brewer', refund_cents: 5, material: 'glass', why: "A local brewer's refillable bottle (including Quidi Vidi Iceberg blue) is not part of the MMSB program. APCO Recycling takes it and pays 5¢; some other depots don't.", source: 'synthetic', note: NOTE }
   };
+  // Hook for the QA harness (c4): which SYNTHETIC numbers mean what. Never real products.
+  window.RR_MOCK = { regular: '0000000000017', liquor: '0000000000024', unknown: '0000000000031', none: '0000000000048', brewer: '0000000000055', offline: '0000000000062' };
   // SYNTHETIC unknown: 0000000000031 (not in the list, so a 404).
   // SYNTHETIC offline: 0000000000062 pretends the network is down.
 

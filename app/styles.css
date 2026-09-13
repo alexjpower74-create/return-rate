@@ -67,14 +67,20 @@ button:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
 .help { color: var(--muted); font-size: 15px; margin: 8px 0 0; }
 .error { color: #a4261d; margin: 10px 0 0; }
 
-.refund {
-  font-size: 96px; font-weight: 800; line-height: 1;
-  margin: 8px 0 12px; letter-spacing: -0.02em;
+.verdict {
+  font-size: 56px; font-weight: 800; line-height: 1.02;
+  margin: 8px 0 10px; letter-spacing: -0.02em;
   color: var(--accent);
 }
-.refund.none { color: var(--ink); font-size: 56px; }
-.refund.ask { color: var(--ink); font-size: 44px; }
-.refund.small { font-size: 32px; color: var(--ink); line-height: 1.15; }
+.verdict.no { color: var(--ink); }
+.verdict.ask { color: #9a6b12; }
+.refund {
+  font-size: 34px; font-weight: 700; line-height: 1.1;
+  margin: 0 0 12px; letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.refund.none { color: var(--muted); }
+.refund.small { font-size: 26px; color: var(--ink); line-height: 1.15; }
 .product { font-size: 22px; font-weight: 600; margin: 0 0 6px; }
 .kind { font-size: 18px; margin: 0 0 6px; }
 .why { color: var(--muted); margin: 0 0 18px; }

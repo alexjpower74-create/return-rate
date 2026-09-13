@@ -25,17 +25,19 @@
     regular: 'Pop, water, juice or beer',
     liquor: 'Wine or spirits',
     none: 'Milk and plant milks have no refund',
-    brewer: 'Refillable local beer bottle: take it back to the beer store or ask at the counter.'
+    brewer: 'Refillable local beer bottle (not part of the MMSB program)'
   };
 
   function renderAnswer(item) {
+    var verdict = $('verdict');
+    verdict.className = 'verdict';
+    var accepted = item.accepted === true || (item.accepted === undefined && item.class !== 'none');
+    verdict.textContent = accepted ? 'Yes, we take this' : "No, we don't take this";
+    if (!accepted) verdict.classList.add('no');
     var refund = $('refund');
     refund.className = 'refund';
-    if (item.class === 'regular' || item.class === 'liquor') {
-      refund.textContent = item.refund_cents + '¢';
-    } else if (item.class === 'brewer') {
-      refund.textContent = 'Ask at the counter';
-      refund.classList.add('ask');
+    if (accepted && typeof item.refund_cents === 'number' && item.refund_cents > 0) {
+      refund.textContent = item.refund_cents + '¢' + (item.depot_policy ? ' at APCO' : '');
     } else {
       refund.textContent = 'No refund';
       refund.classList.add('none');

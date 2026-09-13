@@ -22,7 +22,7 @@ module.exports = defineConfig({
     { name: 'webkit', use: { browserName: 'webkit' } },
   ],
   webServer: {
-    command: 'python3 -m http.server 5901 -d ' + path.join(__dirname, '..'),
+    command: 'python3 -m http.server 5901 -d "' + path.join(__dirname, '..') + '"',
     url: 'http://localhost:5901/index.html',
     reuseExistingServer: true,
   },

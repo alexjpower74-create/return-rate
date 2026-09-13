@@ -66,20 +66,23 @@ test('start screen: camera prompt, typed field and the never-invent sentence', a
 });
 
 for (const c of [
-  { upc: '0000000000017', refund: '5¢', kind: 'Pop, water, juice or beer', name: 'Test Cola' },
-  { upc: '0000000000024', refund: '10¢', kind: 'Wine or spirits', name: 'Test Red Wine' },
-  { upc: '0000000000048', refund: 'No refund', kind: 'Milk has no deposit', name: 'Test 2% Milk' },
-  { upc: '0000000000055', refund: 'Ask at the counter', kind: 'beer store', name: 'refillable' },
+  { upc: '0000000000017', refund: '5¢', verdict: 'Yes, we take this', kind: 'Pop, water, juice or beer', name: 'Test Cola' },
+  { upc: '0000000000024', refund: '10¢', verdict: 'Yes, we take this', kind: 'Wine or spirits', name: 'Test Red Wine' },
+  { upc: '0000000000048', refund: 'No refund', verdict: "No, we don't take this", kind: 'Milk has no deposit', name: 'Test 2% Milk' },
+  { upc: '0000000000055', refund: '5¢ at APCO', kind: 'Refillable local beer bottle', name: 'refillable', verdict: 'Yes, we take this' },
 ]) {
   test(`answer ${c.upc} (SYNTHETIC) shows ${c.refund}`, async ({ page }, info) => {
     await typeNumber(page, c.upc);
     const refund = page.locator('#refund');
     await expect(refund).toHaveText(c.refund);
+    await expect(page.locator('#verdict')).toHaveText(c.verdict);
     await expect(page.locator('#product')).toContainText(c.name);
     await expect(page.locator('#kind')).toContainText(c.kind);
     await expect(page.locator('#screen-answer .money')).toHaveText(MONEY);
-    const big = await largestFontIs(page, '#refund');
-    expect(big.ok, `refund ${big.target}px should be the largest font, largest is ${big.max}px`).toBe(true);
+    const big = await largestFontIs(page, '#verdict');
+    expect(big.ok, `verdict ${big.target}px should be the largest font, largest is ${big.max}px`).toBe(true);
+    const sizes = await page.evaluate(() => [parseFloat(getComputedStyle(document.querySelector('#verdict')).fontSize), parseFloat(getComputedStyle(document.querySelector('#refund')).fontSize)]);
+    expect(sizes[1], 'the cents line is smaller than the verdict').toBeLessThan(sizes[0]);
     await allVisibleButtonsHit(page);
     await page.screenshot({ path: path.join(SHOTS, `answer-${c.upc.slice(-2)}-${info.project.name}.png`) });
   });

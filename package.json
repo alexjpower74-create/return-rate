@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "playwright test",
+    "test:app": "cd app/tests && npx playwright test",
     "test:qa": "playwright test app/tests/qa",
     "test:phone": "playwright test --project=chromium-phone --project=webkit-phone",
     "test:red": "QA_TARGET=/app/tests/qa/fixture/stand-in.html?plant=1 playwright test app/tests/qa/plain-english.spec.js --project=chromium-phone",

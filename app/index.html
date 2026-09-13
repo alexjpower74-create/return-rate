@@ -40,6 +40,7 @@
 
   <!-- Answer -->
   <section id="screen-answer" class="screen" data-screen="answer" hidden>
+    <p class="verdict" id="verdict"></p>
     <p class="refund" id="refund"></p>
     <p class="product" id="product"></p>
     <p class="kind" id="kind"></p>
@@ -51,8 +52,9 @@
 
   <!-- Unknown -->
   <section id="screen-unknown" class="screen" data-screen="unknown" hidden>
-    <p class="refund small">We don't know this one yet.</p>
-    <p class="lead">Show it at the counter and we'll add it.</p>
+    <p class="verdict ask">Ask at the counter</p>
+    <p class="refund small">We don't know this one yet. Show it at the counter and we'll add it.</p>
+    <p class="lead">Look for the words Return for Refund on the label.</p>
     <p class="product" id="unknown-upc"></p>
     <p class="money">The counter's count is the one that pays.</p>
     <button type="button" class="again">Scan another</button>
@@ -75,7 +77,7 @@
 </main>
 
 <footer class="foot">
-  <p>Refunds follow the Newfoundland and Labrador rules. Refillable beer bottles from local brewers go back to the beer store.</p>
+  <p>Refunds follow the Newfoundland and Labrador rules and apply to containers bought here. Refillable local beer bottles aren't part of the MMSB program; APCO takes them at 5¢, some depots don't.</p>
 </footer>
 
 <script src="api.js"></script>

@@ -10,7 +10,7 @@ const desktop = { viewport: { width: 1280, height: 800 } };
 export default defineConfig({
   testDir: '.',
   testMatch: /.*\.spec\.js$/,
-  testIgnore: ['**/node_modules/**', '.wrangler/**', 'test-results/**', 'worker/.wrangler/**'],
+  testIgnore: ['**/node_modules/**', '**/.worktrees/**', '.wrangler/**', 'test-results/**', 'worker/.wrangler/**', 'app/tests/app.spec.js' /* c2's suite has its own Playwright install; run it from app/tests */],
   outputDir: 'test-results',
   fullyParallel: true,
   retries: 0,

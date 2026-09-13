@@ -14,7 +14,8 @@ export const TEXT = {
   money: /the counter's count is the one that pays/i,
   unknown: /We don't know this one yet\. Show it at the counter and we'll add it\./i,
   scanAnother: /Scan another/i,
-  refund: /^(5¢|10¢|No refund)$/,
+  refund: /^(5¢|10¢|No refund)( at APCO)?$/,
+  verdict: /^(Yes, we take this|No, we don't take this|Ask at the counter)$/,
 };
 
 // SYNTHETIC barcodes. Env wins; otherwise the mock page must expose window.RR_MOCK
@@ -83,7 +84,7 @@ export async function visibleText(page) {
   });
 }
 
-// The refund line must be the largest font on the screen.
+// The verdict (Yes / No / Ask at the counter) must be the largest font on the screen; the cents line sits under it.
 export async function largestFontIsRefund(page) {
   return page.evaluate((re) => {
     const rx = new RegExp(re.source, re.flags);
@@ -98,7 +99,7 @@ export async function largestFontIsRefund(page) {
       if (size > best.size) best = { size, text: own };
     }
     return { ...best, isRefund: rx.test(best.text) };
-  }, { source: TEXT.refund.source, flags: TEXT.refund.flags });
+  }, { source: TEXT.verdict.source, flags: TEXT.verdict.flags });
 }
 
 // Every screen must be plain English: no developer words leaking through.
