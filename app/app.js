@@ -57,7 +57,7 @@
     show('busy');
     api.lookup(upc).then(function (r) {
       if (r.status === 'known') return renderAnswer(r.item);
-      if (r.status === 'unknown') { $('unknown-upc').textContent = 'Number ' + upc; return show('unknown'); }
+      if (r.status === 'unknown') { $('unknown-name').textContent = r.name || ''; $('unknown-text').textContent = r.message || api.UNKNOWN_TEXT; $('unknown-upc').textContent = 'Number ' + upc; return show('unknown'); }
       if (r.status === 'bad') { showStart(); return typeError(r.message); }
       if (r.status === 'busy') { $('offline-reason').textContent = r.message; return show('offline'); }
       $('offline-reason').textContent = r.message || 'Your phone looks offline. Try again when you have a signal, or ask at the counter.';

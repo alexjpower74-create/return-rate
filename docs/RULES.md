@@ -3,7 +3,7 @@
 Researched 2026-09-13 from the primary sources. `worker/src/rules.js` implements THIS file; the tests quote it. If a case isn't covered here, the answer is **unknown**, never a guess.
 
 ## What the app is for (Alexander, 2026-09-13)
-**The headline answer is whether the depot ACCEPTS the container: "Yes, we take this" / "No, we don't take this" / "Ask at the counter".** The cents are shown smaller, underneath. Getting accepted-or-not right matters more than 5¢ vs 10¢.
+**The headline answer is whether the depot ACCEPTS the container: "Yes, we take this" / "No, we don't take this" / "Check the label" (with the exact words to look for).** One simple app for customers and staff alike: scan, read the answer. No passwords, no set-up, no back end anyone has to operate. The cents are shown smaller, underneath. Getting accepted-or-not right matters more than 5¢ vs 10¢.
 
 ## Sources
 0. Alexander (APCO Recycling owner), 2026-09-13: depot policy on local refillable and Quidi Vidi Iceberg bottles.
@@ -123,17 +123,18 @@ Order of decisions (first match wins):
 - Kombucha and "hard kombucha" (alcoholic): treated as regular / liquor by the rules above; confirm the depot sees them that way.
 
 ## What a barcode can and cannot decide (design rule for the product list)
+**There is no staff side, no PIN and no confirming step (Alexander, 2026-09-13): the same app for customers and employees. When the barcode can't decide, the app tells the person exactly what to read on the label, using MMSB's own label rules below.**
 MMSB publishes **no product registry**; it rules product by product on request from the label. So a barcode database (built from public product data) may auto-answer **only** where the label cannot change the answer:
 - Auto-answer allowed: soft drinks, water (not distilled), sparkling water, juice and juice drinks, vegetable juice, sports and energy drinks, iced tea and coffee drinks that are plainly not milk-labelled, beer, wine, spirits, ciders, coolers, seltzers, canned cocktails, and only when the **container material and size are known**.
-- Never auto-answer (always "ask at the counter" until APCO staff confirm the item at the till and it is saved with `source: "counter"`): anything dairy or dairy-looking (milk, chocolate milk, flavoured milk beverages, protein shakes, drinkable yogurt, kefir, eggnog, coffee drinks that say milk), plant-based milks and drinks, nutrition and supplement drinks (Boost, Ensure, Premier Protein, Carnation), infant and toddler drinks, electrolyte solutions, soups and broths, cooking wines and vinegars, any container over 4 L (near the 5 L line), kegs, growlers, crowlers, anything refillable, anything whose material the data does not state.
-- A counter-confirmed item outranks the database. Counter staff record drink type and material; the Worker classifies. Staff never type a cents figure.
+- Never auto-answer (the app says "Check the label" and gives the specific test for that kind of product): anything dairy or dairy-looking (milk, chocolate milk, flavoured milk beverages, protein shakes, drinkable yogurt, kefir, eggnog, coffee drinks that say milk), plant-based milks and drinks, nutrition and supplement drinks (Boost, Ensure, Premier Protein, Carnation), infant and toddler drinks, electrolyte solutions, soups and broths, cooking wines and vinegars, any container over 4 L (near the 5 L line), kegs, growlers, crowlers, anything refillable, anything whose material the data does not state.
+- Unknown barcode: "We don't have this one on our list yet" plus the Return for Refund label test. Nothing is ever guessed and nobody has to confirm anything.
 
 ## Edge products, decided by the rules above (each says which rule)
 | Item | Answer | Rule |
 |---|---|---|
 | 5 L Heineken mini keg (steel, non-refillable, exactly 5 L) | 5¢ | ≤ 5 L, beer, metal |
 | 5.16 L or bigger keg; any refillable keg; growler | no refund | over 5 L / refillable |
-| Crowler (32 oz can sealed at a brewery) | ask at the counter | "delivered sealed to a retailer" is arguable; label may lack Return for Refund |
+| Crowler (32 oz can sealed at a brewery) | check the label | "delivered sealed to a retailer" is arguable; label may lack Return for Refund |
 | 4 L plastic water jug (non-refillable) | 5¢ | ≤ 5 L, water |
 | 18.9 L water cooler bottle | no refund | over 5 L and refillable |
 | Distilled water, any size | no refund | MMSB program page |

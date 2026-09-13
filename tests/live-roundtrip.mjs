@@ -8,7 +8,7 @@ if (!API) { console.error('Set API=<worker base url>'); process.exit(2); }
 const arg = (k, d) => { const i = process.argv.indexOf(`--${k}`); return i > -1 ? process.argv[i + 1] : d; };
 const SEED = { upc: arg('upc', process.env.SEED_UPC), klass: arg('class', process.env.SEED_CLASS || 'regular'), cents: Number(arg('cents', process.env.SEED_CENTS || 5)) };
 const UNKNOWN = arg('unknown', process.env.UNKNOWN_UPC || '0000000000099'); // SYNTHETIC, never seeded
-const HONEST = "We don't know this one yet. Show it at the counter and we'll add it.";
+const HONEST = "We don't have this one on our list yet. Look on the label for the words Return for Refund";
 const MONEY = "The counter's count is the one that pays.";
 
 let red = 0;
@@ -41,7 +41,7 @@ if (SEED.upc) {
 
 const unk = await get(`/item/${UNKNOWN}`);
 check(`unknown ${UNKNOWN} is 404`, unk, (r) => r.status === 404, { status: 200 });
-check('unknown carries the honest sentence', unk, (r) => r.body?.error === HONEST, { body: { error: 'Not found' } });
+check('unknown carries the honest sentence', unk, (r) => String(r.body?.error || '').startsWith(HONEST), { body: { error: 'Not found' } });
 check('unknown never carries a refund', unk, (r) => r.body?.refund_cents === undefined && r.body?.class === undefined, { body: { refund_cents: 5 } });
 
 const bad = await get('/item/12ab');

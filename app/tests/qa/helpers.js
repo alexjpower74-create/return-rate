@@ -12,10 +12,10 @@ export const TEXT = {
   typeField: /Type the number/i,
   honest: /If we don't know an item, we say so\./i,
   money: /the counter's count is the one that pays/i,
-  unknown: /We don't know this one yet\. Show it at the counter and we'll add it\./i,
+  unknown: /We don't have this one on our list yet\. Look on the label for the words Return for Refund/i,
   scanAnother: /Scan another/i,
   refund: /^(5¢|10¢|No refund)( at APCO)?$/,
-  verdict: /^(Yes, we take this|No, we don't take this|Ask at the counter)$/,
+  verdict: /^(Yes, we take this|No, we don't take this|Check the label)$/,
 };
 
 // SYNTHETIC barcodes. Env wins; otherwise the mock page must expose window.RR_MOCK

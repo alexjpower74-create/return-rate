@@ -2,16 +2,26 @@
 import { classify, DRINKS, MATERIALS } from './rules.js';
 
 const NOTE = "The counter's count is the one that pays.";
-const UNKNOWN = "We don't know this one yet. Show it at the counter and we'll add it.";
-const NEEDS_COUNTER = "We know this one but the refund depends on the label. Show it at the counter.";
+// No staff side, no PIN, no confirming: when the barcode alone can't decide, the app tells the customer
+// exactly what to read on the label. These sentences come from docs/RULES.md (MMSB's own label rules).
+const LABEL_TEST = "Look on the label for the words Return for Refund. If they're there and you bought it in Newfoundland and Labrador, we take it: 5¢, or 10¢ for wine and spirits in a glass or plastic bottle. If they're not there, there's no refund.";
+const UNKNOWN = "We don't have this one on our list yet. " + LABEL_TEST;
+const LABEL_GUIDE = {
+  'label-milk': "Milk products: if the label says Milk (that includes chocolate milk), there's no refund. If it's a milk beverage or a protein shake and the label says Return for Refund, we take it at 5¢.",
+  'label-plant': "Plant-based drinks: if the label says fortified soy, almond or oat beverage and it's a source of protein, there's no refund. If the label says 'not a source of protein' and Return for Refund, we take it at 5¢.",
+  'label-nutrition': "If the label says Meal Replacement, Formulated Liquid Diet or infant formula, there's no refund. Otherwise look for Return for Refund on the label; if it's there, we take it at 5¢.",
+  'label-other': LABEL_TEST,
+};
 const HINT = 'Look for the words Return for Refund on the label.';
 const BAD_UPC = "That doesn't look like a barcode number.";
 const TOO_MANY = 'Too many scans in a row, give it a minute.';
-const RATE_LIMIT = 60; // lookups per hour per IP
+// Lookups per hour per address. A depot's whole WiFi shares one address, so the deployed default is generous;
+// the tests run wrangler dev with `--var RATE_LIMIT_PER_HOUR:60` so the guard can be proven.
+const rateLimit = (env) => Number(env.RATE_LIMIT_PER_HOUR || 600);
 
 const CORS = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+  'Access-Control-Allow-Methods': 'GET, OPTIONS',
   'Access-Control-Allow-Headers': 'Content-Type, Authorization',
 };
 
@@ -70,7 +80,7 @@ async function getItem(request, env, upc) {
   const { n } = await env.DB.prepare(
     "SELECT COUNT(*) AS n FROM lookups WHERE ip_hash = ? AND created > strftime('%Y-%m-%dT%H:%M:%fZ','now','-1 hour')",
   ).bind(hash).first();
-  if (n >= RATE_LIMIT) return err(TOO_MANY, 429);
+  if (n >= rateLimit(env)) return err(TOO_MANY, 429);
 
   const row = await env.DB.prepare('SELECT * FROM items WHERE upc = ?').bind(upc).first();
   const item = row ? present(row, env) : null;
@@ -78,42 +88,11 @@ async function getItem(request, env, upc) {
     .bind(upc, item ? 1 : 0, hash).run();
   if (!item) {
     // A recognised product whose refund depends on the label (milk vs milk beverage, "not a source of protein",
-    // "Meal Replacement") is never guessed: say we know it, and send them to the counter (docs/RULES.md).
-    if (row) return err(NEEDS_COUNTER, 404, { upc, name: row.name, accepted: null, verdict: 'Ask at the counter', hint: HINT });
-    return err(UNKNOWN, 404, { upc, accepted: null, verdict: 'Ask at the counter', hint: HINT });
+    // "Meal Replacement") is never guessed: say we know it, and tell them what to read on the label (docs/RULES.md).
+    if (row) return err(LABEL_GUIDE[row.drink] || LABEL_GUIDE['label-other'], 404, { upc, name: row.name, accepted: null, verdict: 'Check the label', hint: HINT });
+    return err(UNKNOWN, 404, { upc, accepted: null, verdict: 'Check the label', hint: HINT });
   }
   return json(item);
-}
-
-async function postItem(request, env, upc) {
-  const auth = request.headers.get('Authorization') || '';
-  const pin = auth.startsWith('Bearer ') ? auth.slice(7).trim() : '';
-  if (!env.COUNTER_PIN || pin !== env.COUNTER_PIN) return err('That PIN is not right.', 401);
-  if (!validUpc(upc)) return err(BAD_UPC, 400);
-
-  let body;
-  try { body = await request.json(); } catch { return err('Send the item as JSON.', 400); }
-  const name = typeof body.name === 'string' ? body.name.trim() : '';
-  if (!name) return err('The item needs a name.', 400);
-  if (!DRINKS.includes(body.drink) || body.drink === 'unknown') return err('Pick what the drink is from the list.', 400);
-  if (!MATERIALS.includes(body.material) || body.material === 'unknown') return err('Pick what the container is made of from the list.', 400);
-  const size_ml = body.size_ml == null ? null : Number(body.size_ml);
-  if (size_ml !== null && !(Number.isInteger(size_ml) && size_ml > 0)) return err('Size must be a whole number of millilitres.', 400);
-  const brand = typeof body.brand === 'string' && body.brand.trim() ? body.brand.trim() : null;
-  const refillable = body.refillable === true ? 1 : 0;
-
-  const r = classify({ drink: body.drink, material: body.material, size_ml, refillable: !!refillable }, env);
-  if (r.class === 'unknown') return err("We can't tell the refund from that; check the drink and the container.", 400);
-
-  await env.DB.prepare(
-    `INSERT INTO items (upc, name, brand, size_ml, drink, material, refillable, class, source, edited_by)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'counter', 'counter')
-     ON CONFLICT(upc) DO UPDATE SET name=excluded.name, brand=excluded.brand, size_ml=excluded.size_ml,
-       drink=excluded.drink, material=excluded.material, refillable=excluded.refillable, class=excluded.class,
-       source='counter', edited_by='counter'`,
-  ).bind(upc, name, brand, size_ml, body.drink, body.material, refillable, r.class).run();
-  const row = await env.DB.prepare('SELECT * FROM items WHERE upc = ?').bind(upc).first();
-  return json(present(row, env));
 }
 
 async function stats(env) {
@@ -142,8 +121,7 @@ export default {
       if (item) {
         const upc = decodeURIComponent(item[1]);
         if (m === 'GET') return await getItem(request, env, upc);
-        if (m === 'POST') return await postItem(request, env, upc);
-        return err('Use GET or POST here.', 405);
+        return err('Use GET here.', 405);
       }
       return err('There is nothing at that address.', 404);
     } catch (e) {

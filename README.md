@@ -1,6 +1,6 @@
 # Return Rate
 
-Point your phone at a container's barcode and find out whether the Green Depot takes it. The headline is **Yes, we take this / No, we don't take this / Ask at the counter**; the refund (5¢ or 10¢) is the second line. Built for customers of APCO Recycling in Grand Falls-Windsor, Newfoundland and Labrador, and only for Newfoundland and Labrador's rules.
+Point your phone at a container's barcode and find out whether the Green Depot takes it. The headline is **Yes, we take this / No, we don't take this / Check the label**; the refund (5¢ or 10¢) is the second line. One simple app for customers and depot staff alike: no passwords, no set-up, nothing to confirm. Built for customers of APCO Recycling in Grand Falls-Windsor, Newfoundland and Labrador, and only for Newfoundland and Labrador's rules.
 
 Live: https://return-rate-app.alexjpower74.workers.dev
 
@@ -17,14 +17,14 @@ The short version:
 - A depot may refuse crushed, broken, dirty or unlabelled containers (regulation s.18).
 
 ## The honesty rule
-The label decides the dairy-looking cases (Nesquik "flavoured milk beverage" is refundable; chocolate milk labelled Milk is not), and MMSB publishes no product registry. So a barcode is allowed to auto-answer only where the label cannot change the answer. Milk, plant-based, nutrition, infant, electrolyte and coffee-with-milk products are stored as **"ask at the counter"** until APCO staff confirm the item at the till. `docs/seed-split.mjs` enforces that gate: of 1,034 products, 963 auto-answer and 71 are held for the counter.
+The label decides the dairy-looking cases (Nesquik "flavoured milk beverage" is refundable; chocolate milk labelled Milk is not), and MMSB publishes no product registry. So a barcode is allowed to auto-answer only where the label cannot change the answer. For milk, plant-based, nutrition, infant, electrolyte and coffee-with-milk products the app says **"Check the label"** and tells the person exactly what words decide it (Milk, fortified soy beverage, not a source of protein, Meal Replacement, Return for Refund). `docs/seed-split.mjs` enforces that gate: of 1,034 products, 963 auto-answer and 71 get the label test. An unknown barcode gets the general test: if the label says Return for Refund and it was bought in NL, the depot takes it.
 
 ## Results
 | Check | Result |
 |---|---|
 | Main's oracle: 63 cases written from RULES.md (every row of the MMSB chart, the traps, APCO's policies) against the rules engine | **63 of 63** |
 | Rules engine unit tests (chart rows, traps, wording sweep) | **58 assertions** |
-| Worker API tests against a local D1: known classes, unknown 404, needs-counter 404 with the name, counter add and correct, wrong PIN, malformed, rate guard, stats | **74 of 74** |
+| Worker API tests against a local D1: known classes, unknown 404 with the label test, label-dependent 404 with the name and guidance, malformed, rate guard, stats | **74 of 74** |
 | App suite, Chromium and WebKit, real typing, verdict is the largest text, cents smaller, money line on every answer, camera refused, offline | **19 of 19** |
 | Root QA journey and plain-English sweep with built-in negative controls | **12 of 12** |
 | 44 real shelf barcodes (Sobeys, Dominion, NLC) against the deployed Worker | **44 of 44** |
@@ -45,6 +45,5 @@ npx playwright test -c app/tests/playwright.config.js   # c2's suite
 Contract: `docs/API.md`. Product list: `data/README.md`. How each slice was built and made red: `docs/build-report-c1..c4.md`.
 
 ## Not done yet
-- A counter screen for staff to confirm "ask at the counter" items (the Worker endpoint exists, PIN in `worker/SECRETS.txt`).
 - Real scanning on a phone at the depot: the barcode reader ran on a fake camera in tests, never on a shelf item.
 - The database is shared with Bottle Count (the account's D1 quota is full); its own tables, no overlap.

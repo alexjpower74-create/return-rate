@@ -5,7 +5,7 @@ const path = require('path');
 
 const SHOTS = path.join(__dirname, 'shots');
 const MONEY = "The counter's count is the one that pays.";
-const UNKNOWN = "We don't know this one yet.";
+const UNKNOWN = "We don't have this one on our list yet.";
 
 // Type a number for real (keyboard events, not fill) and submit.
 async function typeNumber(page, digits) {
@@ -92,10 +92,11 @@ test('unknown number (SYNTHETIC) says so honestly, with the money line', async (
   await typeNumber(page, '0000000000031');
   await expect(page.locator('#screen-unknown')).toBeVisible();
   await expect(page.getByText(UNKNOWN)).toBeVisible();
-  await expect(page.getByText("Show it at the counter and we'll add it.")).toBeVisible();
+  await expect(page.getByText("Look on the label for the words Return for Refund")).toBeVisible();
   await expect(page.locator('#screen-unknown .money')).toHaveText(MONEY);
-  // No cents figure anywhere on the unknown screen.
-  await expect(page.locator('#screen-unknown')).not.toContainText('¢');
+  // No refund figure is shown as the answer on the unknown screen (the label guidance may mention the rates in a sentence).
+  await expect(page.locator('#screen-unknown .refund')).toHaveCount(0);
+  await expect(page.locator('#screen-unknown .verdict')).toHaveText('Check the label');
   await allVisibleButtonsHit(page);
   await page.screenshot({ path: path.join(SHOTS, `unknown-${info.project.name}.png`) });
   await page.getByRole('button', { name: 'Scan another' }).click();

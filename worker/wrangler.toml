@@ -5,6 +5,7 @@ compatibility_date = "2025-09-01"
 [vars]
 RATE_REGULAR_CENTS = "5"
 RATE_LIQUOR_CENTS = "10"
+RATE_LIMIT_PER_HOUR = "600"   # per address per hour; a depot WiFi is one address
 
 [[d1_databases]]
 binding = "DB"
@@ -14,4 +15,4 @@ database_name = "bottle-count"
 database_id = "e32262b9-ade2-4963-8441-ed1709d6b25d"
 migrations_dir = "migrations"
 
-# Secrets (wrangler secret put): COUNTER_PIN. Local: worker/.dev.vars
+# No secrets: the app has no staff side and no PIN.

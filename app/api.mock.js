@@ -34,7 +34,7 @@
         if (upc === '0000000000062') return resolve({ status: 'offline' });
         var item = ITEMS[upc];
         if (item) return resolve({ status: 'known', item: item });
-        resolve({ status: 'unknown', message: "We don't know this one yet. Show it at the counter and we'll add it." });
+        resolve({ status: 'unknown', message: "We don't have this one on our list yet. Look on the label for the words Return for Refund. If they're there and you bought it in Newfoundland and Labrador, we take it: 5¢, or 10¢ for wine and spirits in a glass or plastic bottle. If they're not there, there's no refund." });
       }, 60);
     });
   }
