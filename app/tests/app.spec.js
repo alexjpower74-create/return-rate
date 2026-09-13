@@ -5,7 +5,7 @@ const path = require('path');
 
 const SHOTS = path.join(__dirname, 'shots');
 const MONEY = "The counter's count is the one that pays.";
-const UNKNOWN = "We don't have this one on our list yet.";
+const UNKNOWN = "We don't have this barcode on our list.";
 
 // Type a number for real (keyboard events, not fill) and submit.
 async function typeNumber(page, digits) {
@@ -55,7 +55,7 @@ async function allVisibleButtonsHit(page) {
 
 test.beforeEach(async ({ page }) => {
   await page.goto('/?mock=1&camera=off');
-  await expect(page.getByRole('heading', { name: 'Point the camera at the barcode' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Take a photo of it, or scan the barcode' })).toBeVisible();
 });
 
 test('start screen: camera prompt, typed field and the never-invent sentence', async ({ page }, info) => {
@@ -92,15 +92,15 @@ test('unknown number (SYNTHETIC) says so honestly, with the money line', async (
   await typeNumber(page, '0000000000031');
   await expect(page.locator('#screen-unknown')).toBeVisible();
   await expect(page.getByText(UNKNOWN)).toBeVisible();
-  await expect(page.getByText("Look on the label for the words Return for Refund")).toBeVisible();
+  await expect(page.getByText("Take a photo of the front of it")).toBeVisible();
   await expect(page.locator('#screen-unknown .money')).toHaveText(MONEY);
   // No refund figure is shown as the answer on the unknown screen (the label guidance may mention the rates in a sentence).
   await expect(page.locator('#screen-unknown .refund')).toHaveCount(0);
-  await expect(page.locator('#screen-unknown .verdict')).toHaveText('Check the label');
+  await expect(page.locator('#screen-unknown .verdict')).toHaveText('Take a photo of it');
   await allVisibleButtonsHit(page);
   await page.screenshot({ path: path.join(SHOTS, `unknown-${info.project.name}.png`) });
   await page.getByRole('button', { name: 'Scan another' }).click();
-  await expect(page.getByRole('heading', { name: 'Point the camera at the barcode' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Take a photo of it, or scan the barcode' })).toBeVisible();
   await expect(page.getByLabel('Type the number')).toHaveValue('');
 });
 
@@ -163,7 +163,7 @@ test('label photo (SYNTHETIC): from the unknown screen a readable label answers,
   const png = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==', 'base64');
   await page.locator('#label-photo').setInputFiles({ name: 'dark-label.png', mimeType: 'image/png', buffer: png });
   await expect(page.locator('#screen-unknown')).toBeVisible();
-  await expect(page.locator('#unknown-text')).toContainText("couldn't read enough of the label");
+  await expect(page.locator('#unknown-text')).toContainText("Take another photo closer");
   await page.locator('#label-photo').setInputFiles({ name: 'front-label.png', mimeType: 'image/png', buffer: png });
   await expect(page.locator('#screen-answer')).toBeVisible();
   await expect(page.locator('#verdict')).toHaveText('Yes, we take this');

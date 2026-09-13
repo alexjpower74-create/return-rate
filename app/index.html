@@ -20,7 +20,9 @@
 
   <!-- Start -->
   <section id="screen-start" class="screen" data-screen="start">
-    <h1>Point the camera at the barcode</h1>
+    <h1>Take a photo of it, or scan the barcode</h1>
+    <label class="btn-file"><input type="file" id="label-photo-start" accept="image/*" capture="environment" hidden><span class="again">Take a photo of the container</span></label>
+    <p class="lead small">Point it at the front label. We read what the label says and tell you if we take it.</p>
     <div class="camera" id="camera">
       <video id="video" playsinline muted autoplay></video>
       <p class="camera-note" id="camera-note" hidden></p>
@@ -36,7 +38,7 @@
       <p id="upc-help" class="help">8, 12 or 13 digits. Spaces are fine.</p>
       <p id="type-error" class="error" role="alert" hidden></p>
     </form>
-    <label class="btn-file"><input type="file" id="barcode-photo" accept="image/*" capture="environment" hidden><span class="again alt">Take a photo of the barcode instead</span></label>
+    <label class="btn-file"><input type="file" id="barcode-photo" accept="image/*" capture="environment" hidden><span class="again alt">Take a photo of the barcode</span></label>
   </section>
 
   <!-- Answer -->
@@ -53,12 +55,11 @@
 
   <!-- Unknown -->
   <section id="screen-unknown" class="screen" data-screen="unknown" hidden>
-    <p class="verdict ask">Check the label</p>
+    <p class="verdict ask" id="unknown-verdict">Take a photo of it</p>
     <p class="product" id="unknown-name"></p>
-    <p class="lead" id="unknown-text">We don't have this one on our list yet. Look on the label for the words Return for Refund. If they're there and you bought it in Newfoundland and Labrador, we take it: 5¢, or 10¢ for wine and spirits in a glass or plastic bottle. If they're not there, there's no refund.</p>
+    <p class="lead" id="unknown-text">We don't have this barcode on our list. Take a photo of the front of it and we'll tell you.</p>
     <p class="product small" id="unknown-upc"></p>
-    <p class="lead">Or let the app read the label for you:</p>
-    <label class="btn-file"><input type="file" id="label-photo" accept="image/*" capture="environment" hidden><span class="again alt">Take a photo of the front label</span></label>
+    <label class="btn-file"><input type="file" id="label-photo" accept="image/*" capture="environment" hidden><span class="again">Take a photo of the front</span></label>
     <p class="money">The counter's count is the one that pays.</p>
     <button type="button" class="again">Scan another</button>
   </section>

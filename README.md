@@ -1,6 +1,6 @@
 # Return Rate
 
-Point your phone at a container's barcode and find out whether the Green Depot takes it. The headline is **Yes, we take this / No, we don't take this / Check the label**; the refund (5¢ or 10¢) is the second line. One simple app for customers and depot staff alike: no passwords, no set-up, nothing to confirm. Built for customers of APCO Recycling in Grand Falls-Windsor, Newfoundland and Labrador, and only for Newfoundland and Labrador's rules.
+Point your phone at a container's barcode and find out whether the Green Depot takes it. Take a photo of it, or scan the barcode. The headline is **Yes, we take this / No, we don't take this**; the refund (5¢ or 10¢) is the second line. Anything that isn't a beverage container is a no. One simple app for customers and depot staff alike: no passwords, no set-up, nothing to confirm. Built for customers of APCO Recycling in Grand Falls-Windsor, Newfoundland and Labrador, and only for Newfoundland and Labrador's rules.
 
 Live: https://return-rate-app.alexjpower74.workers.dev
 

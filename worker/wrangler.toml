@@ -5,7 +5,8 @@ compatibility_date = "2025-09-01"
 [vars]
 RATE_REGULAR_CENTS = "5"
 RATE_LIQUOR_CENTS = "10"
-RATE_LIMIT_PER_HOUR = "600"   # per address per hour; a depot WiFi is one address
+RATE_LIMIT_PER_HOUR = "600"
+LABEL_CAP_PER_DAY = "5000"    # photos read by the vision model per day, a ceiling on the bill   # per address per hour; a depot WiFi is one address
 
 [[d1_databases]]
 binding = "DB"

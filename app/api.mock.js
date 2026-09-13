@@ -34,7 +34,7 @@
         if (upc === '0000000000062') return resolve({ status: 'offline' });
         var item = ITEMS[upc];
         if (item) return resolve({ status: 'known', item: item });
-        resolve({ status: 'unknown', message: "We don't have this one on our list yet. Look on the label for the words Return for Refund. If they're there and you bought it in Newfoundland and Labrador, we take it: 5¢, or 10¢ for wine and spirits in a glass or plastic bottle. If they're not there, there's no refund." });
+        resolve({ status: 'unknown', message: "We don't have this barcode on our list. Take a photo of the front of it and we'll tell you.", verdict: 'Take a photo of it' });
       }, 60);
     });
   }
@@ -42,7 +42,8 @@
   // The label photo, mocked: a file named *dark* can't be read; anything else is a SYNTHETIC water bottle.
   function label(file) {
     return new Promise(function (resolve) { setTimeout(function () {
-      if (file && /dark/i.test(file.name || '')) return resolve({ status: 'unknown', message: "We couldn't read enough of the label. Look on the label for the words Return for Refund. If they're there and you bought it in Newfoundland and Labrador, we take it: 5¢, or 10¢ for wine and spirits in a glass or plastic bottle. If they're not there, there's no refund.", name: '' });
+      if (file && /sauce|tums|notdrink/i.test(file.name || '')) return resolve({ status: 'known', item: { upc: null, name: 'Soy sauce (SYNTHETIC)', brand: null, size_ml: null, accepted: false, verdict: "No, we don't take this", depot_policy: false, class: 'none', refund_cents: 0, material: null, why: "Soy sauce isn't a drink. The depot only takes containers that held a beverage.", source: 'label', note: NOTE } });
+      if (file && /dark/i.test(file.name || '')) return resolve({ status: 'unknown', message: "We couldn't make out what this is. Take another photo closer, with the front label filling the screen.", name: '', verdict: 'Try another photo' });
       resolve({ status: 'known', item: { upc: null, name: 'Test Spring Water (SYNTHETIC)', brand: 'Test', size_ml: 500, accepted: true, verdict: 'Yes, we take this', depot_policy: false, class: 'regular', refund_cents: 5, material: 'clear-plastic', why: 'Water in a plastic bottle: 5¢. From the label: the label says Return for Refund.', source: 'label', note: NOTE } });
     }, 300); });
   }

@@ -6,12 +6,12 @@ const NOTE = "The counter's count is the one that pays.";
 // No staff side, no PIN, no confirming: when the barcode alone can't decide, the app tells the customer
 // exactly what to read on the label. These sentences come from docs/RULES.md (MMSB's own label rules).
 const LABEL_TEST = "Look on the label for the words Return for Refund. If they're there and you bought it in Newfoundland and Labrador, we take it: 5¢, or 10¢ for wine and spirits in a glass or plastic bottle. If they're not there, there's no refund.";
-const UNKNOWN = "We don't have this one on our list yet. " + LABEL_TEST;
+const UNKNOWN = "We don't have this barcode on our list. Take a photo of the front of it and we'll tell you.";
 const LABEL_GUIDE = {
-  'label-milk': "Milk products: if the label says Milk (that includes chocolate milk), there's no refund. If it's a milk beverage or a protein shake and the label says Return for Refund, we take it at 5¢.",
-  'label-plant': "Plant-based drinks: if the label says fortified soy, almond or oat beverage and it's a source of protein, there's no refund. If the label says 'not a source of protein' and Return for Refund, we take it at 5¢.",
-  'label-nutrition': "If the label says Meal Replacement, Formulated Liquid Diet or infant formula, there's no refund. Otherwise look for Return for Refund on the label; if it's there, we take it at 5¢.",
-  'label-other': LABEL_TEST,
+  'label-milk': "This one depends on the label: Milk has no refund, a milk beverage or protein shake does. Take a photo of the front and we'll read it.",
+  'label-plant': "This one depends on the label: a fortified plant beverage has no refund unless it says 'not a source of protein'. Take a photo of the front and we'll read it.",
+  'label-nutrition': "This one depends on the label: Meal Replacement, Formulated Liquid Diet and infant formula have no refund. Take a photo of the front and we'll read it.",
+  'label-other': "Take a photo of the front of it and we'll tell you.",
 };
 const HINT = 'Look for the words Return for Refund on the label.';
 const BAD_UPC = "That doesn't look like a barcode number.";
@@ -115,7 +115,9 @@ function makerAnswer(upc, env) {
 // not a source of protein, Meal Replacement / Formulated Liquid Diet, Return for Refund). The rules engine decides; the
 // model never outputs a verdict or a cents figure. Anything unclear → Check the label, never a guess.
 const LABEL_PROMPT = `You are reading the FRONT LABEL of a beverage container photographed in Newfoundland, Canada. Report only what you can actually read or see. Reply with ONLY a JSON object:
-{"name": "<product name as printed or null>", "brand": "<brand or null>",
+{"is_beverage": <true only if this container held a ready-to-serve DRINK for people (pop, water, juice, milk, beer, wine, spirits, energy drink, etc.) or a drink concentrate; false for anything else: sauces, condiments, syrups for food, oils, vinegar, medicine, tablets, cleaning products, cosmetics, food, pet products, or no container at all>,
+ "what_it_is": "<two or three plain words for what the product is, e.g. soy sauce, heartburn tablets, apple juice>",
+ "name": "<product name as printed or null>", "brand": "<brand or null>",
  "drink": one of ["soft-drink","water","sparkling-water","juice","vegetable-juice","sports","electrolyte","energy","tea","coffee","kombucha","protein-shake","flavoured-milk-beverage","na-beer","beer","cider","cooler","seltzer","malt-beverage","cocktail","wine","spirits","sake","mead","hard-kombucha","milk","plant-milk","infant-formula","meal-replacement","formulated-liquid-diet","concentrate","distilled-water","unknown"],
  "material": one of ["aluminum","steel","clear-plastic","other-plastic","glass","tetra","gable","pouch","bag-in-box","unknown"],
  "size_ml": <number or null>, "alcohol_pct": <number or null>,
@@ -125,7 +127,8 @@ const LABEL_PROMPT = `You are reading the FRONT LABEL of a beverage container ph
  "says_meal_replacement": <true if the label says "Meal Replacement" or "Formulated Liquid Diet" or "infant formula">,
  "says_return_for_refund": <true if the label says "Return for Refund", "Refundable", "Consigné" or similar>,
  "readable": <true if the front label is clearly readable, else false>}
-Use "unknown" whenever you are not sure. Do not guess sizes; use the printed volume.`;
+Use "unknown" only when you truly cannot tell. Do not guess sizes; use the printed volume.
+What is sold in Newfoundland and Labrador, to help you name it: pop and water (Pepsi, Coca-Cola, Big 8, Canada Dry, Crush, bubly, Aquafina, Dasani, Kirkland water, Nestle Pure Life, Eska, Perrier, San Pellegrino); juice and drinks (Oasis, Tropicana, Minute Maid, SunnyD, Fruite, Ocean Spray, V8, Mott's Clamato, Purity fruit drinks); energy and sports (Monster, Red Bull, Rockstar, NOS, Gatorade, Powerade, BodyArmor); tea and coffee (Brisk, Arizona, Nestea, Starbucks Frappuccino bottles); beer (Molson, Labatt, Coors, Budweiser, Black Horse, Blue Star, India, Jockey Club, Quidi Vidi, Iceberg, YellowBelly, Corona, Heineken, Stella); coolers and seltzers (Smirnoff Ice, Mike's, Twisted Tea, White Claw, Nude, Palm Bay, Cottage Springs, canned Caesars); wine and spirits (NLC bottles, Screech, Iceberg vodka, bag-in-box wine, tetra wine); milk (Central Dairies, Scotsburn, Natrel, Lactantia, Beatrice, Farmers, Fairlife, Neilson, chocolate milk; "lait" on French labels); plant-based milks (Silk, So Delicious, Earth's Own, Almond Breeze, Oatly, Natur-a, Great Value almond); nutrition drinks (Ensure, Boost, Premier Protein, Carnation Breakfast Essentials, Glucerna, Pediasure); infant formula (Enfamil, Similac, Nestle Good Start); concentrates (Purity syrup, frozen juice cans, cordials, drink mixes, Kool-Aid); distilled water. Purity syrup is a CONCENTRATE, not a drink. Kombucha is a drink. Non-alcoholic beer is a drink, not beer.`;
 
 async function readLabel(photo, env) {
   if (!env.OPENAI_API_KEY) throw new Error('no vision key');
@@ -142,10 +145,13 @@ async function readLabel(photo, env) {
   return JSON.parse(m[0]);
 }
 
-const LABEL_CHECK = "We couldn't read enough of the label. " + LABEL_TEST;
+const LABEL_CHECK = "We couldn't read enough of the label. Take another photo with the front label filling the screen. " + LABEL_TEST;
 
 async function postLabel(request, env) {
   const hash = await ipHash(request, env);
+  const cap = Number(env.LABEL_CAP_PER_DAY || 5000);
+  const { today } = await env.DB.prepare("SELECT COUNT(*) AS today FROM lookups WHERE upc = 'label' AND created >= strftime('%Y-%m-%dT00:00:00Z','now')").first();
+  if (today >= cap) return err("The photo reader has done its share for today. Try the barcode, or look for the words Return for Refund on the label.", 503);
   const { n } = await env.DB.prepare("SELECT COUNT(*) AS n FROM lookups WHERE ip_hash = ? AND created > strftime('%Y-%m-%dT%H:%M:%fZ','now','-1 hour')").bind(hash).first();
   if (n >= rateLimit(env)) return err(TOO_MANY, 429);
   let form; try { form = await request.formData(); } catch { return err('Please send a photo of the label.', 400); }
@@ -155,8 +161,16 @@ async function postLabel(request, env) {
   const upc = String(form.get('upc') || '').replace(/\D/g, '');
   let read;
   try { read = await readLabel(photo, env); } catch (e) { console.error('label read failed', e && e.message); return err("We couldn't read the label just now. Try again in better light, or " + LABEL_TEST.charAt(0).toLowerCase() + LABEL_TEST.slice(1), 503); }
-  await env.DB.prepare('INSERT INTO lookups (upc, found, ip_hash) VALUES (?, ?, ?)').bind(upc || 'label', 0, hash).run();
+  await env.DB.prepare('INSERT INTO lookups (upc, found, ip_hash) VALUES (?, ?, ?)').bind('label', 0, hash).run();
 
+  // Not a beverage container at all (soy sauce, tablets, cleaning products): not accepted, full stop (Alexander, 2026-09-13).
+  if (read.is_beverage === false) {
+    const what = String(read.what_it_is || 'this').trim();
+    return json({ upc: upc || null, name: read.name || null, brand: read.brand || null, size_ml: null, material: null, source: 'label',
+      accepted: false, verdict: "No, we don't take this", class: 'none', refund_cents: 0, depot_policy: false,
+      why: `${what.charAt(0).toUpperCase() + what.slice(1)} isn't a drink. The depot only takes containers that held a beverage.`,
+      evidence: ['not a beverage container'], note: NOTE, nl_only: 'Refund applies to containers bought in Newfoundland and Labrador.' });
+  }
   // Map what the label says to the rules' inputs. The label words outrank the model's category guess.
   let drink = DRINKS.includes(read.drink) ? read.drink : 'unknown';
   const evidence = [];
@@ -165,19 +179,29 @@ async function postLabel(request, env) {
   else if (read.says_fortified_plant && read.says_not_source_of_protein) { drink = 'plant-drink-not-protein'; evidence.push('the label says fortified plant-based beverage and not a source of protein'); }
   else if (read.says_fortified_plant) { drink = 'plant-milk'; evidence.push('the label says fortified plant-based beverage'); }
   else if (drink === 'milk') { drink = 'flavoured-milk-beverage'; evidence.push('it looks like a milk drink but the label does not call it Milk'); }
-  else if (drink === 'plant-milk') { drink = 'unknown'; }
+  else if (drink === 'plant-milk') { evidence.push('a plant-based milk alternative (these are fortified and a source of protein unless the label says otherwise)'); }
+  else if (drink === 'unknown' && read.is_beverage === true) { drink = 'soft-drink'; evidence.push('a drink that is not milk, a plant milk or a nutrition product'); }
   if (read.says_return_for_refund) evidence.push('the label says Return for Refund');
   const material = MATERIALS.includes(read.material) ? read.material : 'unknown';
   const size_ml = Number.isFinite(Number(read.size_ml)) && read.size_ml ? Number(read.size_ml) : null;
   const r = classify({ drink, material, size_ml, refillable: false, alcohol_pct: read.alcohol_pct }, env);
   const base = { upc: upc || null, name: read.name || null, brand: read.brand || null, size_ml, material, source: 'label', note: NOTE, nl_only: 'Refund applies to containers bought in Newfoundland and Labrador.', evidence };
+  const LIQ = ['wine','spirits','sake','mead','cider','cooler','seltzer','malt-beverage','cocktail','hard-kombucha'];
+  if (r.class === 'unknown' && LIQ.includes(drink) && material === 'unknown' && (size_ml === null || size_ml <= 5000)) {
+    const rr = classify({ drink, material: 'aluminum', size_ml: size_ml || 355 }, env);
+    return json({ ...base, accepted: true, verdict: 'Yes, we take this', class: 'regular', refund_cents: rr.refund_cents, depot_policy: false,
+      why: `${drink === 'wine' || drink === 'spirits' ? 'Wine or spirits' : 'A cooler, cider or seltzer'}: we take it. ${rr.refund_cents}¢ in a can, pouch or carton; 10¢ if it's a glass or plastic bottle over 50 mL.` });
+  }
+  if (!read.readable && drink === 'unknown') {
+    return err("We couldn't make out what this is. Take another photo closer, with the front label filling the screen.", 404, { ...base, accepted: null, verdict: 'Try another photo', hint: HINT });
+  }
   if (!read.readable || r.class === 'unknown') {
     // A Return for Refund label with a readable non-alcoholic drink but unknown material is still a sure 5¢.
     if (read.readable && read.says_return_for_refund && drink !== 'unknown' && !['wine','spirits','sake','mead','cider','cooler','seltzer','malt-beverage','cocktail','hard-kombucha'].includes(drink) && (size_ml === null || size_ml <= 5000)) {
       const rr = classify({ drink, material: 'aluminum', size_ml: size_ml || 355 }, env);
       if (rr.class === 'regular') return json({ ...base, accepted: true, verdict: 'Yes, we take this', class: 'regular', refund_cents: rr.refund_cents, depot_policy: false, why: 'The label says Return for Refund and it is a drink, not milk or a nutrition product: ' + rr.refund_cents + '¢.' });
     }
-    return err(LABEL_CHECK, 404, { ...base, accepted: null, verdict: 'Check the label', hint: HINT });
+    return err(LABEL_CHECK, 404, { ...base, accepted: null, verdict: 'Try another photo', hint: HINT });
   }
   return json({ ...base, accepted: r.class !== 'none', verdict: r.class !== 'none' ? 'Yes, we take this' : "No, we don't take this", class: r.class, refund_cents: r.refund_cents, depot_policy: r.depot_policy === true, why: r.why + (evidence.length ? ' From the label: ' + evidence.join('; ') + '.' : '') });
 }
@@ -197,10 +221,10 @@ async function getItem(request, env, upc) {
   if (!item) {
     // A recognised product whose refund depends on the label (milk vs milk beverage, "not a source of protein",
     // "Meal Replacement") is never guessed: say we know it, and tell them what to read on the label (docs/RULES.md).
-    if (row) return err(LABEL_GUIDE[row.drink] || LABEL_GUIDE['label-other'], 404, { upc, name: row.name, accepted: null, verdict: 'Check the label', hint: HINT, label_photo: true });
+    if (row) return err(LABEL_GUIDE[row.drink] || LABEL_GUIDE['label-other'], 404, { upc, name: row.name, accepted: null, verdict: 'Take a photo of it', hint: HINT, label_photo: true });
     const maker = makerAnswer(upc, env);
     if (maker) return json(maker);
-    return err(UNKNOWN, 404, { upc, accepted: null, verdict: 'Check the label', hint: HINT, label_photo: true });
+    return err(UNKNOWN, 404, { upc, accepted: null, verdict: 'Take a photo of it', hint: HINT, label_photo: true });
   }
   return json(item);
 }

@@ -6,7 +6,7 @@ import assert from 'node:assert/strict';
 const API = process.env.API || 'http://localhost:5902';
 const PIN = process.env.COUNTER_PIN || '1234';
 const NOTE = "The counter's count is the one that pays.";
-const UNKNOWN = "We don't have this one on our list yet. Look on the label for the words Return for Refund.";
+const UNKNOWN = "We don't have this barcode on our list. Take a photo of the front of it and we'll tell you.";
 // Each test uses its own fake client IP so the rate guard test can't bleed into the others.
 let ipN = 0;
 const ip = () => `10.0.${Math.floor(Math.random() * 250)}.${++ipN % 250}`;
@@ -56,14 +56,14 @@ test('known item: refillable local beer is brewer, 5¢ as APCO policy, says some
   assert.match(body.why, /some other depots don't/);
 });
 
-test('every answer carries the verdict, accepted flag and the NL-only line; unknown carries Check the label', async () => {
+test('every answer carries the verdict, accepted flag and the NL-only line; unknown carries Take a photo of it', async () => {
   const { body } = await call('/item/0000000000048');
   assert.equal(body.verdict, 'Yes, we take this');
   assert.match(body.nl_only, /Newfoundland and Labrador/);
   const u = await call('/item/0000000000099');
   assert.equal(u.body.accepted, null);
-  assert.equal(u.body.verdict, 'Check the label');
-  assert.match(u.body.error, /Return for Refund/);
+  assert.equal(u.body.verdict, 'Take a photo of it');
+  assert.match(u.body.error, /Take a photo of the front/);
   assert.match(u.body.hint, /Return for Refund/);
 });
 
@@ -71,15 +71,15 @@ test('unknown → 404 with the honest sentence and the upc', async () => {
   const { status, body } = await call('/item/0000000000099');
   assert.equal(status, 404);
   assert.ok(body.error.startsWith(UNKNOWN.slice(0, 40)), body.error);
-  assert.match(body.error, /Return for Refund/);
+  assert.match(body.error, /Take a photo of the front/);
   assert.equal(body.upc, '0000000000099');
 });
 
-test('a label-dependent row is never an answer: 404, Check the label, the guidance, the name, no class', async () => {
+test('a label-dependent row is never an answer: 404, Take a photo of it, the guidance, the name, no class', async () => {
   const { status, body } = await call('/item/0000000000055');
   assert.equal(status, 404);
-  assert.match(body.error, /Return for Refund/);
-  assert.equal(body.verdict, 'Check the label');
+  assert.match(body.error, /Take a photo of the front/);
+  assert.equal(body.verdict, 'Take a photo of it');
   assert.equal(body.accepted, null);
   assert.ok(body.name, 'the product name is shown so the customer knows we recognised it');
   assert.equal(body.class, undefined);

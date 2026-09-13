@@ -8,7 +8,7 @@ if (!API) { console.error('Set API=<worker base url>'); process.exit(2); }
 const arg = (k, d) => { const i = process.argv.indexOf(`--${k}`); return i > -1 ? process.argv[i + 1] : d; };
 const SEED = { upc: arg('upc', process.env.SEED_UPC), klass: arg('class', process.env.SEED_CLASS || 'regular'), cents: Number(arg('cents', process.env.SEED_CENTS || 5)) };
 const UNKNOWN = arg('unknown', process.env.UNKNOWN_UPC || '0000000000099'); // SYNTHETIC, never seeded
-const HONEST = "We don't have this one on our list yet. Look on the label for the words Return for Refund";
+const HONEST = "We don't have this barcode on our list. Take a photo of the front of it";
 const MONEY = "The counter's count is the one that pays.";
 
 let red = 0;
