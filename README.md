@@ -31,6 +31,7 @@ The label decides the dairy-looking cases (Nesquik "flavoured milk beverage" is 
 | App suite, Chromium and WebKit, real typing, verdict is the largest text, cents smaller, money line on every answer, camera refused, offline | **19 of 19** |
 | Root QA journey and plain-English sweep with built-in negative controls | **12 of 12** |
 | 44 real shelf barcodes (Sobeys, Dominion, NLC) against the deployed Worker | **44 of 44** |
+| Photo evals: 10 labelled photos (water, bubly, San Pellegrino, protein shake = yes; milk, fortified soy, soy sauce, antacid tablets, barbecue sauce and ranch dressing with no product word on the label = no) through the live reader (`node evals/labels-run.mjs --api <worker>`) | see the latest run in the commit log |
 | Live round-trip against the deployed Worker | all green |
 
 The crew's first version of the rules engine passed its own 54 tests and still missed 13 of the 63 oracle rows, because the rules were refined after it was built (tetra wine, canned liquor, refillable bottles, new drink types). The oracle is owned by main, written from the document, and is the check the crew's tests couldn't be.

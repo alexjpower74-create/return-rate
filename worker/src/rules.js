@@ -42,8 +42,8 @@ const DRINK_WORDS = {
   'cooler': 'A cooler', 'seltzer': 'A hard seltzer', 'malt-beverage': 'A malt-based cooler',
   'cocktail': 'A canned cocktail', 'wine': 'Wine', 'spirits': 'Spirits', 'sake': 'Sake', 'mead': 'Mead',
   'hard-kombucha': 'Hard kombucha', 'electrolyte': 'An electrolyte drink',
-  'protein-shake': 'A protein shake that is not labelled as milk',
-  'flavoured-milk-beverage': 'A flavoured milk beverage that is not labelled as milk',
+  'protein-shake': 'A protein shake, not labelled as milk',
+  'flavoured-milk-beverage': 'A milk beverage, not labelled as milk',
   'na-beer': 'Non-alcoholic beer',
   'plant-drink-not-protein': 'A plant drink labelled not a source of protein',
 };
