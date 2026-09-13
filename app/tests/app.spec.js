@@ -156,3 +156,18 @@ test.describe('camera permission (real getUserMedia)', () => {
     await b.close();
   });
 });
+
+test('label photo (SYNTHETIC): from the unknown screen a readable label answers, a dark one says check the label', async ({ page }, info) => {
+  await typeNumber(page, '0000000000031');
+  await expect(page.locator('#screen-unknown')).toBeVisible();
+  const png = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==', 'base64');
+  await page.locator('#label-photo').setInputFiles({ name: 'dark-label.png', mimeType: 'image/png', buffer: png });
+  await expect(page.locator('#screen-unknown')).toBeVisible();
+  await expect(page.locator('#unknown-text')).toContainText("couldn't read enough of the label");
+  await page.locator('#label-photo').setInputFiles({ name: 'front-label.png', mimeType: 'image/png', buffer: png });
+  await expect(page.locator('#screen-answer')).toBeVisible();
+  await expect(page.locator('#verdict')).toHaveText('Yes, we take this');
+  await expect(page.locator('#why')).toContainText('From the label');
+  await expect(page.locator('#screen-answer .money')).toHaveText(MONEY);
+  await page.screenshot({ path: path.join(SHOTS, `label-photo-${info.project.name}.png`) });
+});
