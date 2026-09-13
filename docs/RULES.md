@@ -2,6 +2,9 @@
 
 Researched 2026-09-13 from the primary sources. `worker/src/rules.js` implements THIS file; the tests quote it. If a case isn't covered here, the answer is **unknown**, never a guess.
 
+## What the app is for (Alexander, 2026-09-13)
+**The headline answer is whether the depot ACCEPTS the container: "Yes, we take this" / "No, we don't take this" / "Ask at the counter".** The cents are shown smaller, underneath. Getting accepted-or-not right matters more than 5¢ vs 10¢.
+
 ## Sources
 0. Alexander (APCO Recycling owner), 2026-09-13: depot policy on local refillable and Quidi Vidi Iceberg bottles.
 1. Waste Management Regulations, 2003 (NLR 59/03) under the Environmental Protection Act, ss. 12, 14, 18: https://www.assembly.nl.ca/legislation/sr/regulations/rc030059.htm
@@ -17,7 +20,7 @@ A container that held a **ready-to-serve beverage**, delivered **sealed** to a r
 The rule of thumb Alexander gave: **if a deposit was charged at the till, the depot pays a refund**, but only on a beverage container as defined above.
 
 ## Which document wins
-The Guide's own disclaimer: its contents "do not supersede the authority of the Newfoundland and Labrador Waste Management Regulations; in the event of any discrepancy, the regulations will prevail." The regulation (s.18(1)) says every container that held alcoholic liquor refunds $0.10, with no material distinction. MMSB's chart nonetheless charges 8¢ and refunds 5¢ on liquor in cans, pouches and bag-in-box, and depots are paid by MMSB on that schedule. **Until APCO confirms what it pays on a can of wine or a canned cocktail, those answers say "5¢ (MMSB's schedule); ask at the counter if you were charged 20¢".** Sources are archived in `docs/sources/` (the Guide PDF, its text, and the appendix pages as images).
+The Guide's own disclaimer: its contents "do not supersede the authority of the Newfoundland and Labrador Waste Management Regulations; in the event of any discrepancy, the regulations will prevail." The regulation (s.18(1)) says every container that held alcoholic liquor refunds $0.10, with no material distinction. MMSB's chart nonetheless charges 8¢ and refunds 5¢ on liquor in cans, pouches and bag-in-box, and depots are paid by MMSB on that schedule. **APCO confirmed 2026-09-13: cans of wine and canned cocktails are 5¢, same as any can; bag-in-box and pouches 5¢; tetra/carton wine 5¢. Only glass or PET bottles of liquor are 10¢.** Sources are archived in `docs/sources/` (the Guide PDF, its text, and the appendix pages as images).
 
 ## History and amounts
 Deposits 8¢ (non-alcoholic) and 20¢ (alcoholic liquor) with refunds 5¢ and 10¢ since **July 1, 2001** (Government of NL release, 12 March 2001; before that 6¢/3¢). Unchanged since. The 3¢ / 10¢ difference funds the program (MMSB FAQ). HST applies to deposits at the till, not to refunds.
@@ -47,12 +50,12 @@ Every deposit-bearing container sold in NL **must carry a return-for-refund mess
 | Glass | 50 mL miniature liquor | 8¢ | **5¢** |
 | Glass | wine and spirits (incl. coolers and ciders in glass) | 20¢ | **10¢** |
 | Tetra / gable top | non-alcoholic | 8¢ | **5¢** |
-| Tetra / gable top | wine and spirits | 20¢ per the 2025 Guide, 8¢ per MMSB's website | **10¢ or 5¢: MMSB's two sources disagree; the app says ask at the counter until APCO confirms** |
+| Tetra / gable top | wine and spirits | 20¢ per the 2025 Guide, 8¢ per MMSB's website | **5¢** (APCO pays 5¢; Alexander 2026-09-13) |
 | Pouch | non-alcoholic | 8¢ | **5¢** |
 | Pouch | wine and spirits | 8¢ | **5¢** |
 | Bag-in-a-box | wine and spirits | 8¢ | **5¢** |
 
-So: **10¢ only for wine and spirits in plastic or glass (tetra/gable wine is disputed between MMSB's own documents), 50 mL miniatures excluded.** Everything else that is refundable is **5¢**. A 750 mL pop bottle is 5¢; a 200 mL rum bottle is 10¢; a 50 mL rum miniature is 5¢; a can of wine or a canned cocktail is 5¢; a bag-in-box wine is 5¢ for the whole box (the bag/box is the container).
+So: **10¢ only for wine and spirits in glass bottles or plastic (PET) bottles over 50 mL. Everything else that is refundable is 5¢** (Alexander confirmed APCO's counter practice 2026-09-13: cans of wine and canned cocktails are 5¢ like any can; bag-in-box and pouches are 5¢; tetra-pak and carton wine are 5¢). Everything else that is refundable is **5¢**. A 750 mL pop bottle is 5¢; a 200 mL rum bottle is 10¢; a 50 mL rum miniature is 5¢; a can of wine or a canned cocktail is 5¢; a bag-in-box wine is 5¢ for the whole box (the bag/box is the container).
 
 ## Not refundable at a Green Depot (Guide s.6, Appendix B; MMSB FAQ)
 - **Milk**, goat's milk, flavoured milk (Food and Drug Regs B.08.003/004/005/016, B.08.028.1).
@@ -109,7 +112,7 @@ Order of decisions (first match wins):
 6. drink ∈ {wine, spirits, sake, mead, cider, cooler, seltzer, malt-beverage, cocktail, hard-kombucha} (alcoholic liquor other than beer):
    - `size_ml <= 50` → regular (5¢, miniature).
    - material ∈ {clear-plastic, other-plastic, glass} → liquor (10¢).
-   - material ∈ {tetra, gable} → unknown with why "MMSB's guide and website disagree on cartons of wine; ask at the counter" (until Alexander confirms; then one line here changes it).
+   - material ∈ {tetra, gable} → regular (5¢) (APCO practice, confirmed 2026-09-13).
    - material ∈ {aluminum, steel, pouch, bag-in-box} → regular (5¢).
    - material unknown → unknown.
 7. Everything else in the "beverage" list (soft drinks, water, sparkling water, juices, sports, electrolyte, energy, tea, coffee, kombucha, protein-shake, flavoured-milk-beverage, plant-drink-not-protein) → regular (5¢), any material, any size ≤ 5 L.
@@ -117,9 +120,7 @@ Order of decisions (first match wins):
 `why` is one plain sentence a customer can read; `depot_policy: true` marks answers that are APCO's policy rather than MMSB's, e.g. "Wine in a glass bottle: 10¢." / "Milk has no deposit, so there's no refund." / "A local brewer's refillable bottle goes back to the beer store; ask at the counter."
 
 ## Open questions for Alexander (the app says "ask at the counter" until answered)
-- Wine or a cocktail in a **can**, a wine **pouch**, a **bag-in-box**: does APCO pay 5¢ (MMSB chart) or 10¢ (regulation)?
 - Kombucha and "hard kombucha" (alcoholic): treated as regular / liquor by the rules above; confirm the depot sees them that way.
-- Tetra-pak / gable-top wine: the April 2025 Guide chart says 20¢/10¢; MMSB's website table (read 2026-09-13) says 8¢/5¢. What does APCO pay on a carton of wine?
 
 ## What a barcode can and cannot decide (design rule for the product list)
 MMSB publishes **no product registry**; it rules product by product on request from the label. So a barcode database (built from public product data) may auto-answer **only** where the label cannot change the answer:
