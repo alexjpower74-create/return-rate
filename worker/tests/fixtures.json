@@ -1,0 +1,7 @@
+[
+  { "upc": "0000000000017", "name": "SYNTHETIC cola 355 mL can", "brand": "Test", "size_ml": 355, "drink": "soft-drink", "material": "aluminum", "source": "synthetic" },
+  { "upc": "0000000000024", "name": "SYNTHETIC red wine 750 mL", "brand": "Test", "size_ml": 750, "drink": "wine", "material": "glass", "source": "synthetic" },
+  { "upc": "0000000000031", "name": "SYNTHETIC oat milk 1.89 L", "brand": "Test", "size_ml": 1890, "drink": "plant-milk", "material": "gable", "source": "synthetic" },
+  { "upc": "0000000000048", "name": "SYNTHETIC refillable lager 341 mL", "brand": "Test", "size_ml": 341, "drink": "beer", "material": "glass", "refillable": true, "source": "synthetic" },
+  { "upc": "0000000000055", "name": "SYNTHETIC wine, container unknown", "size_ml": 750, "drink": "wine", "material": "unknown", "source": "synthetic" }
+]

@@ -1,0 +1,15 @@
+name = "return-rate"
+main = "src/index.js"
+compatibility_date = "2025-09-01"
+
+[vars]
+RATE_REGULAR_CENTS = "5"
+RATE_LIQUOR_CENTS = "10"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "return-rate"
+database_id = "TODO-main-fills"
+migrations_dir = "migrations"
+
+# Secrets (wrangler secret put): COUNTER_PIN. Local: worker/.dev.vars

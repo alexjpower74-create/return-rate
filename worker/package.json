@@ -1,0 +1,12 @@
+{
+  "name": "return-rate-worker",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test:rules": "node --test tests/rules.test.mjs",
+    "test:api": "node --test tests/api.test.mjs",
+    "dev": "wrangler dev --port 5902",
+    "migrate:local": "wrangler d1 migrations apply return-rate --local",
+    "seed": "node seed.mjs"
+  }
+}
