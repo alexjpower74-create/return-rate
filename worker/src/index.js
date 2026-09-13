@@ -44,12 +44,16 @@ function present(row, env) {
     name: row.name,
     brand: row.brand ?? null,
     size_ml: row.size_ml ?? null,
+    accepted: r.class !== 'none',
+    verdict: r.class !== 'none' ? 'Yes, we take this' : "No, we don't take this",
     class: r.class,
     refund_cents: r.refund_cents,
+    depot_policy: r.depot_policy === true,
     material: row.material,
     why: r.why,
     source: row.source,
     note: NOTE,
+    nl_only: 'Refund applies to containers bought in Newfoundland and Labrador.',
   };
 }
 
@@ -70,7 +74,7 @@ async function getItem(request, env, upc) {
   const item = row ? present(row, env) : null;
   await env.DB.prepare('INSERT INTO lookups (upc, found, ip_hash) VALUES (?, ?, ?)')
     .bind(upc, item ? 1 : 0, hash).run();
-  if (!item) return err(UNKNOWN, 404, { upc });
+  if (!item) return err(UNKNOWN, 404, { upc, accepted: null, verdict: 'Ask at the counter', hint: 'Look for the words Return for Refund on the label.' });
   return json(item);
 }
 

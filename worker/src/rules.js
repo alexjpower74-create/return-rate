@@ -1,12 +1,14 @@
 // Return Rate — the pure rules engine. Implements docs/RULES.md exactly; nothing else.
 // classify(input) -> { class, refund_cents, why }
-// class: regular (5¢) | liquor (10¢) | none (0¢) | brewer (0¢, ask at the counter) | unknown (never an answer)
+// class: regular (5¢) | liquor (10¢) | none (0¢) | brewer (local refillable beer bottle: APCO 5¢, depot_policy) | unknown (never an answer)
+// v4 (2026-09-13): only glass or plastic bottles of liquor over 50 mL are 10¢; cans, pouches, bag-in-box, tetra and gable liquor are 5¢ (APCO practice).
 
 export const DRINKS = [
   'soft-drink', 'water', 'sparkling-water', 'juice', 'vegetable-juice', 'sports', 'energy', 'tea',
-  'coffee', 'kombucha', 'beer', 'cider', 'cooler', 'wine', 'spirits', 'sake', 'milk', 'plant-milk',
-  'plant-drink-not-protein', 'infant-formula', 'meal-replacement', 'formulated-liquid-diet',
-  'concentrate', 'distilled-water', 'unknown',
+  'coffee', 'kombucha', 'electrolyte', 'protein-shake', 'flavoured-milk-beverage', 'na-beer',
+  'beer', 'cider', 'cooler', 'seltzer', 'malt-beverage', 'cocktail', 'wine', 'spirits', 'sake', 'mead',
+  'hard-kombucha', 'milk', 'plant-milk', 'plant-drink-not-protein', 'infant-formula',
+  'meal-replacement', 'formulated-liquid-diet', 'concentrate', 'distilled-water', 'unknown',
 ];
 
 export const MATERIALS = [
@@ -24,19 +26,25 @@ const NO_REFUND = {
   'distilled-water': "Distilled water has no deposit, so there's no refund.",
 };
 
-const LIQUOR = new Set(['wine', 'spirits', 'sake', 'cider', 'cooler']);
-const LIQUOR_10 = new Set(['clear-plastic', 'other-plastic', 'glass', 'tetra', 'gable']);
-const LIQUOR_5 = new Set(['aluminum', 'steel', 'pouch', 'bag-in-box']);
+const LIQUOR = new Set(['wine', 'spirits', 'sake', 'mead', 'cider', 'cooler', 'seltzer', 'malt-beverage', 'cocktail', 'hard-kombucha']);
+const LIQUOR_10 = new Set(['clear-plastic', 'other-plastic', 'glass']);
+const LIQUOR_5 = new Set(['aluminum', 'steel', 'pouch', 'bag-in-box', 'tetra', 'gable']);
 const REGULAR = new Set([
   'soft-drink', 'water', 'sparkling-water', 'juice', 'vegetable-juice', 'sports', 'energy', 'tea',
-  'coffee', 'kombucha', 'plant-drink-not-protein',
+  'coffee', 'kombucha', 'electrolyte', 'protein-shake', 'flavoured-milk-beverage', 'na-beer',
+  'plant-drink-not-protein',
 ]);
 
 const DRINK_WORDS = {
   'soft-drink': 'Pop', 'water': 'Water', 'sparkling-water': 'Sparkling water', 'juice': 'Juice',
   'vegetable-juice': 'Vegetable juice', 'sports': 'A sports drink', 'energy': 'An energy drink',
   'tea': 'Tea', 'coffee': 'Coffee', 'kombucha': 'Kombucha', 'beer': 'Beer', 'cider': 'Cider',
-  'cooler': 'A cooler', 'wine': 'Wine', 'spirits': 'Spirits', 'sake': 'Sake',
+  'cooler': 'A cooler', 'seltzer': 'A hard seltzer', 'malt-beverage': 'A malt-based cooler',
+  'cocktail': 'A canned cocktail', 'wine': 'Wine', 'spirits': 'Spirits', 'sake': 'Sake', 'mead': 'Mead',
+  'hard-kombucha': 'Hard kombucha', 'electrolyte': 'An electrolyte drink',
+  'protein-shake': 'A protein shake that is not labelled as milk',
+  'flavoured-milk-beverage': 'A flavoured milk beverage that is not labelled as milk',
+  'na-beer': 'Non-alcoholic beer',
   'plant-drink-not-protein': 'A plant drink labelled not a source of protein',
 };
 
@@ -52,8 +60,8 @@ export function rates(env = {}) {
   return { regular, liquor };
 }
 
-function out(cls, cents, why) {
-  return { class: cls, refund_cents: cents, why };
+function out(cls, cents, why, depot_policy = false) {
+  return { class: cls, refund_cents: cents, why, depot_policy };
 }
 
 export function classify(input = {}, env = {}) {
@@ -73,7 +81,8 @@ export function classify(input = {}, env = {}) {
   // 2. Refillable.
   if (refillable) {
     if (drink === 'beer') {
-      return out('brewer', 0, "A local brewer's refillable bottle goes back to the beer store; ask at the counter.");
+      // Not part of the MMSB program. APCO's own policy (Alexander, 2026-09-13): taken at 5¢. Some depots don't.
+      return out('brewer', R, `A local brewer's refillable bottle (including Quidi Vidi Iceberg blue) is not part of the MMSB program. APCO Recycling takes it and pays ${R}¢; some other depots don't.`, true);
     }
     return out('none', 0, "Refillable containers have no deposit here, so there's no refund.");
   }
@@ -81,9 +90,10 @@ export function classify(input = {}, env = {}) {
   if (NO_REFUND[drink]) return out('none', 0, NO_REFUND[drink]);
   // 4. Unknown drink.
   if (drink === 'unknown') return out('unknown', null, "We don't know what this drink is.");
-  // 5. Beer, any container.
-  if (drink === 'beer') return out('regular', R, `Beer in ${mw}: ${R}¢.`);
-  // 6. Wine and spirits (incl. coolers, ciders, sake).
+  // 5. Beer, any container. Non-alcoholic beer is not alcoholic liquor: an ordinary beverage.
+  if (drink === 'beer' || drink === 'na-beer') return out('regular', R, `${dw} in ${mw}: ${R}¢.`);
+  // 6. Alcoholic liquor other than beer (wine, spirits, sake, mead, ciders, coolers, seltzers, malt coolers, cocktails, hard kombucha).
+  //    10¢ only in a glass or plastic bottle over 50 mL; everything else 5¢ (RULES.md, APCO practice).
   if (LIQUOR.has(drink)) {
     if (size !== null && size <= 50) return out('regular', R, `A 50 mL miniature: ${R}¢.`);
     if (LIQUOR_10.has(material)) return out('liquor', L, `${dw} in ${mw}: ${L}¢.`);

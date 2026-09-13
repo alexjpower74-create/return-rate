@@ -46,11 +46,24 @@ test('known item: oat milk is none, 0¢, with a reason', async () => {
   assert.equal(body.note, NOTE);
 });
 
-test('known item: refillable local beer is brewer, 0¢, says ask at the counter', async () => {
+test('known item: refillable local beer is brewer, 5¢ as APCO policy, says some depots do not', async () => {
   const { body } = await call('/item/0000000000048');
   assert.equal(body.class, 'brewer');
-  assert.equal(body.refund_cents, 0);
-  assert.match(body.why, /ask at the counter/i);
+  assert.equal(body.refund_cents, 5);
+  assert.equal(body.depot_policy, true);
+  assert.equal(body.accepted, true);
+  assert.match(body.why, /APCO Recycling takes it/);
+  assert.match(body.why, /some other depots don't/);
+});
+
+test('every answer carries the verdict, accepted flag and the NL-only line; unknown carries Ask at the counter', async () => {
+  const { body } = await call('/item/0000000000048');
+  assert.equal(body.verdict, 'Yes, we take this');
+  assert.match(body.nl_only, /Newfoundland and Labrador/);
+  const u = await call('/item/0000000000099');
+  assert.equal(u.body.accepted, null);
+  assert.equal(u.body.verdict, 'Ask at the counter');
+  assert.match(u.body.hint, /Return for Refund/);
 });
 
 test('unknown → 404 with the honest sentence and the upc', async () => {
