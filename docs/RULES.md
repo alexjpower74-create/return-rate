@@ -16,6 +16,15 @@ A container that held a **ready-to-serve beverage**, delivered **sealed** to a r
 
 The rule of thumb Alexander gave: **if a deposit was charged at the till, the depot pays a refund**, but only on a beverage container as defined above.
 
+## History and amounts
+Deposits 8¢ (non-alcoholic) and 20¢ (alcoholic liquor) with refunds 5¢ and 10¢ since **July 1, 2001** (Government of NL release, 12 March 2001; before that 6¢/3¢). Unchanged since. The 3¢ / 10¢ difference funds the program (MMSB FAQ). HST applies to deposits at the till, not to refunds.
+
+## The label test a customer can do
+Every deposit-bearing container sold in NL **must carry a return-for-refund message** ("Return for Refund", "Refundable", "Return for refund where applicable") plus the recycling symbol or the word "Recyclable", visible on the empty container (Guide s.5). So: **if the label says Return for Refund and you bought it in NL, a deposit was charged and the depot refunds it.** Exempt products carry no such message ("There is no deposit applied upon purchase to non-program materials", MMSB program page). The app tells the customer to look for those words when it cannot know the item.
+
+## Only Newfoundland and Labrador purchases
+"Only beverages purchased in Newfoundland & Labrador can be accepted for refund at Green Depots" (MMSB program page). A barcode cannot tell where a container was bought, so every answer carries "if you bought it in NL".
+
 ## The refund depends on BOTH the drink and the container (Guide s.5 chart, verbatim)
 
 | Container | Drink | Deposit | **Refund** |
@@ -35,12 +44,12 @@ The rule of thumb Alexander gave: **if a deposit was charged at the till, the de
 | Glass | 50 mL miniature liquor | 8¢ | **5¢** |
 | Glass | wine and spirits (incl. coolers and ciders in glass) | 20¢ | **10¢** |
 | Tetra / gable top | non-alcoholic | 8¢ | **5¢** |
-| Tetra / gable top | wine and spirits | 20¢ | **10¢** |
+| Tetra / gable top | wine and spirits | 20¢ per the 2025 Guide, 8¢ per MMSB's website | **10¢ or 5¢: MMSB's two sources disagree; the app says ask at the counter until APCO confirms** |
 | Pouch | non-alcoholic | 8¢ | **5¢** |
 | Pouch | wine and spirits | 8¢ | **5¢** |
 | Bag-in-a-box | wine and spirits | 8¢ | **5¢** |
 
-So: **10¢ only for wine and spirits in plastic, glass or tetra/gable, 50 mL miniatures excluded.** Everything else that is refundable is **5¢**. A 750 mL pop bottle is 5¢; a 200 mL rum bottle is 10¢; a 50 mL rum miniature is 5¢; a can of wine or a canned cocktail is 5¢; a bag-in-box wine is 5¢ for the whole box (the bag/box is the container).
+So: **10¢ only for wine and spirits in plastic or glass (tetra/gable wine is disputed between MMSB's own documents), 50 mL miniatures excluded.** Everything else that is refundable is **5¢**. A 750 mL pop bottle is 5¢; a 200 mL rum bottle is 10¢; a 50 mL rum miniature is 5¢; a can of wine or a canned cocktail is 5¢; a bag-in-box wine is 5¢ for the whole box (the bag/box is the container).
 
 ## Not refundable at a Green Depot (Guide s.6, Appendix B; MMSB FAQ)
 - **Milk**, goat's milk, flavoured milk (Food and Drug Regs B.08.003/004/005/016, B.08.028.1).
@@ -96,7 +105,8 @@ Order of decisions (first match wins):
 5. drink ∈ {beer} → regular (5¢) regardless of material. `na-beer` → regular.
 6. drink ∈ {wine, spirits, sake, mead, cider, cooler, seltzer, malt-beverage, cocktail, hard-kombucha} (alcoholic liquor other than beer):
    - `size_ml <= 50` → regular (5¢, miniature).
-   - material ∈ {clear-plastic, other-plastic, glass, tetra, gable} → liquor (10¢).
+   - material ∈ {clear-plastic, other-plastic, glass} → liquor (10¢).
+   - material ∈ {tetra, gable} → unknown with why "MMSB's guide and website disagree on cartons of wine; ask at the counter" (until Alexander confirms; then one line here changes it).
    - material ∈ {aluminum, steel, pouch, bag-in-box} → regular (5¢).
    - material unknown → unknown.
 7. Everything else in the "beverage" list (soft drinks, water, sparkling water, juices, sports, electrolyte, energy, tea, coffee, kombucha, protein-shake, flavoured-milk-beverage, plant-drink-not-protein) → regular (5¢), any material, any size ≤ 5 L.
@@ -105,4 +115,44 @@ Order of decisions (first match wins):
 
 ## Open questions for Alexander (the app says "ask at the counter" until answered)
 - Kombucha and "hard kombucha" (alcoholic): treated as regular / liquor by the rules above; confirm the depot sees them that way.
-- Tetra-pak wine: the 2025 Guide chart says 10¢; MMSB's web summary once read 5¢. The Guide is the newer, signed document, so 10¢, but confirm with a real carton at the counter.
+- Tetra-pak / gable-top wine: the April 2025 Guide chart says 20¢/10¢; MMSB's website table (read 2026-09-13) says 8¢/5¢. What does APCO pay on a carton of wine?
+
+## What a barcode can and cannot decide (design rule for the product list)
+MMSB publishes **no product registry**; it rules product by product on request from the label. So a barcode database (built from public product data) may auto-answer **only** where the label cannot change the answer:
+- Auto-answer allowed: soft drinks, water (not distilled), sparkling water, juice and juice drinks, vegetable juice, sports and energy drinks, iced tea and coffee drinks that are plainly not milk-labelled, beer, wine, spirits, ciders, coolers, seltzers, canned cocktails, and only when the **container material and size are known**.
+- Never auto-answer (always "ask at the counter" until APCO staff confirm the item at the till and it is saved with `source: "counter"`): anything dairy or dairy-looking (milk, chocolate milk, flavoured milk beverages, protein shakes, drinkable yogurt, kefir, eggnog, coffee drinks that say milk), plant-based milks and drinks, nutrition and supplement drinks (Boost, Ensure, Premier Protein, Carnation), infant and toddler drinks, electrolyte solutions, soups and broths, cooking wines and vinegars, any container over 4 L (near the 5 L line), kegs, growlers, crowlers, anything refillable, anything whose material the data does not state.
+- A counter-confirmed item outranks the database. Counter staff record drink type and material; the Worker classifies. Staff never type a cents figure.
+
+## Edge products, decided by the rules above (each says which rule)
+| Item | Answer | Rule |
+|---|---|---|
+| 5 L Heineken mini keg (steel, non-refillable, exactly 5 L) | 5¢ | ≤ 5 L, beer, metal |
+| 5.16 L or bigger keg; any refillable keg; growler | no refund | over 5 L / refillable |
+| Crowler (32 oz can sealed at a brewery) | ask at the counter | "delivered sealed to a retailer" is arguable; label may lack Return for Refund |
+| 4 L plastic water jug (non-refillable) | 5¢ | ≤ 5 L, water |
+| 18.9 L water cooler bottle | no refund | over 5 L and refillable |
+| Distilled water, any size | no refund | MMSB program page |
+| Boxed Water / water in a carton | 5¢ | tetra/gable, non-alcoholic |
+| Coconut water, aloe drink, kombucha (non-alcoholic) | 5¢ | non-alcoholic beverage |
+| Non-alcoholic beer, de-alcoholised wine (< 3%) | 5¢ any container | not "alcoholic liquor" |
+| Twisted Tea, Smirnoff Ice, Mike's in **glass** | 10¢ | liquor (not beer), glass |
+| White Claw, Nude, canned Caesar, canned wine | 5¢ | liquor in a can |
+| 50 mL liquor miniature, glass or plastic | 5¢ | miniature row |
+| 200 mL / 375 mL / 750 mL / 1.14 L / 1.75 L spirits, glass or plastic | 10¢ | liquor, glass/plastic |
+| 3 L / 4 L bag-in-box wine | 5¢ for the box | bag-in-box row |
+| Wine in a pouch | 5¢ | pouch row |
+| Sake, mead, ice wine, champagne in glass | 10¢ | liquor, glass |
+| Imported beer bottle (Corona, Heineken, Stella) | 5¢ | non-refillable beer |
+| Any beer can | 5¢ | aluminum can, beer |
+| Local refillable beer bottle (Molson, Labatt, Quidi Vidi, other NL brewers), Quidi Vidi Iceberg blue | APCO 5¢, some depots don't | depot policy, not MMSB |
+| Juice box, drink pouch (Capri Sun), Gerber juice | 5¢ | non-alcoholic |
+| Frozen juice concentrate, cordial, drink mix, syrup | no refund | concentrate |
+| Pedialyte | 5¢ | Guide Appendix A |
+| Milk2Go Sport protein shake, Nesquik "flavoured milk beverage" | 5¢ | Guide Appendix A (not labelled Milk) |
+| Chocolate milk labelled Milk, Fairlife/Grand Pré/Central Dairies milk | no refund | Guide Appendix B |
+| Silk / Natura fortified soy (source of protein) | no refund | Guide Appendix B |
+| Almond drink labelled "not a source of protein" | 5¢ | Guide Appendix A |
+| Boost, Ensure, Carnation Breakfast Essentials (Meal Replacement on label) | no refund | Guide s.6 |
+| Baby formula, toddler formula | no refund | Guide s.6 |
+| Bought in Nova Scotia / online from outside NL | no refund | MMSB program page |
+| Crushed can, broken bottle, dirty, no label | may be refused | reg. s.18(2) |
