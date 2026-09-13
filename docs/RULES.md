@@ -16,6 +16,9 @@ A container that held a **ready-to-serve beverage**, delivered **sealed** to a r
 
 The rule of thumb Alexander gave: **if a deposit was charged at the till, the depot pays a refund**, but only on a beverage container as defined above.
 
+## Which document wins
+The Guide's own disclaimer: its contents "do not supersede the authority of the Newfoundland and Labrador Waste Management Regulations; in the event of any discrepancy, the regulations will prevail." The regulation (s.18(1)) says every container that held alcoholic liquor refunds $0.10, with no material distinction. MMSB's chart nonetheless charges 8¢ and refunds 5¢ on liquor in cans, pouches and bag-in-box, and depots are paid by MMSB on that schedule. **Until APCO confirms what it pays on a can of wine or a canned cocktail, those answers say "5¢ (MMSB's schedule); ask at the counter if you were charged 20¢".** Sources are archived in `docs/sources/` (the Guide PDF, its text, and the appendix pages as images).
+
 ## History and amounts
 Deposits 8¢ (non-alcoholic) and 20¢ (alcoholic liquor) with refunds 5¢ and 10¢ since **July 1, 2001** (Government of NL release, 12 March 2001; before that 6¢/3¢). Unchanged since. The 3¢ / 10¢ difference funds the program (MMSB FAQ). HST applies to deposits at the till, not to refunds.
 
@@ -114,6 +117,7 @@ Order of decisions (first match wins):
 `why` is one plain sentence a customer can read; `depot_policy: true` marks answers that are APCO's policy rather than MMSB's, e.g. "Wine in a glass bottle: 10¢." / "Milk has no deposit, so there's no refund." / "A local brewer's refillable bottle goes back to the beer store; ask at the counter."
 
 ## Open questions for Alexander (the app says "ask at the counter" until answered)
+- Wine or a cocktail in a **can**, a wine **pouch**, a **bag-in-box**: does APCO pay 5¢ (MMSB chart) or 10¢ (regulation)?
 - Kombucha and "hard kombucha" (alcoholic): treated as regular / liquor by the rules above; confirm the depot sees them that way.
 - Tetra-pak / gable-top wine: the April 2025 Guide chart says 20¢/10¢; MMSB's website table (read 2026-09-13) says 8¢/5¢. What does APCO pay on a carton of wine?
 
