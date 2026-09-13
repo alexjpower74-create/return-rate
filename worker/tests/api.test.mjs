@@ -73,10 +73,15 @@ test('unknown → 404 with the honest sentence and the upc', async () => {
   assert.equal(body.upc, '0000000000099');
 });
 
-test('a row the rules cannot classify is never an answer (404, not a class)', async () => {
+test('a row the rules cannot classify is never an answer: 404, Ask at the counter, the name, no class', async () => {
   const { status, body } = await call('/item/0000000000055');
   assert.equal(status, 404);
-  assert.equal(body.error, UNKNOWN);
+  assert.match(body.error, /refund depends on the label/);
+  assert.equal(body.verdict, 'Ask at the counter');
+  assert.equal(body.accepted, null);
+  assert.ok(body.name, 'the product name is shown so the customer knows we recognised it');
+  assert.equal(body.class, undefined);
+  assert.equal(body.refund_cents, undefined);
 });
 
 test('malformed UPC → 400', async () => {

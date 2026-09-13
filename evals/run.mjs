@@ -21,7 +21,7 @@ const labels = JSON.parse(await fs.readFile(labelsPath, 'utf8'));
 const cases = Array.isArray(labels) ? labels : labels.cases;
 if (!cases?.length) { console.error('No cases in ' + labelsPath); process.exit(2); }
 
-const EXPECTED_CENTS = { regular: 5, liquor: 10, none: 0, brewer: 0, unknown: null };
+const EXPECTED_CENTS = { regular: 5, liquor: 10, none: 0, brewer: 5, unknown: null, ask: null };
 let wrong = 0;
 const pad = (s, n) => String(s).padEnd(n);
 console.log(pad("barcode", 17) + pad('expected', 10) + pad('got', 10) + pad('cents', 7) + 'name');
@@ -31,10 +31,10 @@ for (const c of cases) {
     const res = await fetch(`${api}/item/${c.upc}`);
     const body = await res.json().catch(() => ({}));
     if (res.status === 200) { got = body.class; cents = body.refund_cents; name = body.name || ''; }
-    else if (res.status === 404) { got = 'unknown'; detail = body.error || ''; }
+    else if (res.status === 404) { got = body.name ? 'ask' : 'unknown'; detail = body.error || ''; }
     else { got = `http ${res.status}`; detail = body.error || ''; }
   } catch (e) { detail = e.message; }
-  const ok = got === c.expected && (c.expected === 'unknown' || cents === EXPECTED_CENTS[c.expected]);
+  const ok = got === c.expected && (c.expected === 'unknown' || c.expected === 'ask' || cents === EXPECTED_CENTS[c.expected]);
   if (!ok) wrong++;
   console.log(`${ok ? '  ' : 'X '}${pad(c.upc, 15)}${pad(c.expected, 10)}${pad(got, 10)}${pad(cents, 7)}${name || c.name || ''}${detail ? '  (' + detail + ')' : ''}`);
 }

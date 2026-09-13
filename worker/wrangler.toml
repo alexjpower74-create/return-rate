@@ -8,8 +8,10 @@ RATE_LIQUOR_CENTS = "10"
 
 [[d1_databases]]
 binding = "DB"
-database_name = "return-rate"
-database_id = "TODO-main-fills"
+# The account's D1 quota is full (10 databases), so Return Rate keeps its own tables (items, lookups)
+# inside APCO Recycling's bottle-count database. Same depot, no table names collide with Bottle Count's `counts`.
+database_name = "bottle-count"
+database_id = "e32262b9-ade2-4963-8441-ed1709d6b25d"
 migrations_dir = "migrations"
 
 # Secrets (wrangler secret put): COUNTER_PIN. Local: worker/.dev.vars

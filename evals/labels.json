@@ -1,389 +1,389 @@
 {
- "_about": "Shelf evals for Return Rate. 40 real barcodes Alexander can check on APCO, Sobeys, Dominion and NLC shelves, plus 4 SYNTHETIC barcodes (EAN-13 in the 200 'internal use' range) that must come back unknown (404). `expected` is the class the Worker must return; `refund_cents` is what the answer screen must show. Run: node evals/run.mjs --api <worker url>",
- "cases": [
-  {
-   "upc": "06782900",
-   "expected": "regular",
-   "refund_cents": 5,
-   "name": "Coca-Cola can 355 mL",
-   "drink": "soft-drink",
-   "material": "aluminum",
-   "why_expected": "5¢ (soft-drink in aluminum)"
-  },
-  {
-   "upc": "0069000004258",
-   "expected": "regular",
-   "refund_cents": 5,
-   "name": "Pepsi can 355 mL",
-   "drink": "soft-drink",
-   "material": "aluminum",
-   "why_expected": "5¢ (soft-drink in aluminum)"
-  },
-  {
-   "upc": "06224017",
-   "expected": "regular",
-   "refund_cents": 5,
-   "name": "Canada Dry ginger ale can",
-   "drink": "soft-drink",
-   "material": "aluminum",
-   "why_expected": "5¢ (soft-drink in aluminum)"
-  },
-  {
-   "upc": "06541539",
-   "expected": "regular",
-   "refund_cents": 5,
-   "name": "7 Up Zero can",
-   "drink": "soft-drink",
-   "material": "aluminum",
-   "why_expected": "5¢ (soft-drink in aluminum)"
-  },
-  {
-   "upc": "05490733",
-   "expected": "regular",
-   "refund_cents": 5,
-   "name": "Dr Pepper 591 mL plastic",
-   "drink": "soft-drink",
-   "material": "other-plastic",
-   "why_expected": "5¢ (soft-drink in other-plastic)"
-  },
-  {
-   "upc": "0067000110573",
-   "expected": "regular",
-   "refund_cents": 5,
-   "name": "Sprite Zero 2 L plastic",
-   "drink": "soft-drink",
-   "material": "other-plastic",
-   "why_expected": "5¢ (soft-drink in other-plastic)"
-  },
-  {
-   "upc": "0067000011559",
-   "expected": "regular",
-   "refund_cents": 5,
-   "name": "Fanta orange can",
-   "drink": "soft-drink",
-   "material": "aluminum",
-   "why_expected": "5¢ (soft-drink in aluminum)"
-  },
-  {
-   "upc": "0055000201414",
-   "expected": "regular",
-   "refund_cents": 5,
-   "name": "Sanpellegrino Aranciata Rossa can",
-   "drink": "soft-drink",
-   "material": "aluminum",
-   "why_expected": "5¢ (soft-drink in aluminum)"
-  },
-  {
-   "upc": "0069000149171",
-   "expected": "regular",
-   "refund_cents": 5,
-   "name": "bubly lime can",
-   "drink": "sparkling-water",
-   "material": "aluminum",
-   "why_expected": "5¢ (sparkling-water in aluminum)"
-  },
-  {
-   "upc": "07478341",
-   "expected": "regular",
-   "refund_cents": 5,
-   "name": "Perrier 330 mL glass",
-   "drink": "sparkling-water",
-   "material": "glass",
-   "why_expected": "5¢ (sparkling-water in glass)"
-  },
-  {
-   "upc": "0671785501008",
-   "expected": "regular",
-   "refund_cents": 5,
-   "name": "Eska spring water 500 mL",
-   "drink": "water",
-   "material": "clear-plastic",
-   "why_expected": "5¢ (water in clear-plastic)"
-  },
-  {
-   "upc": "0057379600119",
-   "expected": "regular",
-   "refund_cents": 5,
-   "name": "Naya spring water 600 mL",
-   "drink": "water",
-   "material": "other-plastic",
-   "why_expected": "5¢ (water in other-plastic)"
-  },
-  {
-   "upc": "0096619321841",
-   "expected": "regular",
-   "refund_cents": 5,
-   "name": "Kirkland spring water 500 mL",
-   "drink": "water",
-   "material": "clear-plastic",
-   "why_expected": "5¢ (water in clear-plastic)"
-  },
-  {
-   "upc": "0056918000304",
-   "expected": "regular",
-   "refund_cents": 5,
-   "name": "Montellier lemon 1 L",
-   "drink": "water",
-   "material": "other-plastic",
-   "why_expected": "5¢ (water in other-plastic)"
-  },
-  {
-   "upc": "0069000052266",
-   "expected": "regular",
-   "refund_cents": 5,
-   "name": "Aquafina Plus strawberry kiwi 591 mL",
-   "drink": "water",
-   "material": "other-plastic",
-   "why_expected": "5¢ (water in other-plastic)"
-  },
-  {
-   "upc": "0048500205549",
-   "expected": "regular",
-   "refund_cents": 5,
-   "name": "Tropicana orange juice 1.36 L",
-   "drink": "juice",
-   "material": "other-plastic",
-   "why_expected": "5¢ (juice in other-plastic)"
-  },
-  {
-   "upc": "0059600060228",
-   "expected": "regular",
-   "refund_cents": 5,
-   "name": "Simply Orange 1.54 L",
-   "drink": "juice",
-   "material": "clear-plastic",
-   "why_expected": "5¢ (juice in clear-plastic)"
-  },
-  {
-   "upc": "0060383048440",
-   "expected": "regular",
-   "refund_cents": 5,
-   "name": "PC orange juice 1.54 L",
-   "drink": "juice",
-   "material": "clear-plastic",
-   "why_expected": "5¢ (juice in clear-plastic)"
-  },
-  {
-   "upc": "0067311010333",
-   "expected": "regular",
-   "refund_cents": 5,
-   "name": "Oasis apple juice carton",
-   "drink": "juice",
-   "material": "tetra",
-   "why_expected": "5¢ (juice in tetra)"
-  },
-  {
-   "upc": "0059600048141",
-   "expected": "regular",
-   "refund_cents": 5,
-   "name": "Minute Maid apple juice carton 1 L",
-   "drink": "juice",
-   "material": "tetra",
-   "why_expected": "5¢ (juice in tetra)"
-  },
-  {
-   "upc": "0063211055702",
-   "expected": "regular",
-   "refund_cents": 5,
-   "name": "V8 original 936 mL can",
-   "drink": "vegetable-juice",
-   "material": "aluminum",
-   "why_expected": "5¢ (vegetable-juice in aluminum)"
-  },
-  {
-   "upc": "0069000016480",
-   "expected": "regular",
-   "refund_cents": 5,
-   "name": "Brisk lemonade 1 L",
-   "drink": "juice",
-   "material": "other-plastic",
-   "why_expected": "5¢ (juice in other-plastic)"
-  },
-  {
-   "upc": "0180854000101",
-   "expected": "regular",
-   "refund_cents": 5,
-   "name": "Red Bull 250 mL can",
-   "drink": "energy",
-   "material": "aluminum",
-   "why_expected": "5¢ (energy in aluminum)"
-  },
-  {
-   "upc": "0070847015208",
-   "expected": "regular",
-   "refund_cents": 5,
-   "name": "Monster Zero Ultra 473 mL can",
-   "drink": "energy",
-   "material": "aluminum",
-   "why_expected": "5¢ (energy in aluminum)"
-  },
-  {
-   "upc": "0083900006266",
-   "expected": "regular",
-   "refund_cents": 5,
-   "name": "Nestea lemon 500 mL plastic",
-   "drink": "tea",
-   "material": "other-plastic",
-   "why_expected": "5¢ (tea in other-plastic)"
-  },
-  {
-   "upc": "0613008722678",
-   "expected": "regular",
-   "refund_cents": 5,
-   "name": "Arizona iced tea 680 mL can",
-   "drink": "tea",
-   "material": "aluminum",
-   "why_expected": "5¢ (tea in aluminum)"
-  },
-  {
-   "upc": "0818762000349",
-   "expected": "regular",
-   "refund_cents": 5,
-   "name": "Rise kombucha 1 L glass",
-   "drink": "kombucha",
-   "material": "glass",
-   "why_expected": "5¢ (kombucha in glass)"
-  },
-  {
-   "upc": "0776029701852",
-   "expected": "regular",
-   "refund_cents": 5,
-   "name": "Moosehead lager can",
-   "drink": "beer",
-   "material": "aluminum",
-   "why_expected": "5¢ (beer in aluminum)"
-  },
-  {
-   "upc": "0056910600007",
-   "expected": "regular",
-   "refund_cents": 5,
-   "name": "Sapporo can",
-   "drink": "beer",
-   "material": "aluminum",
-   "why_expected": "5¢ (beer in aluminum)"
-  },
-  {
-   "upc": "0062067547270",
-   "expected": "regular",
-   "refund_cents": 5,
-   "name": "Michelob Ultra can",
-   "drink": "beer",
-   "material": "aluminum",
-   "why_expected": "5¢ (beer in aluminum)"
-  },
-  {
-   "upc": "0072890000026",
-   "expected": "regular",
-   "refund_cents": 5,
-   "name": "Heineken 500 mL can",
-   "drink": "beer",
-   "material": "aluminum",
-   "why_expected": "5¢ (beer in aluminum)"
-  },
-  {
-   "upc": "0063657039960",
-   "expected": "regular",
-   "refund_cents": 5,
-   "name": "Growers raspberry ginger cider can",
-   "drink": "cider",
-   "material": "aluminum",
-   "why_expected": "5¢ (cider in aluminum)"
-  },
-  {
-   "upc": "0080480985332",
-   "expected": "regular",
-   "refund_cents": 5,
-   "name": "Bacardi rum punch can",
-   "drink": "cooler",
-   "material": "aluminum",
-   "why_expected": "5¢ (cooler in aluminum)"
-  },
-  {
-   "upc": "0082000783749",
-   "expected": "liquor",
-   "refund_cents": 10,
-   "name": "Smirnoff vodka 750 mL glass",
-   "drink": "spirits",
-   "material": "glass",
-   "why_expected": "10¢: wine or spirits in glass, plastic or carton, over 50 mL"
-  },
-  {
-   "upc": "0082000775874",
-   "expected": "liquor",
-   "refund_cents": 10,
-   "name": "Crown Royal Northern Harvest 750 mL glass",
-   "drink": "spirits",
-   "material": "glass",
-   "why_expected": "10¢: wine or spirits in glass, plastic or carton, over 50 mL"
-  },
-  {
-   "upc": "0018341751109",
-   "expected": "liquor",
-   "refund_cents": 10,
-   "name": "Barefoot Merlot 750 mL glass",
-   "drink": "wine",
-   "material": "glass",
-   "why_expected": "10¢: wine or spirits in glass, plastic or carton, over 50 mL"
-  },
-  {
-   "upc": "0626027814026",
-   "expected": "none",
-   "refund_cents": 0,
-   "name": "Earth's Own oat milk carton",
-   "drink": "plant-milk",
-   "material": "tetra",
-   "why_expected": "No refund: not in the deposit program (plant-milk in tetra)"
-  },
-  {
-   "upc": "0041570055311",
-   "expected": "none",
-   "refund_cents": 0,
-   "name": "Almond Breeze carton",
-   "drink": "plant-milk",
-   "material": "tetra",
-   "why_expected": "No refund: not in the deposit program (plant-milk in tetra)"
-  },
-  {
-   "upc": "0068700011016",
-   "expected": "none",
-   "refund_cents": 0,
-   "name": "Dairyland 2% milk 4 L",
-   "drink": "milk",
-   "material": "other-plastic",
-   "why_expected": "No refund: not in the deposit program (milk in other-plastic)"
-  },
-  {
-   "upc": "0041679213773",
-   "expected": "none",
-   "refund_cents": 0,
-   "name": "Boost High Protein 237 mL",
-   "drink": "meal-replacement",
-   "material": "tetra",
-   "why_expected": "No refund: not in the deposit program (meal-replacement in tetra)"
-  },
-  {
-   "upc": "2000000000015",
-   "expected": "unknown",
-   "refund_cents": null,
-   "name": "SYNTHETIC test barcode 1: not a real product, the Worker must answer 404"
-  },
-  {
-   "upc": "2000000000022",
-   "expected": "unknown",
-   "refund_cents": null,
-   "name": "SYNTHETIC test barcode 2: not a real product, the Worker must answer 404"
-  },
-  {
-   "upc": "2000000000039",
-   "expected": "unknown",
-   "refund_cents": null,
-   "name": "SYNTHETIC test barcode 3: not a real product, the Worker must answer 404"
-  },
-  {
-   "upc": "2000000000046",
-   "expected": "unknown",
-   "refund_cents": null,
-   "name": "SYNTHETIC test barcode 4: not a real product, the Worker must answer 404"
-  }
- ]
+  "_about": "Shelf evals for Return Rate. 40 real barcodes Alexander can check on APCO, Sobeys, Dominion and NLC shelves, plus 4 SYNTHETIC barcodes (EAN-13 in the 200 'internal use' range) that must come back unknown (404). `expected` is the class the Worker must return; `refund_cents` is what the answer screen must show. Run: node evals/run.mjs --api <worker url>",
+  "cases": [
+    {
+      "upc": "06782900",
+      "expected": "regular",
+      "refund_cents": 5,
+      "name": "Coca-Cola can 355 mL",
+      "drink": "soft-drink",
+      "material": "aluminum",
+      "why_expected": "5\u00a2 (soft-drink in aluminum)"
+    },
+    {
+      "upc": "0069000004258",
+      "expected": "regular",
+      "refund_cents": 5,
+      "name": "Pepsi can 355 mL",
+      "drink": "soft-drink",
+      "material": "aluminum",
+      "why_expected": "5\u00a2 (soft-drink in aluminum)"
+    },
+    {
+      "upc": "06224017",
+      "expected": "regular",
+      "refund_cents": 5,
+      "name": "Canada Dry ginger ale can",
+      "drink": "soft-drink",
+      "material": "aluminum",
+      "why_expected": "5\u00a2 (soft-drink in aluminum)"
+    },
+    {
+      "upc": "06541539",
+      "expected": "regular",
+      "refund_cents": 5,
+      "name": "7 Up Zero can",
+      "drink": "soft-drink",
+      "material": "aluminum",
+      "why_expected": "5\u00a2 (soft-drink in aluminum)"
+    },
+    {
+      "upc": "05490733",
+      "expected": "regular",
+      "refund_cents": 5,
+      "name": "Dr Pepper 591 mL plastic",
+      "drink": "soft-drink",
+      "material": "other-plastic",
+      "why_expected": "5\u00a2 (soft-drink in other-plastic)"
+    },
+    {
+      "upc": "0067000110573",
+      "expected": "regular",
+      "refund_cents": 5,
+      "name": "Sprite Zero 2 L plastic",
+      "drink": "soft-drink",
+      "material": "other-plastic",
+      "why_expected": "5\u00a2 (soft-drink in other-plastic)"
+    },
+    {
+      "upc": "0067000011559",
+      "expected": "regular",
+      "refund_cents": 5,
+      "name": "Fanta orange can",
+      "drink": "soft-drink",
+      "material": "aluminum",
+      "why_expected": "5\u00a2 (soft-drink in aluminum)"
+    },
+    {
+      "upc": "0055000201414",
+      "expected": "regular",
+      "refund_cents": 5,
+      "name": "Sanpellegrino Aranciata Rossa can",
+      "drink": "soft-drink",
+      "material": "aluminum",
+      "why_expected": "5\u00a2 (soft-drink in aluminum)"
+    },
+    {
+      "upc": "0069000149171",
+      "expected": "regular",
+      "refund_cents": 5,
+      "name": "bubly lime can",
+      "drink": "sparkling-water",
+      "material": "aluminum",
+      "why_expected": "5\u00a2 (sparkling-water in aluminum)"
+    },
+    {
+      "upc": "07478341",
+      "expected": "regular",
+      "refund_cents": 5,
+      "name": "Perrier 330 mL glass",
+      "drink": "sparkling-water",
+      "material": "glass",
+      "why_expected": "5\u00a2 (sparkling-water in glass)"
+    },
+    {
+      "upc": "0671785501008",
+      "expected": "regular",
+      "refund_cents": 5,
+      "name": "Eska spring water 500 mL",
+      "drink": "water",
+      "material": "clear-plastic",
+      "why_expected": "5\u00a2 (water in clear-plastic)"
+    },
+    {
+      "upc": "0057379600119",
+      "expected": "regular",
+      "refund_cents": 5,
+      "name": "Naya spring water 600 mL",
+      "drink": "water",
+      "material": "other-plastic",
+      "why_expected": "5\u00a2 (water in other-plastic)"
+    },
+    {
+      "upc": "0096619321841",
+      "expected": "regular",
+      "refund_cents": 5,
+      "name": "Kirkland spring water 500 mL",
+      "drink": "water",
+      "material": "clear-plastic",
+      "why_expected": "5\u00a2 (water in clear-plastic)"
+    },
+    {
+      "upc": "0056918000304",
+      "expected": "regular",
+      "refund_cents": 5,
+      "name": "Montellier lemon 1 L",
+      "drink": "water",
+      "material": "other-plastic",
+      "why_expected": "5\u00a2 (water in other-plastic)"
+    },
+    {
+      "upc": "0069000052266",
+      "expected": "regular",
+      "refund_cents": 5,
+      "name": "Aquafina Plus strawberry kiwi 591 mL",
+      "drink": "water",
+      "material": "other-plastic",
+      "why_expected": "5\u00a2 (water in other-plastic)"
+    },
+    {
+      "upc": "0048500205549",
+      "expected": "regular",
+      "refund_cents": 5,
+      "name": "Tropicana orange juice 1.36 L",
+      "drink": "juice",
+      "material": "other-plastic",
+      "why_expected": "5\u00a2 (juice in other-plastic)"
+    },
+    {
+      "upc": "0059600060228",
+      "expected": "regular",
+      "refund_cents": 5,
+      "name": "Simply Orange 1.54 L",
+      "drink": "juice",
+      "material": "clear-plastic",
+      "why_expected": "5\u00a2 (juice in clear-plastic)"
+    },
+    {
+      "upc": "0060383048440",
+      "expected": "regular",
+      "refund_cents": 5,
+      "name": "PC orange juice 1.54 L",
+      "drink": "juice",
+      "material": "clear-plastic",
+      "why_expected": "5\u00a2 (juice in clear-plastic)"
+    },
+    {
+      "upc": "0067311010333",
+      "expected": "regular",
+      "refund_cents": 5,
+      "name": "Oasis apple juice carton",
+      "drink": "juice",
+      "material": "tetra",
+      "why_expected": "5\u00a2 (juice in tetra)"
+    },
+    {
+      "upc": "0059600048141",
+      "expected": "regular",
+      "refund_cents": 5,
+      "name": "Minute Maid apple juice carton 1 L",
+      "drink": "juice",
+      "material": "tetra",
+      "why_expected": "5\u00a2 (juice in tetra)"
+    },
+    {
+      "upc": "0063211055702",
+      "expected": "regular",
+      "refund_cents": 5,
+      "name": "V8 original 936 mL can",
+      "drink": "vegetable-juice",
+      "material": "aluminum",
+      "why_expected": "5\u00a2 (vegetable-juice in aluminum)"
+    },
+    {
+      "upc": "0069000016480",
+      "expected": "regular",
+      "refund_cents": 5,
+      "name": "Brisk lemonade 1 L",
+      "drink": "juice",
+      "material": "other-plastic",
+      "why_expected": "5\u00a2 (juice in other-plastic)"
+    },
+    {
+      "upc": "0180854000101",
+      "expected": "regular",
+      "refund_cents": 5,
+      "name": "Red Bull 250 mL can",
+      "drink": "energy",
+      "material": "aluminum",
+      "why_expected": "5\u00a2 (energy in aluminum)"
+    },
+    {
+      "upc": "0070847015208",
+      "expected": "regular",
+      "refund_cents": 5,
+      "name": "Monster Zero Ultra 473 mL can",
+      "drink": "energy",
+      "material": "aluminum",
+      "why_expected": "5\u00a2 (energy in aluminum)"
+    },
+    {
+      "upc": "0083900006266",
+      "expected": "regular",
+      "refund_cents": 5,
+      "name": "Nestea lemon 500 mL plastic",
+      "drink": "tea",
+      "material": "other-plastic",
+      "why_expected": "5\u00a2 (tea in other-plastic)"
+    },
+    {
+      "upc": "0613008722678",
+      "expected": "regular",
+      "refund_cents": 5,
+      "name": "Arizona iced tea 680 mL can",
+      "drink": "tea",
+      "material": "aluminum",
+      "why_expected": "5\u00a2 (tea in aluminum)"
+    },
+    {
+      "upc": "0818762000349",
+      "expected": "regular",
+      "refund_cents": 5,
+      "name": "Rise kombucha 1 L glass",
+      "drink": "kombucha",
+      "material": "glass",
+      "why_expected": "5\u00a2 (kombucha in glass)"
+    },
+    {
+      "upc": "0776029701852",
+      "expected": "regular",
+      "refund_cents": 5,
+      "name": "Moosehead lager can",
+      "drink": "beer",
+      "material": "aluminum",
+      "why_expected": "5\u00a2 (beer in aluminum)"
+    },
+    {
+      "upc": "0056910600007",
+      "expected": "regular",
+      "refund_cents": 5,
+      "name": "Sapporo can",
+      "drink": "beer",
+      "material": "aluminum",
+      "why_expected": "5\u00a2 (beer in aluminum)"
+    },
+    {
+      "upc": "0062067547270",
+      "expected": "regular",
+      "refund_cents": 5,
+      "name": "Michelob Ultra can",
+      "drink": "beer",
+      "material": "aluminum",
+      "why_expected": "5\u00a2 (beer in aluminum)"
+    },
+    {
+      "upc": "0072890000026",
+      "expected": "regular",
+      "refund_cents": 5,
+      "name": "Heineken 500 mL can",
+      "drink": "beer",
+      "material": "aluminum",
+      "why_expected": "5\u00a2 (beer in aluminum)"
+    },
+    {
+      "upc": "0063657039960",
+      "expected": "regular",
+      "refund_cents": 5,
+      "name": "Growers raspberry ginger cider can",
+      "drink": "cider",
+      "material": "aluminum",
+      "why_expected": "5\u00a2 (cider in aluminum)"
+    },
+    {
+      "upc": "0080480985332",
+      "expected": "regular",
+      "refund_cents": 5,
+      "name": "Bacardi rum punch can",
+      "drink": "cooler",
+      "material": "aluminum",
+      "why_expected": "5\u00a2 (cooler in aluminum)"
+    },
+    {
+      "upc": "0082000783749",
+      "expected": "liquor",
+      "refund_cents": 10,
+      "name": "Smirnoff vodka 750 mL glass",
+      "drink": "spirits",
+      "material": "glass",
+      "why_expected": "10\u00a2: wine or spirits in glass, plastic or carton, over 50 mL"
+    },
+    {
+      "upc": "0082000775874",
+      "expected": "liquor",
+      "refund_cents": 10,
+      "name": "Crown Royal Northern Harvest 750 mL glass",
+      "drink": "spirits",
+      "material": "glass",
+      "why_expected": "10\u00a2: wine or spirits in glass, plastic or carton, over 50 mL"
+    },
+    {
+      "upc": "0018341751109",
+      "expected": "liquor",
+      "refund_cents": 10,
+      "name": "Barefoot Merlot 750 mL glass",
+      "drink": "wine",
+      "material": "glass",
+      "why_expected": "10\u00a2: wine or spirits in glass, plastic or carton, over 50 mL"
+    },
+    {
+      "upc": "0626027814026",
+      "expected": "ask",
+      "refund_cents": null,
+      "name": "Earth's Own oat milk carton",
+      "drink": "plant-milk",
+      "material": "tetra",
+      "why_expected": "label decides (milk / plant / nutrition): the app must say Ask at the counter, never a class"
+    },
+    {
+      "upc": "0041570055311",
+      "expected": "ask",
+      "refund_cents": null,
+      "name": "Almond Breeze carton",
+      "drink": "plant-milk",
+      "material": "tetra",
+      "why_expected": "label decides (milk / plant / nutrition): the app must say Ask at the counter, never a class"
+    },
+    {
+      "upc": "0068700011016",
+      "expected": "ask",
+      "refund_cents": null,
+      "name": "Dairyland 2% milk 4 L",
+      "drink": "milk",
+      "material": "other-plastic",
+      "why_expected": "label decides (milk / plant / nutrition): the app must say Ask at the counter, never a class"
+    },
+    {
+      "upc": "0041679213773",
+      "expected": "ask",
+      "refund_cents": null,
+      "name": "Boost High Protein 237 mL",
+      "drink": "meal-replacement",
+      "material": "tetra",
+      "why_expected": "label decides (milk / plant / nutrition): the app must say Ask at the counter, never a class"
+    },
+    {
+      "upc": "2000000000015",
+      "expected": "unknown",
+      "refund_cents": null,
+      "name": "SYNTHETIC test barcode 1: not a real product, the Worker must answer 404"
+    },
+    {
+      "upc": "2000000000022",
+      "expected": "unknown",
+      "refund_cents": null,
+      "name": "SYNTHETIC test barcode 2: not a real product, the Worker must answer 404"
+    },
+    {
+      "upc": "2000000000039",
+      "expected": "unknown",
+      "refund_cents": null,
+      "name": "SYNTHETIC test barcode 3: not a real product, the Worker must answer 404"
+    },
+    {
+      "upc": "2000000000046",
+      "expected": "unknown",
+      "refund_cents": null,
+      "name": "SYNTHETIC test barcode 4: not a real product, the Worker must answer 404"
+    }
+  ]
 }

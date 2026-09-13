@@ -3,6 +3,8 @@ import { classify, DRINKS, MATERIALS } from './rules.js';
 
 const NOTE = "The counter's count is the one that pays.";
 const UNKNOWN = "We don't know this one yet. Show it at the counter and we'll add it.";
+const NEEDS_COUNTER = "We know this one but the refund depends on the label. Show it at the counter.";
+const HINT = 'Look for the words Return for Refund on the label.';
 const BAD_UPC = "That doesn't look like a barcode number.";
 const TOO_MANY = 'Too many scans in a row, give it a minute.';
 const RATE_LIMIT = 60; // lookups per hour per IP
@@ -74,7 +76,12 @@ async function getItem(request, env, upc) {
   const item = row ? present(row, env) : null;
   await env.DB.prepare('INSERT INTO lookups (upc, found, ip_hash) VALUES (?, ?, ?)')
     .bind(upc, item ? 1 : 0, hash).run();
-  if (!item) return err(UNKNOWN, 404, { upc, accepted: null, verdict: 'Ask at the counter', hint: 'Look for the words Return for Refund on the label.' });
+  if (!item) {
+    // A recognised product whose refund depends on the label (milk vs milk beverage, "not a source of protein",
+    // "Meal Replacement") is never guessed: say we know it, and send them to the counter (docs/RULES.md).
+    if (row) return err(NEEDS_COUNTER, 404, { upc, name: row.name, accepted: null, verdict: 'Ask at the counter', hint: HINT });
+    return err(UNKNOWN, 404, { upc, accepted: null, verdict: 'Ask at the counter', hint: HINT });
+  }
   return json(item);
 }
 
