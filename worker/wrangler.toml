@@ -6,7 +6,10 @@ compatibility_date = "2025-09-01"
 RATE_REGULAR_CENTS = "5"
 RATE_LIQUOR_CENTS = "10"
 RATE_LIMIT_PER_HOUR = "600"
-LABEL_CAP_PER_DAY = "5000"    # photos read by the vision model per day, a ceiling on the bill   # per address per hour; a depot WiFi is one address
+LABEL_CAP_PER_DAY = "5000"
+VISION_PROVIDER = "workers-ai"   # Cloudflare's own model (Mistral Small 3.1 24B), included in the plan; "openai" is the fallback
+WORKERS_AI_MODEL = "@cf/mistralai/mistral-small-3.1-24b-instruct"
+ALLOW_PROVIDER_OVERRIDE = "1"    # lets the eval script compare models with ?provider=; set to 0 later    # photos read by the vision model per day, a ceiling on the bill   # per address per hour; a depot WiFi is one address
 
 [[d1_databases]]
 binding = "DB"
@@ -17,3 +20,6 @@ database_id = "e32262b9-ade2-4963-8441-ed1709d6b25d"
 migrations_dir = "migrations"
 
 # No secrets: the app has no staff side and no PIN.
+
+[ai]
+binding = "AI"

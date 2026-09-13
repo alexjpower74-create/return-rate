@@ -130,9 +130,27 @@ const LABEL_PROMPT = `You are reading the FRONT LABEL of a beverage container ph
 Use "unknown" only when you truly cannot tell. Do not guess sizes; use the printed volume.
 What is sold in Newfoundland and Labrador, to help you name it: pop and water (Pepsi, Coca-Cola, Big 8, Canada Dry, Crush, bubly, Aquafina, Dasani, Kirkland water, Nestle Pure Life, Eska, Perrier, San Pellegrino); juice and drinks (Oasis, Tropicana, Minute Maid, SunnyD, Fruite, Ocean Spray, V8, Mott's Clamato, Purity fruit drinks); energy and sports (Monster, Red Bull, Rockstar, NOS, Gatorade, Powerade, BodyArmor); tea and coffee (Brisk, Arizona, Nestea, Starbucks Frappuccino bottles); beer (Molson, Labatt, Coors, Budweiser, Black Horse, Blue Star, India, Jockey Club, Quidi Vidi, Iceberg, YellowBelly, Corona, Heineken, Stella); coolers and seltzers (Smirnoff Ice, Mike's, Twisted Tea, White Claw, Nude, Palm Bay, Cottage Springs, canned Caesars); wine and spirits (NLC bottles, Screech, Iceberg vodka, bag-in-box wine, tetra wine); milk (Central Dairies, Scotsburn, Natrel, Lactantia, Beatrice, Farmers, Fairlife, Neilson, chocolate milk; "lait" on French labels); plant-based milks (Silk, So Delicious, Earth's Own, Almond Breeze, Oatly, Natur-a, Great Value almond); nutrition drinks (Ensure, Boost, Premier Protein, Carnation Breakfast Essentials, Glucerna, Pediasure); infant formula (Enfamil, Similac, Nestle Good Start); concentrates (Purity syrup, frozen juice cans, cordials, drink mixes, Kool-Aid); distilled water. Purity syrup is a CONCENTRATE, not a drink. Kombucha is a drink. Non-alcoholic beer is a drink, not beer.`;
 
-async function readLabel(photo, env) {
-  if (!env.OPENAI_API_KEY) throw new Error('no vision key');
+// Which vision model reads the label: 'workers-ai' (Cloudflare's own, included in the plan) or 'openai'.
+// VISION_PROVIDER in wrangler.toml decides; ?provider= on /label overrides it only when ALLOW_PROVIDER_OVERRIDE=1 (for evals).
+async function readLabel(photo, env, provider) {
   const bytes = new Uint8Array(await photo.arrayBuffer());
+  if (provider === 'workers-ai') {
+    if (!env.AI) throw new Error('no AI binding');
+    const model = env.__model || env.WORKERS_AI_MODEL || '@cf/mistralai/mistral-small-3.1-24b-instruct';
+    let out;
+    if (/mistral|gemma|qwen/i.test(model)) {
+      // chat-style vision models take an image_url data URL
+      let bin = ''; for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+      const dataUrl = `data:${photo.type || 'image/jpeg'};base64,${btoa(bin)}`;
+      out = await env.AI.run(model, { messages: [{ role: 'user', content: [{ type: 'text', text: LABEL_PROMPT }, { type: 'image_url', image_url: { url: dataUrl } }] }], max_tokens: 400 });
+    } else {
+      out = await env.AI.run(model, { image: Array.from(bytes), prompt: LABEL_PROMPT, max_tokens: 400 });
+    }
+    const text = typeof out === 'string' ? out : (out && (out.response || out.description || (out.choices && out.choices[0] && out.choices[0].message && out.choices[0].message.content))) || JSON.stringify(out || {});
+    const m = text.match(/\{[\s\S]*\}/); if (!m) throw new Error('no json from workers-ai: ' + text.slice(0, 120));
+    return JSON.parse(m[0]);
+  }
+  if (!env.OPENAI_API_KEY) throw new Error('no vision key');
   let bin = ''; for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
   const dataUrl = `data:${photo.type || 'image/jpeg'};base64,${btoa(bin)}`;
   const res = await fetch('https://api.openai.com/v1/chat/completions', {
@@ -159,14 +177,23 @@ async function postLabel(request, env) {
   if (!photo || typeof photo === 'string' || !photo.size) return err('Please send a photo of the label.', 400);
   if (photo.size > 8 * 1024 * 1024) return err('That photo is too big. Please send one under 8 MB.', 413);
   const upc = String(form.get('upc') || '').replace(/\D/g, '');
+  const url = new URL(request.url);
+  const provider = (env.ALLOW_PROVIDER_OVERRIDE === '1' && url.searchParams.get('provider')) || env.VISION_PROVIDER || 'openai';
+  if (env.ALLOW_PROVIDER_OVERRIDE === '1' && url.searchParams.get('model')) env = { ...env, __model: url.searchParams.get('model') };
   let read;
-  try { read = await readLabel(photo, env); } catch (e) { console.error('label read failed', e && e.message); return err("We couldn't read the label just now. Try again in better light, or " + LABEL_TEST.charAt(0).toLowerCase() + LABEL_TEST.slice(1), 503); }
+  try { read = await readLabel(photo, env, provider); }
+  catch (e) {
+    console.error('label read failed', provider, e && e.message);
+    // Cloudflare's model down or over its daily allowance → OpenAI once, so the customer still gets an answer.
+    if (provider === 'workers-ai' && env.OPENAI_API_KEY) { try { read = await readLabel(photo, env, 'openai'); env = { ...env }; } catch (e2) { console.error('fallback failed', e2 && e2.message); } }
+  }
+  if (!read) { return err("We couldn't read the label just now. Try again in better light, or " + LABEL_TEST.charAt(0).toLowerCase() + LABEL_TEST.slice(1), 503); }
   await env.DB.prepare('INSERT INTO lookups (upc, found, ip_hash) VALUES (?, ?, ?)').bind('label', 0, hash).run();
 
   // Not a beverage container at all (soy sauce, tablets, cleaning products): not accepted, full stop (Alexander, 2026-09-13).
   if (read.is_beverage === false) {
     const what = String(read.what_it_is || 'this').trim();
-    return json({ upc: upc || null, name: read.name || null, brand: read.brand || null, size_ml: null, material: null, source: 'label',
+    return json({ upc: upc || null, name: read.name || null, brand: read.brand || null, size_ml: null, material: null, source: 'label', model: provider,
       accepted: false, verdict: "No, we don't take this", class: 'none', refund_cents: 0, depot_policy: false,
       why: `${what.charAt(0).toUpperCase() + what.slice(1)} ${/s$/i.test(what) && !/(ss|us|is)$/i.test(what) ? "aren't" : "isn't"} a drink. The depot only takes containers that held a beverage.`,
       evidence: ['not a beverage container'], note: NOTE, nl_only: 'Refund applies to containers bought in Newfoundland and Labrador.' });
@@ -185,7 +212,7 @@ async function postLabel(request, env) {
   const material = MATERIALS.includes(read.material) ? read.material : 'unknown';
   const size_ml = Number.isFinite(Number(read.size_ml)) && read.size_ml ? Number(read.size_ml) : null;
   const r = classify({ drink, material, size_ml, refillable: false, alcohol_pct: read.alcohol_pct }, env);
-  const base = { upc: upc || null, name: read.name || null, brand: read.brand || null, size_ml, material, source: 'label', note: NOTE, nl_only: 'Refund applies to containers bought in Newfoundland and Labrador.', evidence };
+  const base = { upc: upc || null, name: read.name || null, brand: read.brand || null, size_ml, material, source: 'label', model: provider, note: NOTE, nl_only: 'Refund applies to containers bought in Newfoundland and Labrador.', evidence };
   const LIQ = ['wine','spirits','sake','mead','cider','cooler','seltzer','malt-beverage','cocktail','hard-kombucha'];
   if (r.class === 'unknown' && LIQ.includes(drink) && material === 'unknown' && (size_ml === null || size_ml <= 5000)) {
     const rr = classify({ drink, material: 'aluminum', size_ml: size_ml || 355 }, env);
