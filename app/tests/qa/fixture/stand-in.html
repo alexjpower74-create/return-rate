@@ -1,0 +1,55 @@
+<!doctype html>
+<!--
+  QA STAND-IN. Not the app. A throwaway page that walks the same screens PLAN.md gives c2, so the
+  harness can be proven to go red and green before app/ lands. ?plant=1 plants "You will get 10¢"
+  on the answer screen (negative control). ?cover=1 lays an invisible sheet over "Scan another"
+  (hit-test negative control). ?small=1 shrinks the refund (largest-font negative control).
+  Barcodes here are SYNTHETIC.
+-->
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QA stand-in</title>
+<style>
+  body{font-family:system-ui;color:#101418;background:#fff;margin:0;padding:16px}
+  .screen{display:none}.screen.on{display:block}
+  .refund{font-size:88px;font-weight:700;color:#1f7a3a}
+  .small .refund{font-size:16px}
+  h1{font-size:20px} p{font-size:16px} button,input{font-size:18px;padding:12px}
+  .sheet{position:fixed;inset:0;background:transparent}
+</style></head><body>
+<section id="start" class="screen on">
+  <h1>Point the camera at the barcode</h1>
+  <p id="cam">Camera is on.</p>
+  <label>Type the number <input id="num" inputmode="numeric" autocomplete="off"></label>
+  <p>If we don't know an item, we say so.</p>
+</section>
+<section id="answer" class="screen">
+  <div class="refund" id="refund"></div>
+  <p id="name"></p><p id="klass"></p>
+  <p>The counter's count is the one that pays.</p>
+  <p id="plant" hidden>You will get 10¢</p>
+  <button id="again">Scan another</button>
+</section>
+<section id="unknown" class="screen">
+  <p>We don't know this one yet. Show it at the counter and we'll add it.</p>
+  <p>The counter's count is the one that pays.</p>
+  <button id="again2">Scan another</button>
+</section>
+<script>
+  // SYNTHETIC barcodes.
+  window.RR_MOCK = { regular: '0000000000017', liquor: '0000000000024', unknown: '0000000000031' };
+  const q = new URLSearchParams(location.search);
+  const show = (id) => document.querySelectorAll('.screen').forEach((s) => s.classList.toggle('on', s.id === id));
+  document.getElementById('num').addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter') return;
+    const v = e.target.value.trim();
+    if (v === RR_MOCK.regular) { refund.textContent = '5¢'; name.textContent = 'Test Pop 591 mL'; klass.textContent = 'Pop, water, juice or beer'; show('answer'); }
+    else if (v === RR_MOCK.liquor) { refund.textContent = '10¢'; name.textContent = 'Test Wine 750 mL'; klass.textContent = 'Wine or spirits'; show('answer'); }
+    else show('unknown');
+    if (q.get('plant')) plant.hidden = false;
+    if (q.get('small')) document.body.classList.add('small');
+    if (q.get('cover')) { const s = document.createElement('div'); s.className = 'sheet'; document.body.append(s); }
+  });
+  for (const b of [again, again2]) b.addEventListener('click', () => { num.value = ''; show('start'); });
+  navigator.mediaDevices?.getUserMedia({ video: true }).then((s) => s.getTracks().forEach((t) => t.stop()))
+    .catch(() => { cam.textContent = "We can't use the camera. Type the number instead."; });
+</script></body></html>
