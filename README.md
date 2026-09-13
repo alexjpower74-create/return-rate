@@ -16,6 +16,9 @@ The short version:
 - **APCO's own policy**, shown as APCO's: local brewers' refillable bottles and Quidi Vidi Iceberg blue bottles, 5¢ here; some depots don't take them.
 - A depot may refuse crushed, broken, dirty or unlabelled containers (regulation s.18).
 
+## How it knows
+Three ways, in order: the exact barcode in the list of 1,034 products; the maker's barcode prefix (Coca-Cola, PepsiCo, Monster, Red Bull and other drink-only makers: everything they sell is a 5¢ container, so the maker alone answers, and mixed makers like Kirkland are deliberately excluded); and, when neither knows, **a photo of the front label**, read by a vision model for exactly the words MMSB rules on (Milk, fortified plant-based beverage, not a source of protein, Meal Replacement, Return for Refund). The rules engine decides from what the label says and the answer shows the evidence. The barcode reader is the browser's own on Android and a pinned zxing-wasm polyfill on iPhone, with a "take a photo of the barcode" fallback for curved cans.
+
 ## The honesty rule
 The label decides the dairy-looking cases (Nesquik "flavoured milk beverage" is refundable; chocolate milk labelled Milk is not), and MMSB publishes no product registry. So a barcode is allowed to auto-answer only where the label cannot change the answer. For milk, plant-based, nutrition, infant, electrolyte and coffee-with-milk products the app says **"Check the label"** and tells the person exactly what words decide it (Milk, fortified soy beverage, not a source of protein, Meal Replacement, Return for Refund). `docs/seed-split.mjs` enforces that gate: of 1,034 products, 963 auto-answer and 71 get the label test. An unknown barcode gets the general test: if the label says Return for Refund and it was bought in NL, the depot takes it.
 

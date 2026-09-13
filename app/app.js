@@ -51,6 +51,29 @@
     show('answer');
   }
 
+  // The label photo (unknown screen) and the barcode photo (start screen).
+  $('label-photo').addEventListener('change', function (ev) {
+    var f = ev.target.files && ev.target.files[0]; ev.target.value = '';
+    if (!f) return;
+    show('busy'); $('busy-text') && ($('busy-text').textContent = 'Reading the label…');
+    api.label(f, lastUpc).then(function (r) {
+      if (r.status === 'known') return renderAnswer(r.item);
+      if (r.status === 'unknown') { $('unknown-name').textContent = r.name || ''; $('unknown-text').textContent = r.message; return show('unknown'); }
+      if (r.status === 'busy') { $('offline-reason').textContent = r.message; return show('offline'); }
+      if (r.status === 'bad') { $('unknown-text').textContent = r.message; return show('unknown'); }
+      $('offline-reason').textContent = r.message; show('offline');
+    });
+  });
+  $('barcode-photo').addEventListener('change', function (ev) {
+    var f = ev.target.files && ev.target.files[0]; ev.target.value = '';
+    if (!f) return;
+    show('busy');
+    scan.decodeImage(f).then(function (upc) {
+      if (upc) { $('upc').value = upc; return check(upc); }
+      showStart(); typeError("We couldn't find a barcode in that photo. Try again closer, or type the number.");
+    });
+  });
+
   var lastUpc = '';
   function check(upc) {
     lastUpc = upc;

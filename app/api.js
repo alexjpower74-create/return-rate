@@ -34,5 +34,22 @@
       .finally(function () { if (timer) clearTimeout(timer); });
   }
 
-  window.ReturnRateApi = { lookup: lookup, base: base, UNKNOWN_TEXT: UNKNOWN_TEXT };
+  // The label photo: POST /label with the photo (and the barcode if we have one).
+  function label(file, upc) {
+    if (!navigator.onLine) return Promise.resolve({ status: 'offline', message: 'Your phone looks offline. Try again when you have a signal.' });
+    var fd = new FormData(); fd.append('photo', file, file.name || 'label.jpg'); if (upc) fd.append('upc', upc);
+    var ctrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
+    var t = ctrl ? setTimeout(function () { ctrl.abort(); }, 30000) : null;
+    return fetch(base + '/label', { method: 'POST', body: fd, signal: ctrl ? ctrl.signal : undefined })
+      .then(function (res) { return res.json().catch(function () { return {}; }).then(function (body) {
+        if (res.status === 200 && body && body.class) return { status: 'known', item: body };
+        if (res.status === 404) return { status: 'unknown', message: body.error || UNKNOWN_TEXT, name: body.name || '' };
+        if (res.status === 429) return { status: 'busy', message: body.error || 'Too many scans in a row, give it a minute.' };
+        if (res.status === 400 || res.status === 413) return { status: 'bad', message: body.error || 'That photo did not work. Try again.' };
+        return { status: 'offline', message: body.error || 'The checker is having trouble. Try again in a minute.' };
+      }); })
+      .catch(function () { return { status: 'offline', message: "We couldn't reach the checker. Try again when you have a signal." }; })
+      .then(function (r) { if (t) clearTimeout(t); return r; });
+  }
+  window.ReturnRateApi = { lookup: lookup, label: label, base: base, UNKNOWN_TEXT: UNKNOWN_TEXT };
 })();

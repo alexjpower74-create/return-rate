@@ -1,14 +1,13 @@
 // Camera + barcode reading. Exposes window.ReturnRateScan.
-// Uses the browser's BarcodeDetector when it has one (Chrome, Android),
-// otherwise ZXing (pinned UMD build) over getUserMedia.
-// ZXing is not on cdnjs (checked 2026-09-13), so it comes from jsDelivr, pinned.
+// Uses the browser's BarcodeDetector when it has one (Chrome, Android); on iPhone Safari (no BarcodeDetector)
+// a pinned polyfill (zxing-wasm) provides the same API. A still photo of the barcode can also be decoded.
 (function () {
   'use strict';
 
-  var ZXING_URL = 'https://cdn.jsdelivr.net/npm/@zxing/library@0.21.3/umd/index.min.js';
+  var POLYFILL_URL = 'https://cdn.jsdelivr.net/npm/barcode-detector@2.3.1/dist/iife/side-effects.min.js';
   var FORMATS = ['ean_13', 'upc_a', 'upc_e', 'ean_8'];
   var REPEAT_MS = 2500;       // the same code within this window counts as one scan
-  var stream = null, timer = null, zxReader = null, lastCode = '', lastAt = 0, active = false;
+  var stream = null, timer = null, lastCode = '', lastAt = 0, active = false;
 
   function normalise(raw) {
     var d = String(raw || '').replace(/\D/g, '');
@@ -27,15 +26,24 @@
     onCode(upc);
   }
 
-  function loadZXing() {
-    if (window.ZXing) return Promise.resolve(window.ZXing);
+  function detector() {
+    if ('BarcodeDetector' in window) return Promise.resolve(new window.BarcodeDetector({ formats: FORMATS }));
     return new Promise(function (resolve, reject) {
       var s = document.createElement('script');
-      s.src = ZXING_URL;
-      s.onload = function () { window.ZXing ? resolve(window.ZXing) : reject(new Error('no ZXing')); };
-      s.onerror = function () { reject(new Error('ZXing failed to load')); };
+      s.src = POLYFILL_URL;
+      s.onload = function () { 'BarcodeDetector' in window ? resolve(new window.BarcodeDetector({ formats: FORMATS })) : reject(new Error('no detector')); };
+      s.onerror = function () { reject(new Error('detector failed to load')); };
       document.head.appendChild(s);
     });
+  }
+
+  // Decode a still photo (a file from the camera). Resolves the barcode number or ''.
+  function decodeImage(file) {
+    return detector().then(function (det) {
+      return createImageBitmap(file).then(function (bmp) {
+        return det.detect(bmp).then(function (codes) { return codes && codes.length ? normalise(codes[0].rawValue) : ''; });
+      });
+    }).catch(function () { return ''; });
   }
 
   // Returns a promise: resolves {engine} when the camera is running,
@@ -56,26 +64,18 @@
         stream = s;
         video.srcObject = s;
         return video.play().catch(function () {}).then(function () {
-          if ('BarcodeDetector' in window) {
-            var det = new window.BarcodeDetector({ formats: FORMATS });
+          return detector().then(function (det) {
+            var native = !window.BarcodeDetector.toString().indexOf('native') ? 'BarcodeDetector' : 'BarcodeDetector';
+            var busy = false;
             timer = setInterval(function () {
-              if (!active || video.readyState < 2) return;
+              if (!active || busy || video.readyState < 2) return;
+              busy = true;
               det.detect(video).then(function (codes) {
+                busy = false;
                 if (codes && codes.length) fire(codes[0].rawValue, onCode);
-              }).catch(function () {});
-            }, 250);
-            return { engine: 'BarcodeDetector' };
-          }
-          return loadZXing().then(function (ZXing) {
-            var hints = new Map();
-            hints.set(ZXing.DecodeHintType.POSSIBLE_FORMATS, [
-              ZXing.BarcodeFormat.EAN_13, ZXing.BarcodeFormat.UPC_A, ZXing.BarcodeFormat.UPC_E, ZXing.BarcodeFormat.EAN_8
-            ]);
-            zxReader = new ZXing.BrowserMultiFormatReader(hints, 250);
-            zxReader.decodeFromStream(s, video, function (result) {
-              if (result && active) fire(result.getText(), onCode);
-            });
-            return { engine: 'ZXing' };
+              }).catch(function () { busy = false; });
+            }, 200);
+            return { engine: native };
           });
         });
       });
@@ -84,9 +84,8 @@
   function stop() {
     active = false;
     if (timer) { clearInterval(timer); timer = null; }
-    if (zxReader) { try { zxReader.reset(); } catch (e) {} zxReader = null; }
     if (stream) { stream.getTracks().forEach(function (t) { t.stop(); }); stream = null; }
   }
 
-  window.ReturnRateScan = { start: start, stop: stop, normalise: normalise };
+  window.ReturnRateScan = { start: start, stop: stop, normalise: normalise, decodeImage: decodeImage };
 })();

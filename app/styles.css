@@ -99,3 +99,7 @@ button:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
 
 .refund:focus, .lead:focus, h1:focus { outline: none; }
 [hidden] { display: none !important; }
+
+.btn-file { display: block; margin: 10px 0; }
+.btn-file .again.alt { display: block; text-align: center; background: #fff; color: var(--accent); border: 2px solid var(--accent); }
+.btn-file input:focus + .again.alt { outline: 3px solid var(--accent); outline-offset: 2px; }

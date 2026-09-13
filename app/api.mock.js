@@ -39,5 +39,12 @@
     });
   }
 
-  window.ReturnRateApi = { lookup: lookup, base: 'mock', mock: true, items: ITEMS };
+  // The label photo, mocked: a file named *dark* can't be read; anything else is a SYNTHETIC water bottle.
+  function label(file) {
+    return new Promise(function (resolve) { setTimeout(function () {
+      if (file && /dark/i.test(file.name || '')) return resolve({ status: 'unknown', message: "We couldn't read enough of the label. Look on the label for the words Return for Refund. If they're there and you bought it in Newfoundland and Labrador, we take it: 5¢, or 10¢ for wine and spirits in a glass or plastic bottle. If they're not there, there's no refund.", name: '' });
+      resolve({ status: 'known', item: { upc: null, name: 'Test Spring Water (SYNTHETIC)', brand: 'Test', size_ml: 500, accepted: true, verdict: 'Yes, we take this', depot_policy: false, class: 'regular', refund_cents: 5, material: 'clear-plastic', why: 'Water in a plastic bottle: 5¢. From the label: the label says Return for Refund.', source: 'label', note: NOTE } });
+    }, 300); });
+  }
+  window.ReturnRateApi = { lookup: lookup, label: label, base: 'mock', mock: true, items: ITEMS };
 })();

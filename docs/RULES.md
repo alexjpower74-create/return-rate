@@ -122,6 +122,11 @@ Order of decisions (first match wins):
 ## Open questions for Alexander (the app says "ask at the counter" until answered)
 - Kombucha and "hard kombucha" (alcoholic): treated as regular / liquor by the rules above; confirm the depot sees them that way.
 
+## Three ways the app knows, in order
+1. **The exact barcode is in the list** (built from public product data, gated by the rules below).
+2. **The maker's barcode prefix** (`data/prefixes.json`): the first six digits of a UPC belong to one company. For makers that sell nothing but ready-to-serve non-alcoholic drinks in NL (Coca-Cola, PepsiCo, Monster, Red Bull, Tropicana, Lassonde, Ocean Spray, Keurig Dr Pepper, …) every container up to 5 L is 5¢ whatever it is made of, so the maker alone answers. Mixed makers (Costco Kirkland, Loblaw PC) are listed but DISABLED because they also sell milk, plant milks and formula.
+3. **The label photo.** If neither knows, the person photographs the front label and a vision model reads exactly what MMSB rules on: the kind of drink, the container, the size, and the label words (Milk; fortified plant-based beverage; not a source of protein; Meal Replacement / Formulated Liquid Diet; Return for Refund). The rules engine decides; the model never outputs a verdict or a cents figure; the answer shows what the label said. If the label can't be read, the app says so and gives the Return for Refund test. A readable non-alcoholic drink whose label says Return for Refund is a sure 5¢ even if the container material can't be told, because every such container is 5¢.
+
 ## What a barcode can and cannot decide (design rule for the product list)
 **There is no staff side, no PIN and no confirming step (Alexander, 2026-09-13): the same app for customers and employees. When the barcode can't decide, the app tells the person exactly what to read on the label, using MMSB's own label rules below.**
 MMSB publishes **no product registry**; it rules product by product on request from the label. So a barcode database (built from public product data) may auto-answer **only** where the label cannot change the answer:

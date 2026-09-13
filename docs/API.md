@@ -12,6 +12,13 @@ Base: the Worker (`return-rate`). All JSON. CORS open for GET. Errors: `{ "error
 - too many → 429 `{ error: "Too many scans in a row, give it a minute." }`
 Every lookup is logged to `lookups` (found or not) with a hashed IP; nothing personal is stored.
 
+`POST /label` — multipart `photo` (image, ≤ 8 MB) and optional `upc`. A vision model reads the front label; the rules engine decides.
+- readable and decided → 200, the same shape as a known item plus `source: "label"` and `evidence: ["the label says Return for Refund", …]`; `why` ends with "From the label: …".
+- not readable / not decided → 404 `{ accepted: null, verdict: "Check the label", error: "We couldn't read enough of the label. <label test>", evidence, hint }`.
+- vision unavailable → 503 with a plain sentence.
+
+`GET /item/:upc` also answers from the maker prefix when the exact barcode is not in the list (`source: "maker"`, `name: null`, `why` names the maker); a 404 carries `label_photo: true` so the app offers the photo step.
+
 `GET /stats` → `{ items, lookups_today, unknown_today, top_unknown: [{ upc, n }] }` (so Alexander can see which barcodes people scan that the list lacks).
 
 Rules the Worker enforces: `class`, `refund_cents` and `why` come from `worker/src/rules.js` (docs/RULES.md) applied to the stored drink + material + size, never from the client or the data file; class `unknown` is never stored or returned as an answer (it is a 404); `brewer` means a local refillable beer bottle (incl. Quidi Vidi Iceberg blue): `refund_cents: 5`, `depot_policy: true`, `why` says APCO takes it at 5¢ and some depots don't.
