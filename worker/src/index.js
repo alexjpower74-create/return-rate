@@ -168,7 +168,7 @@ async function postLabel(request, env) {
     const what = String(read.what_it_is || 'this').trim();
     return json({ upc: upc || null, name: read.name || null, brand: read.brand || null, size_ml: null, material: null, source: 'label',
       accepted: false, verdict: "No, we don't take this", class: 'none', refund_cents: 0, depot_policy: false,
-      why: `${what.charAt(0).toUpperCase() + what.slice(1)} isn't a drink. The depot only takes containers that held a beverage.`,
+      why: `${what.charAt(0).toUpperCase() + what.slice(1)} ${/s$/i.test(what) && !/(ss|us|is)$/i.test(what) ? "aren't" : "isn't"} a drink. The depot only takes containers that held a beverage.`,
       evidence: ['not a beverage container'], note: NOTE, nl_only: 'Refund applies to containers bought in Newfoundland and Labrador.' });
   }
   // Map what the label says to the rules' inputs. The label words outrank the model's category guess.
