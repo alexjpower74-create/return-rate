@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#ffffff">
+<!-- Main fills this with the deployed Worker address (no trailing slash). -->
+<meta name="api-base" content="http://localhost:5902">
+<title>Return Rate</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="./">Return Rate</a>
+  <span class="depot">APCO Recycling, Grand Falls-Windsor</span>
+</header>
+
+<main id="app">
+
+  <!-- Start -->
+  <section id="screen-start" class="screen" data-screen="start">
+    <h1>Point the camera at the barcode</h1>
+    <div class="camera" id="camera">
+      <video id="video" playsinline muted autoplay></video>
+      <p class="camera-note" id="camera-note" hidden></p>
+    </div>
+    <p class="promise">If we don't know an item, we say so.</p>
+
+    <form id="type-form" class="type-form" autocomplete="off">
+      <label for="upc">Type the number</label>
+      <div class="row">
+        <input id="upc" name="upc" inputmode="numeric" pattern="[0-9 ]*" placeholder="Digits under the barcode" aria-describedby="upc-help">
+        <button type="submit" id="check">Check</button>
+      </div>
+      <p id="upc-help" class="help">8, 12 or 13 digits. Spaces are fine.</p>
+      <p id="type-error" class="error" role="alert" hidden></p>
+    </form>
+  </section>
+
+  <!-- Answer -->
+  <section id="screen-answer" class="screen" data-screen="answer" hidden>
+    <p class="refund" id="refund"></p>
+    <p class="product" id="product"></p>
+    <p class="kind" id="kind"></p>
+    <p class="why" id="why"></p>
+    <p class="money">The counter's count is the one that pays.</p>
+    <p class="tips">Empty it. Caps off, labels on. Don't crush it.</p>
+    <button type="button" class="again">Scan another</button>
+  </section>
+
+  <!-- Unknown -->
+  <section id="screen-unknown" class="screen" data-screen="unknown" hidden>
+    <p class="refund small">We don't know this one yet.</p>
+    <p class="lead">Show it at the counter and we'll add it.</p>
+    <p class="product" id="unknown-upc"></p>
+    <p class="money">The counter's count is the one that pays.</p>
+    <button type="button" class="again">Scan another</button>
+  </section>
+
+  <!-- Offline / can't reach -->
+  <section id="screen-offline" class="screen" data-screen="offline" hidden>
+    <p class="refund small">We can't check right now.</p>
+    <p class="lead" id="offline-reason">Your phone looks offline. Try again when you have a signal, or ask at the counter.</p>
+    <p class="money">The counter's count is the one that pays.</p>
+    <button type="button" class="again" id="retry">Try again</button>
+    <button type="button" class="again secondary">Scan another</button>
+  </section>
+
+  <!-- Busy -->
+  <section id="screen-busy" class="screen" data-screen="busy" hidden>
+    <p class="lead">Checking…</p>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <p>Refunds follow the Newfoundland and Labrador rules. Refillable beer bottles from local brewers go back to the beer store.</p>
+</footer>
+
+<script src="api.js"></script>
+<script>if (/[?&]mock=1(&|$)/.test(location.search)) document.write('<script src="api.mock.js"><\/script>');</script>
+<script src="scan.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
