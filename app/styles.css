@@ -106,3 +106,6 @@ button:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
 
 .btn-file .again { display: block; text-align: center; }
 .lead.small { font-size: 16px; color: var(--muted); margin: 0 0 14px; }
+
+.btn-file .again { background: var(--accent); color: #fff; border: 2px solid var(--accent); border-radius: 14px; padding: 16px; font-size: 20px; font-weight: 700; cursor: pointer; min-height: 56px; }
+.btn-file .again.alt { background: #fff; color: var(--accent); }
