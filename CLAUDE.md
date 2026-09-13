@@ -1,0 +1,2 @@
+# Return Rate
+Read PLAN.md first; it is the contract. docs/API.md is the contract between app and worker. You own only your slice's files. Verify, commit only your paths, report in docs/build-report-<id>.md. No visible Chrome; screenshot with pwshot. A check that cannot fail measured nothing: make each check red once. Plain English on every screen; the users are bottle-depot customers. RULES: docs/RULES.md is the authority on refunds; never invent a refund; unknown is an honest answer; the counter's count is the one that pays, on every answer screen.
