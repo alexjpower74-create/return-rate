@@ -1,0 +1,47 @@
+barcode          expected  got       cents  name
+  06782900       regular   regular   5      Coca-Cola Original Taste
+  0069000004258  regular   regular   5      Pepsi
+  06224017       regular   regular   5      GINGER ALE
+  06541539       regular   regular   5      7 up zero sugar
+  05490733       regular   regular   5      Dr Pepper
+  0067000110573  regular   regular   5      Zero Sugar Lemon-Lime Soda
+  0067000011559  regular   regular   5      Fanta orange blossom gazeuse
+  0055000201414  regular   regular   5      Naturali Aranciata Rossa
+  0069000149171  regular   regular   5      sparkling water beverage lime
+  07478341       regular   regular   5      Perrier Mineral Water
+  0671785501008  regular   regular   5      Eska Natural Spring Water
+  0057379600119  regular   regular   5      Natural Spring Water
+  0096619321841  regular   regular   5      Natural spring water
+  0056918000304  regular   regular   5      Lemon Flavour Carbonated Natural Spring Water
+  0069000052266  regular   regular   5      Strawberry Kiwi Aquafina Plus+
+  0048500205549  regular   regular   5      Orange Juice
+  0059600060228  regular   regular   5      Orange Juice With Pulp
+  0060383048440  regular   regular   5      Orange juice with pulp
+  0067311010333  regular   regular   5      Jus de Pomme fait de concentré
+  0059600048141  regular   regular   5      Apple Juice
+  0063211055702  regular   regular   5      Original V8
+  0069000016480  regular   regular   5      Lemonade
+  0180854000101  regular   regular   5      Red Bull Energy Drink
+  0070847015208  regular   regular   5      Monster Energy Zero Ultra
+  0083900006266  regular   regular   5      Nestea Thé Glacé Citron Naturel
+  0613008722678  regular   regular   5      Arizona Ice Tea with Lemon Flavor
+  0818762000349  regular   regular   5      Kombucha, Fresh Ginger flavour
+  0776029701852  regular   regular   5      Moosehead Canadian Lager
+  0056910600007  regular   regular   5      Beer
+  0062067547270  regular   regular   5      Michelob Ultra
+  0072890000026  regular   regular   5      Heinelen Lager Beer
+  0063657039960  regular   regular   5      Raspberry Ginger
+  0080480985332  regular   regular   5      Rum Punch
+  0082000783749  liquor    liquor    10     Vodka
+  0082000775874  liquor    liquor    10     Northern Harvest Rye Blended Canadian Whiskey
+  0018341751109  liquor    liquor    10     Barefoot Merlot, California
+  0626027814026  none      none      0      Oat Milk - Original
+  0041570055311  none      none      0      Almond Breeze Unsweetened Original
+  0068700011016  none      none      0      Partly Skimmed Milk
+  0041679213773  none      none      0      BOOST HIGH PROTEIN
+  2000000000015  unknown   unknown          SYNTHETIC test barcode 1: not a real product, the Worker must answer 404  (We don't know this one yet. Show it at the counter and we'll add it.)
+  2000000000022  unknown   unknown          SYNTHETIC test barcode 2: not a real product, the Worker must answer 404  (We don't know this one yet. Show it at the counter and we'll add it.)
+  2000000000039  unknown   unknown          SYNTHETIC test barcode 3: not a real product, the Worker must answer 404  (We don't know this one yet. Show it at the counter and we'll add it.)
+  2000000000046  unknown   unknown          SYNTHETIC test barcode 4: not a real product, the Worker must answer 404  (We don't know this one yet. Show it at the counter and we'll add it.)
+
+44/44 right
