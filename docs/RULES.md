@@ -3,9 +3,11 @@
 Researched 2026-09-13 from the primary sources. `worker/src/rules.js` implements THIS file; the tests quote it. If a case isn't covered here, the answer is **unknown**, never a guess.
 
 ## Sources
+0. Alexander (APCO Recycling owner), 2026-09-13: depot policy on local refillable and Quidi Vidi Iceberg bottles.
 1. Waste Management Regulations, 2003 (NLR 59/03) under the Environmental Protection Act, ss. 12, 14, 18: https://www.assembly.nl.ca/legislation/sr/regulations/rc030059.htm
 2. MMSB Beverage Distributor Guide (April 2025), sections 5 ("Deposit-Bearing Beverage Containers", the chart) and 6 ("Not Included"), Appendices A and B: https://mmsb.nl.ca/wp-content/uploads/2025/04/BeverageDistributorsGuide.pdf
 3. MMSB, Used Beverage Containers program page and FAQ "What's accepted / not accepted": https://mmsb.nl.ca/programs/used-beverage-containers/ , https://mmsb.nl.ca/faq-type/whats-accepted-not-accepted/
+5. Liquor Corporation Act definitions of "beer" and "alcoholic liquor" (as consolidated in CNR 1162/96): https://www.assembly.nl.ca/legislation/sr/annualregs/CNR1996/Cr961162.htm
 4. NLC FAQ on empties (domestic beer bottles go to Brewer's Agents, $1.20/dozen; everything else to a Green Depot): https://nlliquor.com/faq/
 
 ## What a "beverage container" is (reg. s.12, Guide p.2)
@@ -57,31 +59,50 @@ So: **10¢ only for wine and spirits in plastic, glass or tetra/gable, 50 mL min
 - **Imported beer bottles** (non-refillable glass): **5¢** at the depot.
 - **Local brewers' refillable bottles**: not MMSB; Brewer's Agent, $1.20/dozen. The app answers "Refillable local beer bottle: take it back to the beer store or ask at the counter."
 
+## What the label says decides it (Guide Appendix A and B, product by product)
+MMSB rules by the words on the label, aligned to the Canadian Food and Drug Regulations, not by what the drink "is":
+- **DEPOSIT (refundable):** *Milk2Go Sport* "milk protein shake" (not labelled as Milk); *Nesquik* "flavoured milk beverage" carton (not labelled as Milk); *Pedialyte* oral rehydration (not labelled formulated liquid diet or infant formula); *Earth's Own Almond SoFresh* and *Great Value Almond Drink* labelled "fortified almond beverage, **not a source of protein**".
+- **NO DEPOSIT:** *Central Dairies* 2%, skim and **chocolate milk**, *Grand Pré* milk (labelled "Milk" under B.08.003/004/005/016; flavoured milk that is labelled Milk counts as milk); *Silk* and *Natura* "fortified soy beverage" (B.01.500, a source of protein); *Carnation Breakfast Essentials* with "Meal Replacement" on the label (B.24.200).
+So: a protein shake or "milk beverage" that is NOT labelled as Milk → 5¢; anything labelled Milk, or a fortified plant beverage that is a source of protein, or "Meal Replacement" / "Formulated Liquid Diet" → no refund. When the label is the deciding fact and the app cannot see it, the answer is **unknown / ask at the counter**, never a guess.
+
+## Alcohol words, precisely (Liquor Corporation Act definitions, used by the regulation)
+- **"beer"** = an alcoholic beverage from fermenting barley, malt and hops in water. That is beer, ale, lager, stout, porter. **Not** beer: ciders, coolers, hard seltzers, malt-based "teas" and "lemonades" (Twisted Tea, Mike's, Smirnoff Ice, White Claw), canned cocktails, wine, spirits, sake, mead. Those are **alcoholic liquor** for the refund, so: glass/plastic/tetra → 10¢, can/pouch/bag-in-box → 5¢, 50 mL miniature → 5¢.
+- **"alcoholic liquor"** = 3% alcohol by volume and up, other than beer. So **non-alcoholic beer** (0.5%) and **de-alcoholised wine** are ordinary non-alcoholic beverages: 5¢ in any container, including glass. **Hard kombucha** at 3%+ is liquor; ordinary kombucha is 5¢.
+- The regulation itself (s.14, s.18) says 20¢/10¢ for any container that held alcoholic liquor; MMSB's 2025 chart narrows the 20¢/10¢ to plastic, glass and tetra/gable and puts liquor in cans, pouches and bag-in-box at 8¢/5¢. **The depot pays by MMSB's chart**, because that is what the distributor charged at the till.
+
+## What a depot may refuse (regulation s.18(2), verbatim)
+"A depot operator shall not refuse to accept a beverage container for refund, except where (a) the beverage container is crushed, broken or contaminated; (b) the beverage container has no labelling which identifies what it contained; or (c) the beverage container was rejected or discarded by the manufacturer during the manufacturing process."
+So the app tells the customer: a crushed can, a broken bottle, a dirty container or one with no label may be refused at the counter even if the product is refundable.
+
+## APCO's own policy (Alexander, 2026-09-13), shown as APCO's, not MMSB's
+- **Local brewers' refillable beer bottles** (Labatt, Molson, Quidi Vidi and other NL brewers): MMSB does not cover them and some depots refuse them; **APCO takes them and pays 5¢**. The app says: "Not part of the MMSB program. APCO Recycling takes these and pays 5¢; some other depots don't."
+- **Quidi Vidi Iceberg blue bottles**: same: **APCO takes them at 5¢**; some depots don't. Same sentence, naming the bottle.
+- Class `brewer` therefore returns `refund_cents: 5` with `depot_policy: true` and that sentence. If this app is ever used at another depot, `brewer` must be re-decided per depot; never present it as a provincial rule.
+
 ## Condition rules the app repeats (MMSB FAQ)
 Empty it. Caps, straws and garbage off. **Labels on** (staff must identify the product). **Don't crush or flatten** (identification, bag weight limits, baling). Glass not broken. The counter's count is the one that pays.
 
 ## The classifier `classify(input)` → `{ class, refund_cents, why }`
 Input: `{ drink, material, size_ml, refillable, alcohol_pct, label_flags }` where
-- `drink` ∈ `soft-drink | water | sparkling-water | juice | vegetable-juice | sports | energy | tea | coffee | kombucha | beer | cider | cooler | wine | spirits | sake | milk | plant-milk | plant-drink-not-protein | infant-formula | meal-replacement | formulated-liquid-diet | concentrate | distilled-water | unknown`
+- `drink` ∈ `soft-drink | water | sparkling-water | juice | vegetable-juice | sports | electrolyte | energy | tea | coffee | kombucha | protein-shake | flavoured-milk-beverage | na-beer | beer | cider | cooler | seltzer | malt-beverage | cocktail | wine | spirits | sake | mead | hard-kombucha | milk | plant-milk | plant-drink-not-protein | infant-formula | meal-replacement | formulated-liquid-diet | concentrate | distilled-water | unknown` (`milk` = labelled Milk incl. chocolate milk; `flavoured-milk-beverage` and `protein-shake` = NOT labelled Milk)
 - `material` ∈ `aluminum | steel | clear-plastic | other-plastic | glass | tetra | gable | pouch | bag-in-box | unknown`
-Output classes: `regular` (5¢), `liquor` (10¢), `none` (0¢, with the reason), `brewer` (refillable local beer, not MMSB, "ask at the counter"), `unknown` (never shown as an answer).
+Output classes: `regular` (5¢), `liquor` (10¢), `none` (0¢, with the reason), `brewer` (local refillable beer bottle incl. Quidi Vidi Iceberg blue: not MMSB; **at APCO 5¢**, flagged `depot_policy: true`, wording says some depots don't take them), `unknown` (never shown as an answer).
 
 Order of decisions (first match wins):
 1. `size_ml > 5000` → none ("over 5 litres").
-2. `refillable && drink === 'beer'` → brewer. Any other `refillable` → none.
+2. `refillable && drink === 'beer'` (incl. Quidi Vidi Iceberg blue) → brewer (5¢ at APCO, depot policy). Any other `refillable` → none.
 3. drink ∈ {milk, plant-milk, infant-formula, meal-replacement, formulated-liquid-diet, concentrate, distilled-water} → none (with the reason). `plant-drink-not-protein` → continues as regular.
 4. drink === 'unknown' or material === 'unknown' where it matters (see 6) → unknown.
-5. drink ∈ {beer} → regular (5¢) regardless of material.
-6. drink ∈ {wine, spirits, sake, cider, cooler} (alcoholic liquor other than beer):
+5. drink ∈ {beer} → regular (5¢) regardless of material. `na-beer` → regular.
+6. drink ∈ {wine, spirits, sake, mead, cider, cooler, seltzer, malt-beverage, cocktail, hard-kombucha} (alcoholic liquor other than beer):
    - `size_ml <= 50` → regular (5¢, miniature).
    - material ∈ {clear-plastic, other-plastic, glass, tetra, gable} → liquor (10¢).
    - material ∈ {aluminum, steel, pouch, bag-in-box} → regular (5¢).
    - material unknown → unknown.
-7. Everything else in the "beverage" list (soft drinks, water, sparkling water, juices, sports, energy, tea, coffee, kombucha, plant-drink-not-protein) → regular (5¢), any material, any size ≤ 5 L.
+7. Everything else in the "beverage" list (soft drinks, water, sparkling water, juices, sports, electrolyte, energy, tea, coffee, kombucha, protein-shake, flavoured-milk-beverage, plant-drink-not-protein) → regular (5¢), any material, any size ≤ 5 L.
 
-`why` is one plain sentence a customer can read, e.g. "Wine in a glass bottle: 10¢." / "Milk has no deposit, so there's no refund." / "A local brewer's refillable bottle goes back to the beer store; ask at the counter."
+`why` is one plain sentence a customer can read; `depot_policy: true` marks answers that are APCO's policy rather than MMSB's, e.g. "Wine in a glass bottle: 10¢." / "Milk has no deposit, so there's no refund." / "A local brewer's refillable bottle goes back to the beer store; ask at the counter."
 
 ## Open questions for Alexander (the app says "ask at the counter" until answered)
-- Does APCO take local refillable beer bottles voluntarily, and at what amount?
 - Kombucha and "hard kombucha" (alcoholic): treated as regular / liquor by the rules above; confirm the depot sees them that way.
 - Tetra-pak wine: the 2025 Guide chart says 10¢; MMSB's web summary once read 5¢. The Guide is the newer, signed document, so 10¢, but confirm with a real carton at the counter.
