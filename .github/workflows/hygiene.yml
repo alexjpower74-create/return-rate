@@ -14,3 +14,8 @@ jobs:
       # then scans this tree for home paths, LAN hostnames, Gmail addresses,
       # 1Password refs and Tailscale IPs. Allow list: .personal-data-allow
       - run: tools/check-no-personal-data --self-test && tools/check-no-personal-data
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install
+      - run: npx biome ci .

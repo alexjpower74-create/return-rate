@@ -1,712 +1,712 @@
 [
- {
-  "upc": "3560070475711",
-  "name": "Lait frais demi-écrémé",
-  "brand": "CMI (Carrefour Marchandises Internationales)",
-  "drink": "milk",
-  "label_group": "label-milk",
-  "material": "other-plastic",
-  "size_ml": 1000,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0626027814026",
-  "name": "Oat Milk - Original",
-  "brand": "Earth's Own",
-  "drink": "plant-milk",
-  "label_group": "label-plant",
-  "material": "tetra",
-  "size_ml": 946,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0626027814071",
-  "name": "Barista Oat",
-  "brand": "Earth's Own",
-  "drink": "plant-milk",
-  "label_group": "label-plant",
-  "material": "tetra",
-  "size_ml": 946,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0041570055311",
-  "name": "Almond Breeze Unsweetened Original",
-  "brand": "Blue Diamond Almonds",
-  "drink": "plant-milk",
-  "label_group": "label-plant",
-  "material": "tetra",
-  "size_ml": 946,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0068200010120",
-  "name": "PūrFiltre 2% Milk",
-  "brand": "Lactantia",
-  "drink": "milk",
-  "label_group": "label-milk",
-  "material": "tetra",
-  "size_ml": 2000,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0025293001817",
-  "name": "Silk Zero sugar Almond",
-  "brand": "Silk",
-  "drink": "plant-milk",
-  "label_group": "label-plant",
-  "material": "tetra",
-  "size_ml": 946,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0064420320148",
-  "name": "Milk protein shake made with ultrafiltered partly skimmed milk",
-  "brand": "Natrel",
-  "drink": "milk",
-  "label_group": "label-milk",
-  "material": "tetra",
-  "size_ml": 2000,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0064420010223",
-  "name": "PARTLY SKIMMED MILK",
-  "brand": "Natrel",
-  "drink": "milk",
-  "label_group": "label-milk",
-  "material": "other-plastic",
-  "size_ml": 2000,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0063667301552",
-  "name": "Boisson De Soya, 946 ML, Vanille",
-  "brand": "natura",
-  "drink": "plant-milk",
-  "label_group": "label-plant",
-  "material": "tetra",
-  "size_ml": 946,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0025293001886",
-  "name": "Almond",
-  "brand": "Silk",
-  "drink": "plant-milk",
-  "label_group": "label-plant",
-  "material": "tetra",
-  "size_ml": 1890,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0025293005549",
-  "name": "Protein Soy",
-  "brand": "Silk",
-  "drink": "plant-milk",
-  "label_group": "label-plant",
-  "material": "tetra",
-  "size_ml": 946,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0055872024012",
-  "name": "Lait 2%",
-  "brand": "Québon",
-  "drink": "milk",
-  "label_group": "label-milk",
-  "material": "tetra",
-  "size_ml": 1000,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0055872025019",
-  "name": "Partly skimmed milk 2%",
-  "brand": "Québon",
-  "drink": "milk",
-  "label_group": "label-milk",
-  "material": "tetra",
-  "size_ml": 2000,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0068700011016",
-  "name": "Partly Skimmed Milk",
-  "brand": "Dairyland",
-  "drink": "milk",
-  "label_group": "label-milk",
-  "material": "other-plastic",
-  "size_ml": 4000,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0096619342556",
-  "name": "Almond milk",
-  "brand": "Kirkland signature",
-  "drink": "plant-milk",
-  "label_group": "label-plant",
-  "material": "tetra",
-  "size_ml": 250,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0025293002180",
-  "name": "Almond",
-  "brand": "Silk",
-  "drink": "plant-milk",
-  "label_group": "label-plant",
-  "material": "tetra",
-  "size_ml": 946,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0062884520012",
-  "name": "2% Cow’s Milk",
-  "brand": "Grand PRÉ (UHT Shelf stable)",
-  "drink": "milk",
-  "label_group": "label-milk",
-  "material": "tetra",
-  "size_ml": 1000,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0055872026016",
-  "name": "2 % partly skimmed milk",
-  "brand": "Québon",
-  "drink": "milk",
-  "label_group": "label-milk",
-  "material": "other-plastic",
-  "size_ml": 4000,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0055872515176",
-  "name": "Fine-Filtered Organic Whole Milk 3.8% M.F.",
-  "brand": "Natrel",
-  "drink": "milk",
-  "label_group": "label-milk",
-  "material": "tetra",
-  "size_ml": 2000,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0036632075321",
-  "name": "oat",
-  "brand": "Silk",
-  "drink": "plant-milk",
-  "label_group": "label-plant",
-  "material": "tetra",
-  "size_ml": 1750,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0056800658903",
-  "name": "Silk Oat",
-  "brand": "Silk",
-  "drink": "plant-milk",
-  "label_group": "label-plant",
-  "material": "tetra",
-  "size_ml": 946,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0056800715811",
-  "name": "Oat Fortified Beverage, Original, Shelf Stable CAN",
-  "brand": "Silk",
-  "drink": "plant-milk",
-  "label_group": "label-plant",
-  "material": "tetra",
-  "size_ml": 946,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0811620021784",
-  "name": "ultrafiltered partly skimmed milk",
-  "brand": "fairlife",
-  "drink": "milk",
-  "label_group": "label-milk",
-  "material": "other-plastic",
-  "size_ml": 1500,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0811620021791",
-  "name": "ultrafiltered WHOLE MILK",
-  "brand": "fairlife",
-  "drink": "milk",
-  "label_group": "label-milk",
-  "material": "other-plastic",
-  "size_ml": 1500,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "8436586781132",
-  "name": "Just oat",
-  "brand": "Vege All",
-  "drink": "plant-milk",
-  "label_group": "label-plant",
-  "material": "tetra",
-  "size_ml": 1000,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0024182027068",
-  "name": "Edensoy Unsweetened Soymilk, Organic",
-  "brand": "Eden",
-  "drink": "plant-milk",
-  "label_group": "label-plant",
-  "material": "tetra",
-  "size_ml": 946,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0065700100276",
-  "name": "Partly skimmed milk",
-  "brand": "Beatrice",
-  "drink": "milk",
-  "label_group": "label-milk",
-  "material": "other-plastic",
-  "size_ml": 4000,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0068200010021",
-  "name": "Lait homogénéisé - PūrFiltre - 3.25 % M.G. - Goût Frais",
-  "brand": "Lactantia",
-  "drink": "milk",
-  "label_group": "label-milk",
-  "material": "tetra",
-  "size_ml": 2000,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0811620021777",
-  "name": "Partially Skimmed Chocolate Milk",
-  "brand": "fairlife",
-  "drink": "milk",
-  "label_group": "label-milk",
-  "material": "other-plastic",
-  "size_ml": 1500,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0025293002197",
-  "name": "Silk Almond Vanilla",
-  "brand": "Silk",
-  "drink": "plant-milk",
-  "label_group": "label-plant",
-  "material": "tetra",
-  "size_ml": 946,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0041570094464",
-  "name": "Orig. Unsweet. Almond-Coconut Bev. Shelf-stable.",
-  "brand": "Blue Diamond Almond Breeze",
-  "drink": "plant-milk",
-  "label_group": "label-plant",
-  "material": "tetra",
-  "size_ml": 946,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0055872525175",
-  "name": "Natrel Organic 2% Milk",
-  "brand": "Natrel",
-  "drink": "milk",
-  "label_group": "label-milk",
-  "material": "tetra",
-  "size_ml": 2000,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0063667090081",
-  "name": "Fortified almond beverage Chocolate",
-  "brand": "Natura",
-  "drink": "plant-milk",
-  "label_group": "label-plant",
-  "material": "tetra",
-  "size_ml": 946,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0064420320131",
-  "name": "2% Vanilla Milk with Protein",
-  "brand": "Natrel",
-  "drink": "milk",
-  "label_group": "label-milk",
-  "material": "clear-plastic",
-  "size_ml": 2000,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0066800000152",
-  "name": "2% M.F. Fresh Partly Skimmed Milk",
-  "brand": "Neilson",
-  "drink": "milk",
-  "label_group": "label-milk",
-  "material": "other-plastic",
-  "size_ml": 4000,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0068700011030",
-  "name": "PARTLY SKIMMED MILK",
-  "brand": "Dairyland",
-  "drink": "milk",
-  "label_group": "label-milk",
-  "material": "other-plastic",
-  "size_ml": 4000,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0068700282669",
-  "name": "2% Lactose Free Partly Skimmed Milk",
-  "brand": "Dairyland",
-  "drink": "milk",
-  "label_group": "label-milk",
-  "material": "other-plastic",
-  "size_ml": 4000,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0096619057986",
-  "name": "Partly skimmed milk",
-  "brand": "Kirkland",
-  "drink": "milk",
-  "label_group": "label-milk",
-  "material": "other-plastic",
-  "size_ml": 2000,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0626027087802",
-  "name": "Almond So Nice Original - Organic",
-  "brand": "Earth's Own",
-  "drink": "plant-milk",
-  "label_group": "label-plant",
-  "material": "other-plastic",
-  "size_ml": 1750,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0626027700602",
-  "name": "Almond SoFresh Unsweetened Original",
-  "brand": "Earth's Own 🇨🇦",
-  "drink": "plant-milk",
-  "label_group": "label-plant",
-  "material": "other-plastic",
-  "size_ml": 3950,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0626027861402",
-  "name": "Oat Original",
-  "brand": "Earth’s Own 🇨🇦",
-  "drink": "plant-milk",
-  "label_group": "label-plant",
-  "material": "tetra",
-  "size_ml": 946,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0778472333338",
-  "name": "Goat Milk 3.25%",
-  "brand": "Happy Days Dairies 🇨🇦",
-  "drink": "milk",
-  "label_group": "label-milk",
-  "material": "other-plastic",
-  "size_ml": 2000,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0036632076755",
-  "name": "Barista Collection, Almond Original",
-  "brand": "Silk",
-  "drink": "plant-milk",
-  "label_group": "label-plant",
-  "material": "tetra",
-  "size_ml": 946,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0041570109168",
-  "name": "Vanilla Unsweetened Almond Beverage, Fortified",
-  "brand": "Blue Diamond Almonds",
-  "drink": "plant-milk",
-  "label_group": "label-plant",
-  "material": "tetra",
-  "size_ml": 1890,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0041679213773",
-  "name": "BOOST HIGH PROTEIN",
-  "brand": "Nestle Health Science",
-  "drink": "meal-replacement",
-  "label_group": "label-nutrition",
-  "material": "tetra",
-  "size_ml": 237,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0056800660814",
-  "name": "Oat Milk - Unsweetened Vanilla",
-  "brand": "Silk",
-  "drink": "plant-milk",
-  "label_group": "label-plant",
-  "material": "tetra",
-  "size_ml": 946,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0060383707378",
-  "name": "2% M.F. Organic Party Skimmed Milk",
-  "brand": "President's Choice",
-  "drink": "milk",
-  "label_group": "label-milk",
-  "material": "other-plastic",
-  "size_ml": 4000,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0064420010148",
-  "name": "Partly Skimmed Milk",
-  "brand": "Natrel",
-  "drink": "milk",
-  "label_group": "label-milk",
-  "material": "other-plastic",
-  "size_ml": 4000,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0066184001097",
-  "name": "Organic 1% Partly Skimmed Milk",
-  "brand": "Avalon",
-  "drink": "milk",
-  "label_group": "label-milk",
-  "material": "tetra",
-  "size_ml": 1000,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0066800004044",
-  "name": "Partly Skimmed Milk",
-  "brand": "Trutaste",
-  "drink": "milk",
-  "label_group": "label-milk",
-  "material": "other-plastic",
-  "size_ml": 4000,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0066800100685",
-  "name": "1% M.F. Chocolate Partly Skimmed Milk",
-  "brand": "Neilson",
-  "drink": "milk",
-  "label_group": "label-milk",
-  "material": "other-plastic",
-  "size_ml": 750,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0066800100890",
-  "name": "1% Buttermilk",
-  "brand": "Nelson",
-  "drink": "milk",
-  "label_group": "label-milk",
-  "material": "tetra",
-  "size_ml": 2000,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0068200466057",
-  "name": "3.25% Lactose Free Homogenized Milk",
-  "brand": "Lactantia",
-  "drink": "milk",
-  "label_group": "label-milk",
-  "material": "other-plastic",
-  "size_ml": 1500,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0068200466484",
-  "name": "2% Lactose Free Partly Skimmed Milk",
-  "brand": "Lactantia",
-  "drink": "milk",
-  "label_group": "label-milk",
-  "material": "other-plastic",
-  "size_ml": 1500,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0068200910536",
-  "name": "Whole Milk 3,8%",
-  "brand": "Lactantia",
-  "drink": "milk",
-  "label_group": "label-milk",
-  "material": "tetra",
-  "size_ml": 2000,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0068700011078",
-  "name": "Skim Milk",
-  "brand": "Dairyland",
-  "drink": "milk",
-  "label_group": "label-milk",
-  "material": "other-plastic",
-  "size_ml": 4000,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0068700102998",
-  "name": "Chocolate Milk",
-  "brand": "Dairyland",
-  "drink": "milk",
-  "label_group": "label-milk",
-  "material": "other-plastic",
-  "size_ml": 4000,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0096619177592",
-  "name": "2% M.F. Organic Partly Skimmed Milk",
-  "brand": "Kirkland Signature",
-  "drink": "milk",
-  "label_group": "label-milk",
-  "material": "other-plastic",
-  "size_ml": 4000,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0626027814088",
-  "name": "Oat Nog",
-  "brand": "Earth's Own 🇨🇦",
-  "drink": "plant-milk",
-  "label_group": "label-plant",
-  "material": "tetra",
-  "size_ml": 946,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0626027814279",
-  "name": "Barista Oat",
-  "brand": "Earth’s Own",
-  "drink": "plant-milk",
-  "label_group": "label-plant",
-  "material": "tetra",
-  "size_ml": 946,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0627735258454",
-  "name": "Unsweet. Vanilla Almond Bev.\nShelf-stable.",
-  "brand": "Great Value • Walmart",
-  "drink": "plant-milk",
-  "label_group": "label-plant",
-  "material": "tetra",
-  "size_ml": 946,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0627987259230",
-  "name": "Oat Drink",
-  "brand": "Oat Canada",
-  "drink": "plant-milk",
-  "label_group": "label-plant",
-  "material": "tetra",
-  "size_ml": 946,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0858369006207",
-  "name": "Ready-To-Drink Meal",
-  "brand": "Soylent",
-  "drink": "meal-replacement",
-  "label_group": "label-nutrition",
-  "material": "other-plastic",
-  "size_ml": 414,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "5060495111600",
-  "name": "Vanilla",
-  "brand": "Huel",
-  "drink": "meal-replacement",
-  "label_group": "label-nutrition",
-  "material": "other-plastic",
-  "size_ml": 500,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "8436586780616",
-  "name": "Barista oat drink",
-  "brand": "NATURALL",
-  "drink": "plant-milk",
-  "label_group": "label-plant",
-  "material": "tetra",
-  "size_ml": 1000,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0055300111017",
-  "name": "2% M.F. Partly Skimmed Milk",
-  "brand": "Beatrice",
-  "drink": "milk",
-  "label_group": "label-milk",
-  "material": "other-plastic",
-  "size_ml": 4000,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0060383870447",
-  "name": "1% M.F. Organic Fresh Partly Skimmed Milk",
-  "brand": "President's Choice",
-  "drink": "milk",
-  "label_group": "label-milk",
-  "material": "tetra",
-  "size_ml": 2000,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0068200025049",
-  "name": "Eggnog",
-  "brand": "Beatrice",
-  "drink": "milk",
-  "label_group": "label-milk",
-  "material": "other-plastic",
-  "size_ml": 2000,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0628504309421",
-  "name": "Mocha Coffee Frothed Oat Latte",
-  "brand": "Two Bears",
-  "drink": "coffee",
-  "label_group": "label-other",
-  "material": "aluminum",
-  "size_ml": 207,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0628504309438",
-  "name": "Triple Shot Frothed Oat Latte",
-  "brand": "Two Bears",
-  "drink": "coffee",
-  "label_group": "label-other",
-  "material": "aluminum",
-  "size_ml": 207,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- },
- {
-  "upc": "0839032005048",
-  "name": "3.8% Chocolate milk",
-  "brand": "Harmony Organic",
-  "drink": "milk",
-  "label_group": "label-milk",
-  "material": "glass",
-  "size_ml": 1000,
-  "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
- }
+  {
+    "upc": "3560070475711",
+    "name": "Lait frais demi-écrémé",
+    "brand": "CMI (Carrefour Marchandises Internationales)",
+    "drink": "milk",
+    "label_group": "label-milk",
+    "material": "other-plastic",
+    "size_ml": 1000,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0626027814026",
+    "name": "Oat Milk - Original",
+    "brand": "Earth's Own",
+    "drink": "plant-milk",
+    "label_group": "label-plant",
+    "material": "tetra",
+    "size_ml": 946,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0626027814071",
+    "name": "Barista Oat",
+    "brand": "Earth's Own",
+    "drink": "plant-milk",
+    "label_group": "label-plant",
+    "material": "tetra",
+    "size_ml": 946,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0041570055311",
+    "name": "Almond Breeze Unsweetened Original",
+    "brand": "Blue Diamond Almonds",
+    "drink": "plant-milk",
+    "label_group": "label-plant",
+    "material": "tetra",
+    "size_ml": 946,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0068200010120",
+    "name": "PūrFiltre 2% Milk",
+    "brand": "Lactantia",
+    "drink": "milk",
+    "label_group": "label-milk",
+    "material": "tetra",
+    "size_ml": 2000,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0025293001817",
+    "name": "Silk Zero sugar Almond",
+    "brand": "Silk",
+    "drink": "plant-milk",
+    "label_group": "label-plant",
+    "material": "tetra",
+    "size_ml": 946,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0064420320148",
+    "name": "Milk protein shake made with ultrafiltered partly skimmed milk",
+    "brand": "Natrel",
+    "drink": "milk",
+    "label_group": "label-milk",
+    "material": "tetra",
+    "size_ml": 2000,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0064420010223",
+    "name": "PARTLY SKIMMED MILK",
+    "brand": "Natrel",
+    "drink": "milk",
+    "label_group": "label-milk",
+    "material": "other-plastic",
+    "size_ml": 2000,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0063667301552",
+    "name": "Boisson De Soya, 946 ML, Vanille",
+    "brand": "natura",
+    "drink": "plant-milk",
+    "label_group": "label-plant",
+    "material": "tetra",
+    "size_ml": 946,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0025293001886",
+    "name": "Almond",
+    "brand": "Silk",
+    "drink": "plant-milk",
+    "label_group": "label-plant",
+    "material": "tetra",
+    "size_ml": 1890,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0025293005549",
+    "name": "Protein Soy",
+    "brand": "Silk",
+    "drink": "plant-milk",
+    "label_group": "label-plant",
+    "material": "tetra",
+    "size_ml": 946,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0055872024012",
+    "name": "Lait 2%",
+    "brand": "Québon",
+    "drink": "milk",
+    "label_group": "label-milk",
+    "material": "tetra",
+    "size_ml": 1000,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0055872025019",
+    "name": "Partly skimmed milk 2%",
+    "brand": "Québon",
+    "drink": "milk",
+    "label_group": "label-milk",
+    "material": "tetra",
+    "size_ml": 2000,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0068700011016",
+    "name": "Partly Skimmed Milk",
+    "brand": "Dairyland",
+    "drink": "milk",
+    "label_group": "label-milk",
+    "material": "other-plastic",
+    "size_ml": 4000,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0096619342556",
+    "name": "Almond milk",
+    "brand": "Kirkland signature",
+    "drink": "plant-milk",
+    "label_group": "label-plant",
+    "material": "tetra",
+    "size_ml": 250,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0025293002180",
+    "name": "Almond",
+    "brand": "Silk",
+    "drink": "plant-milk",
+    "label_group": "label-plant",
+    "material": "tetra",
+    "size_ml": 946,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0062884520012",
+    "name": "2% Cow’s Milk",
+    "brand": "Grand PRÉ (UHT Shelf stable)",
+    "drink": "milk",
+    "label_group": "label-milk",
+    "material": "tetra",
+    "size_ml": 1000,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0055872026016",
+    "name": "2 % partly skimmed milk",
+    "brand": "Québon",
+    "drink": "milk",
+    "label_group": "label-milk",
+    "material": "other-plastic",
+    "size_ml": 4000,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0055872515176",
+    "name": "Fine-Filtered Organic Whole Milk 3.8% M.F.",
+    "brand": "Natrel",
+    "drink": "milk",
+    "label_group": "label-milk",
+    "material": "tetra",
+    "size_ml": 2000,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0036632075321",
+    "name": "oat",
+    "brand": "Silk",
+    "drink": "plant-milk",
+    "label_group": "label-plant",
+    "material": "tetra",
+    "size_ml": 1750,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0056800658903",
+    "name": "Silk Oat",
+    "brand": "Silk",
+    "drink": "plant-milk",
+    "label_group": "label-plant",
+    "material": "tetra",
+    "size_ml": 946,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0056800715811",
+    "name": "Oat Fortified Beverage, Original, Shelf Stable CAN",
+    "brand": "Silk",
+    "drink": "plant-milk",
+    "label_group": "label-plant",
+    "material": "tetra",
+    "size_ml": 946,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0811620021784",
+    "name": "ultrafiltered partly skimmed milk",
+    "brand": "fairlife",
+    "drink": "milk",
+    "label_group": "label-milk",
+    "material": "other-plastic",
+    "size_ml": 1500,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0811620021791",
+    "name": "ultrafiltered WHOLE MILK",
+    "brand": "fairlife",
+    "drink": "milk",
+    "label_group": "label-milk",
+    "material": "other-plastic",
+    "size_ml": 1500,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "8436586781132",
+    "name": "Just oat",
+    "brand": "Vege All",
+    "drink": "plant-milk",
+    "label_group": "label-plant",
+    "material": "tetra",
+    "size_ml": 1000,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0024182027068",
+    "name": "Edensoy Unsweetened Soymilk, Organic",
+    "brand": "Eden",
+    "drink": "plant-milk",
+    "label_group": "label-plant",
+    "material": "tetra",
+    "size_ml": 946,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0065700100276",
+    "name": "Partly skimmed milk",
+    "brand": "Beatrice",
+    "drink": "milk",
+    "label_group": "label-milk",
+    "material": "other-plastic",
+    "size_ml": 4000,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0068200010021",
+    "name": "Lait homogénéisé - PūrFiltre - 3.25 % M.G. - Goût Frais",
+    "brand": "Lactantia",
+    "drink": "milk",
+    "label_group": "label-milk",
+    "material": "tetra",
+    "size_ml": 2000,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0811620021777",
+    "name": "Partially Skimmed Chocolate Milk",
+    "brand": "fairlife",
+    "drink": "milk",
+    "label_group": "label-milk",
+    "material": "other-plastic",
+    "size_ml": 1500,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0025293002197",
+    "name": "Silk Almond Vanilla",
+    "brand": "Silk",
+    "drink": "plant-milk",
+    "label_group": "label-plant",
+    "material": "tetra",
+    "size_ml": 946,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0041570094464",
+    "name": "Orig. Unsweet. Almond-Coconut Bev. Shelf-stable.",
+    "brand": "Blue Diamond Almond Breeze",
+    "drink": "plant-milk",
+    "label_group": "label-plant",
+    "material": "tetra",
+    "size_ml": 946,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0055872525175",
+    "name": "Natrel Organic 2% Milk",
+    "brand": "Natrel",
+    "drink": "milk",
+    "label_group": "label-milk",
+    "material": "tetra",
+    "size_ml": 2000,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0063667090081",
+    "name": "Fortified almond beverage Chocolate",
+    "brand": "Natura",
+    "drink": "plant-milk",
+    "label_group": "label-plant",
+    "material": "tetra",
+    "size_ml": 946,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0064420320131",
+    "name": "2% Vanilla Milk with Protein",
+    "brand": "Natrel",
+    "drink": "milk",
+    "label_group": "label-milk",
+    "material": "clear-plastic",
+    "size_ml": 2000,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0066800000152",
+    "name": "2% M.F. Fresh Partly Skimmed Milk",
+    "brand": "Neilson",
+    "drink": "milk",
+    "label_group": "label-milk",
+    "material": "other-plastic",
+    "size_ml": 4000,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0068700011030",
+    "name": "PARTLY SKIMMED MILK",
+    "brand": "Dairyland",
+    "drink": "milk",
+    "label_group": "label-milk",
+    "material": "other-plastic",
+    "size_ml": 4000,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0068700282669",
+    "name": "2% Lactose Free Partly Skimmed Milk",
+    "brand": "Dairyland",
+    "drink": "milk",
+    "label_group": "label-milk",
+    "material": "other-plastic",
+    "size_ml": 4000,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0096619057986",
+    "name": "Partly skimmed milk",
+    "brand": "Kirkland",
+    "drink": "milk",
+    "label_group": "label-milk",
+    "material": "other-plastic",
+    "size_ml": 2000,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0626027087802",
+    "name": "Almond So Nice Original - Organic",
+    "brand": "Earth's Own",
+    "drink": "plant-milk",
+    "label_group": "label-plant",
+    "material": "other-plastic",
+    "size_ml": 1750,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0626027700602",
+    "name": "Almond SoFresh Unsweetened Original",
+    "brand": "Earth's Own 🇨🇦",
+    "drink": "plant-milk",
+    "label_group": "label-plant",
+    "material": "other-plastic",
+    "size_ml": 3950,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0626027861402",
+    "name": "Oat Original",
+    "brand": "Earth’s Own 🇨🇦",
+    "drink": "plant-milk",
+    "label_group": "label-plant",
+    "material": "tetra",
+    "size_ml": 946,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0778472333338",
+    "name": "Goat Milk 3.25%",
+    "brand": "Happy Days Dairies 🇨🇦",
+    "drink": "milk",
+    "label_group": "label-milk",
+    "material": "other-plastic",
+    "size_ml": 2000,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0036632076755",
+    "name": "Barista Collection, Almond Original",
+    "brand": "Silk",
+    "drink": "plant-milk",
+    "label_group": "label-plant",
+    "material": "tetra",
+    "size_ml": 946,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0041570109168",
+    "name": "Vanilla Unsweetened Almond Beverage, Fortified",
+    "brand": "Blue Diamond Almonds",
+    "drink": "plant-milk",
+    "label_group": "label-plant",
+    "material": "tetra",
+    "size_ml": 1890,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0041679213773",
+    "name": "BOOST HIGH PROTEIN",
+    "brand": "Nestle Health Science",
+    "drink": "meal-replacement",
+    "label_group": "label-nutrition",
+    "material": "tetra",
+    "size_ml": 237,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0056800660814",
+    "name": "Oat Milk - Unsweetened Vanilla",
+    "brand": "Silk",
+    "drink": "plant-milk",
+    "label_group": "label-plant",
+    "material": "tetra",
+    "size_ml": 946,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0060383707378",
+    "name": "2% M.F. Organic Party Skimmed Milk",
+    "brand": "President's Choice",
+    "drink": "milk",
+    "label_group": "label-milk",
+    "material": "other-plastic",
+    "size_ml": 4000,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0064420010148",
+    "name": "Partly Skimmed Milk",
+    "brand": "Natrel",
+    "drink": "milk",
+    "label_group": "label-milk",
+    "material": "other-plastic",
+    "size_ml": 4000,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0066184001097",
+    "name": "Organic 1% Partly Skimmed Milk",
+    "brand": "Avalon",
+    "drink": "milk",
+    "label_group": "label-milk",
+    "material": "tetra",
+    "size_ml": 1000,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0066800004044",
+    "name": "Partly Skimmed Milk",
+    "brand": "Trutaste",
+    "drink": "milk",
+    "label_group": "label-milk",
+    "material": "other-plastic",
+    "size_ml": 4000,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0066800100685",
+    "name": "1% M.F. Chocolate Partly Skimmed Milk",
+    "brand": "Neilson",
+    "drink": "milk",
+    "label_group": "label-milk",
+    "material": "other-plastic",
+    "size_ml": 750,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0066800100890",
+    "name": "1% Buttermilk",
+    "brand": "Nelson",
+    "drink": "milk",
+    "label_group": "label-milk",
+    "material": "tetra",
+    "size_ml": 2000,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0068200466057",
+    "name": "3.25% Lactose Free Homogenized Milk",
+    "brand": "Lactantia",
+    "drink": "milk",
+    "label_group": "label-milk",
+    "material": "other-plastic",
+    "size_ml": 1500,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0068200466484",
+    "name": "2% Lactose Free Partly Skimmed Milk",
+    "brand": "Lactantia",
+    "drink": "milk",
+    "label_group": "label-milk",
+    "material": "other-plastic",
+    "size_ml": 1500,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0068200910536",
+    "name": "Whole Milk 3,8%",
+    "brand": "Lactantia",
+    "drink": "milk",
+    "label_group": "label-milk",
+    "material": "tetra",
+    "size_ml": 2000,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0068700011078",
+    "name": "Skim Milk",
+    "brand": "Dairyland",
+    "drink": "milk",
+    "label_group": "label-milk",
+    "material": "other-plastic",
+    "size_ml": 4000,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0068700102998",
+    "name": "Chocolate Milk",
+    "brand": "Dairyland",
+    "drink": "milk",
+    "label_group": "label-milk",
+    "material": "other-plastic",
+    "size_ml": 4000,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0096619177592",
+    "name": "2% M.F. Organic Partly Skimmed Milk",
+    "brand": "Kirkland Signature",
+    "drink": "milk",
+    "label_group": "label-milk",
+    "material": "other-plastic",
+    "size_ml": 4000,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0626027814088",
+    "name": "Oat Nog",
+    "brand": "Earth's Own 🇨🇦",
+    "drink": "plant-milk",
+    "label_group": "label-plant",
+    "material": "tetra",
+    "size_ml": 946,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0626027814279",
+    "name": "Barista Oat",
+    "brand": "Earth’s Own",
+    "drink": "plant-milk",
+    "label_group": "label-plant",
+    "material": "tetra",
+    "size_ml": 946,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0627735258454",
+    "name": "Unsweet. Vanilla Almond Bev.\nShelf-stable.",
+    "brand": "Great Value • Walmart",
+    "drink": "plant-milk",
+    "label_group": "label-plant",
+    "material": "tetra",
+    "size_ml": 946,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0627987259230",
+    "name": "Oat Drink",
+    "brand": "Oat Canada",
+    "drink": "plant-milk",
+    "label_group": "label-plant",
+    "material": "tetra",
+    "size_ml": 946,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0858369006207",
+    "name": "Ready-To-Drink Meal",
+    "brand": "Soylent",
+    "drink": "meal-replacement",
+    "label_group": "label-nutrition",
+    "material": "other-plastic",
+    "size_ml": 414,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "5060495111600",
+    "name": "Vanilla",
+    "brand": "Huel",
+    "drink": "meal-replacement",
+    "label_group": "label-nutrition",
+    "material": "other-plastic",
+    "size_ml": 500,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "8436586780616",
+    "name": "Barista oat drink",
+    "brand": "NATURALL",
+    "drink": "plant-milk",
+    "label_group": "label-plant",
+    "material": "tetra",
+    "size_ml": 1000,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0055300111017",
+    "name": "2% M.F. Partly Skimmed Milk",
+    "brand": "Beatrice",
+    "drink": "milk",
+    "label_group": "label-milk",
+    "material": "other-plastic",
+    "size_ml": 4000,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0060383870447",
+    "name": "1% M.F. Organic Fresh Partly Skimmed Milk",
+    "brand": "President's Choice",
+    "drink": "milk",
+    "label_group": "label-milk",
+    "material": "tetra",
+    "size_ml": 2000,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0068200025049",
+    "name": "Eggnog",
+    "brand": "Beatrice",
+    "drink": "milk",
+    "label_group": "label-milk",
+    "material": "other-plastic",
+    "size_ml": 2000,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0628504309421",
+    "name": "Mocha Coffee Frothed Oat Latte",
+    "brand": "Two Bears",
+    "drink": "coffee",
+    "label_group": "label-other",
+    "material": "aluminum",
+    "size_ml": 207,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0628504309438",
+    "name": "Triple Shot Frothed Oat Latte",
+    "brand": "Two Bears",
+    "drink": "coffee",
+    "label_group": "label-other",
+    "material": "aluminum",
+    "size_ml": 207,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  },
+  {
+    "upc": "0839032005048",
+    "name": "3.8% Chocolate milk",
+    "brand": "Harmony Organic",
+    "drink": "milk",
+    "label_group": "label-milk",
+    "material": "glass",
+    "size_ml": 1000,
+    "why": "the label decides (milk, plant, nutrition, coffee-with-milk): the app tells the customer what to read"
+  }
 ]

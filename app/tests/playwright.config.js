@@ -1,12 +1,12 @@
 // c2's own config. The whole-repo runner is c4's playwright.config.js at the root.
 // Port 5901 is c2's static server (PLAN.md).
-const { defineConfig } = require('@playwright/test');
-const path = require('path');
+const { defineConfig } = require('@playwright/test')
+const path = require('path')
 
 module.exports = defineConfig({
   testDir: __dirname,
   testMatch: /.*\.spec\.js/,
-  testIgnore: /qa\//,          // app/tests/qa/** is c4's
+  testIgnore: /qa\//, // app/tests/qa/** is c4's
   timeout: 20000,
   retries: 0,
   reporter: [['list']],
@@ -17,8 +17,7 @@ module.exports = defineConfig({
     screenshot: 'only-on-failure',
   },
   projects: [
-    { name: 'chromium', use: { browserName: 'chromium',
-        launchOptions: { args: ['--use-fake-device-for-media-stream'] } } },
+    { name: 'chromium', use: { browserName: 'chromium', launchOptions: { args: ['--use-fake-device-for-media-stream'] } } },
     { name: 'webkit', use: { browserName: 'webkit' } },
   ],
   webServer: {
@@ -26,4 +25,4 @@ module.exports = defineConfig({
     url: 'http://localhost:5901/index.html',
     reuseExistingServer: true,
   },
-});
+})

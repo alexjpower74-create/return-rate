@@ -1,8 +1,16 @@
 {
   "_about": "GS1 company prefixes (the first six digits of a UPC-A, after the leading 0 of an EAN-13) for makers whose containers sold in NL are all ready-to-serve NON-ALCOHOLIC drinks. Because every such container up to 5 L refunds 5¢ whatever it is made of, the maker alone decides the answer. Derived 2026-09-13 from the product list (every row under each prefix was a non-alcoholic drink, six or more rows) and checked against what each company sells in Canada. A prefix is only used when the exact barcode is not in the list. Anything that could be milk, a plant milk, or a nutrition drink must NOT be listed here.",
   "prefixes": {
-    "069000": { "maker": "PepsiCo Beverages Canada", "examples": "Pepsi, 7UP, Mountain Dew, bubly, Gatorade, Aquafina, Brisk, Rockstar", "drink": "soft-drink" },
-    "067000": { "maker": "Coca-Cola Canada", "examples": "Coca-Cola, Diet Coke, Sprite, Fanta, Dasani, Powerade, Fresca", "drink": "soft-drink" },
+    "069000": {
+      "maker": "PepsiCo Beverages Canada",
+      "examples": "Pepsi, 7UP, Mountain Dew, bubly, Gatorade, Aquafina, Brisk, Rockstar",
+      "drink": "soft-drink"
+    },
+    "067000": {
+      "maker": "Coca-Cola Canada",
+      "examples": "Coca-Cola, Diet Coke, Sprite, Fanta, Dasani, Powerade, Fresca",
+      "drink": "soft-drink"
+    },
     "049000": { "maker": "Coca-Cola", "examples": "Coke, Sprite, Fanta, Powerade, smartwater, vitaminwater", "drink": "soft-drink" },
     "059600": { "maker": "Minute Maid / Simply (Coca-Cola)", "examples": "Minute Maid, Simply Orange", "drink": "juice" },
     "048500": { "maker": "Tropicana", "examples": "Tropicana juices", "drink": "juice" },
@@ -15,11 +23,27 @@
     "786162": { "maker": "Glaceau (Coca-Cola)", "examples": "vitaminwater, smartwater", "drink": "water" },
     "019063": { "maker": "Sunny Delight Beverages", "examples": "Fruit2O, SunnyD", "drink": "soft-drink" },
     "012000": { "maker": "PepsiCo (US prefix)", "examples": "Pepsi, Mountain Dew, bubly, Gatorade, Aquafina", "drink": "soft-drink" },
-    "062000": { "maker": "Canada Dry Mott's / Keurig Dr Pepper Canada", "examples": "Canada Dry, Schweppes, Mott's Clamato, Crush, Dr Pepper", "drink": "soft-drink" },
+    "062000": {
+      "maker": "Canada Dry Mott's / Keurig Dr Pepper Canada",
+      "examples": "Canada Dry, Schweppes, Mott's Clamato, Crush, Dr Pepper",
+      "drink": "soft-drink"
+    },
     "078000": { "maker": "Keurig Dr Pepper (US prefix)", "examples": "Dr Pepper, 7UP (US), A&W, Sunkist", "drink": "soft-drink" },
     "071464": { "maker": "Ocean Spray", "examples": "Ocean Spray juices", "drink": "juice" },
     "011110": { "maker": "Big 8 / Sobeys own brand drinks", "examples": "Big 8 pop and water", "drink": "soft-drink" },
-    "060383": { "maker": "Loblaw (President's Choice, no name) beverages", "examples": "PC pop, no name water and juice", "drink": "soft-drink", "note": "Loblaw's prefix also covers PC milk and PC oat beverages, so this entry is DISABLED; kept here so nobody re-adds it.", "disabled": true },
-    "096619": { "maker": "Costco Kirkland", "examples": "Kirkland water, juice, but also milk, almond milk, formula", "drink": "unknown", "note": "Mixed maker: milk and formula share the prefix. DISABLED; Kirkland items must be in the list by exact barcode or go through the label photo.", "disabled": true }
+    "060383": {
+      "maker": "Loblaw (President's Choice, no name) beverages",
+      "examples": "PC pop, no name water and juice",
+      "drink": "soft-drink",
+      "note": "Loblaw's prefix also covers PC milk and PC oat beverages, so this entry is DISABLED; kept here so nobody re-adds it.",
+      "disabled": true
+    },
+    "096619": {
+      "maker": "Costco Kirkland",
+      "examples": "Kirkland water, juice, but also milk, almond milk, formula",
+      "drink": "unknown",
+      "note": "Mixed maker: milk and formula share the prefix. DISABLED; Kirkland items must be in the list by exact barcode or go through the label photo.",
+      "disabled": true
+    }
   }
 }

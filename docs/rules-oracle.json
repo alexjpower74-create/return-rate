@@ -1,68 +1,202 @@
 {
   "_about": "Main's oracle, written from docs/RULES.md and Alexander's counter practice (2026-09-13). Every rules engine build must pass every row. accepted: true = the depot takes it, false = it does not, null = ask at the counter. cents is the refund.",
   "cases": [
-    {"name": "750 mL pop, plastic bottle", "in": {"drink": "soft-drink", "material": "clear-plastic", "size_ml": 750}, "accepted": true, "cents": 5},
-    {"name": "355 mL pop can", "in": {"drink": "soft-drink", "material": "aluminum", "size_ml": 355}, "accepted": true, "cents": 5},
-    {"name": "2 L pop", "in": {"drink": "soft-drink", "material": "clear-plastic", "size_ml": 2000}, "accepted": true, "cents": 5},
-    {"name": "500 mL water", "in": {"drink": "water", "material": "clear-plastic", "size_ml": 500}, "accepted": true, "cents": 5},
-    {"name": "4 L water jug, non-refillable", "in": {"drink": "water", "material": "other-plastic", "size_ml": 4000}, "accepted": true, "cents": 5},
-    {"name": "18.9 L water cooler bottle", "in": {"drink": "water", "material": "other-plastic", "size_ml": 18900, "refillable": true}, "accepted": false, "cents": 0},
-    {"name": "6 L water jug", "in": {"drink": "water", "material": "other-plastic", "size_ml": 6000}, "accepted": false, "cents": 0},
-    {"name": "distilled water 4 L", "in": {"drink": "distilled-water", "material": "other-plastic", "size_ml": 4000}, "accepted": false, "cents": 0},
-    {"name": "boxed water carton", "in": {"drink": "water", "material": "tetra", "size_ml": 500}, "accepted": true, "cents": 5},
-    {"name": "sparkling water can", "in": {"drink": "sparkling-water", "material": "aluminum", "size_ml": 355}, "accepted": true, "cents": 5},
-    {"name": "juice box", "in": {"drink": "juice", "material": "tetra", "size_ml": 200}, "accepted": true, "cents": 5},
-    {"name": "juice pouch (Capri Sun)", "in": {"drink": "juice", "material": "pouch", "size_ml": 200}, "accepted": true, "cents": 5},
-    {"name": "1.89 L juice carton", "in": {"drink": "juice", "material": "gable", "size_ml": 1890}, "accepted": true, "cents": 5},
-    {"name": "vegetable juice glass", "in": {"drink": "vegetable-juice", "material": "glass", "size_ml": 300}, "accepted": true, "cents": 5},
-    {"name": "frozen juice concentrate", "in": {"drink": "concentrate", "material": "other-plastic", "size_ml": 295}, "accepted": false, "cents": 0},
-    {"name": "sports drink", "in": {"drink": "sports", "material": "clear-plastic", "size_ml": 710}, "accepted": true, "cents": 5},
-    {"name": "Pedialyte", "in": {"drink": "electrolyte", "material": "clear-plastic", "size_ml": 1000}, "accepted": true, "cents": 5},
-    {"name": "energy drink can", "in": {"drink": "energy", "material": "aluminum", "size_ml": 473}, "accepted": true, "cents": 5},
-    {"name": "iced tea glass", "in": {"drink": "tea", "material": "glass", "size_ml": 473}, "accepted": true, "cents": 5},
-    {"name": "coffee drink glass (not milk-labelled)", "in": {"drink": "coffee", "material": "glass", "size_ml": 281}, "accepted": true, "cents": 5},
-    {"name": "kombucha glass", "in": {"drink": "kombucha", "material": "glass", "size_ml": 414}, "accepted": true, "cents": 5},
-    {"name": "coconut water tetra", "in": {"drink": "juice", "material": "tetra", "size_ml": 330}, "accepted": true, "cents": 5},
-    {"name": "protein shake not labelled Milk (Milk2Go Sport)", "in": {"drink": "protein-shake", "material": "clear-plastic", "size_ml": 325}, "accepted": true, "cents": 5},
-    {"name": "Nesquik flavoured milk beverage carton", "in": {"drink": "flavoured-milk-beverage", "material": "tetra", "size_ml": 200}, "accepted": true, "cents": 5},
-    {"name": "chocolate milk labelled Milk", "in": {"drink": "milk", "material": "gable", "size_ml": 1000}, "accepted": false, "cents": 0},
-    {"name": "2% milk 2 L", "in": {"drink": "milk", "material": "gable", "size_ml": 2000}, "accepted": false, "cents": 0},
-    {"name": "fortified soy beverage (source of protein)", "in": {"drink": "plant-milk", "material": "tetra", "size_ml": 946}, "accepted": false, "cents": 0},
-    {"name": "almond drink labelled not a source of protein", "in": {"drink": "plant-drink-not-protein", "material": "tetra", "size_ml": 946}, "accepted": true, "cents": 5},
-    {"name": "infant formula", "in": {"drink": "infant-formula", "material": "other-plastic", "size_ml": 235}, "accepted": false, "cents": 0},
-    {"name": "Ensure / Boost (Meal Replacement)", "in": {"drink": "meal-replacement", "material": "other-plastic", "size_ml": 235}, "accepted": false, "cents": 0},
-    {"name": "formulated liquid diet", "in": {"drink": "formulated-liquid-diet", "material": "tetra", "size_ml": 235}, "accepted": false, "cents": 0},
-    {"name": "domestic beer can", "in": {"drink": "beer", "material": "aluminum", "size_ml": 355}, "accepted": true, "cents": 5},
-    {"name": "imported beer bottle (non-refillable)", "in": {"drink": "beer", "material": "glass", "size_ml": 330}, "accepted": true, "cents": 5},
-    {"name": "beer in steel can", "in": {"drink": "beer", "material": "steel", "size_ml": 500}, "accepted": true, "cents": 5},
-    {"name": "5 L mini keg, non-refillable", "in": {"drink": "beer", "material": "steel", "size_ml": 5000}, "accepted": true, "cents": 5},
-    {"name": "refillable keg", "in": {"drink": "beer", "material": "steel", "size_ml": 20000, "refillable": true}, "accepted": false, "cents": 0},
-    {"name": "local refillable beer bottle (Molson/Labatt/Quidi Vidi)", "in": {"drink": "beer", "material": "glass", "size_ml": 341, "refillable": true}, "accepted": true, "cents": 5, "depot_policy": true},
-    {"name": "Quidi Vidi Iceberg blue bottle", "in": {"drink": "beer", "material": "glass", "size_ml": 341, "refillable": true, "brand": "Quidi Vidi Iceberg"}, "accepted": true, "cents": 5, "depot_policy": true},
-    {"name": "non-alcoholic beer glass", "in": {"drink": "na-beer", "material": "glass", "size_ml": 330}, "accepted": true, "cents": 5},
-    {"name": "Twisted Tea glass", "in": {"drink": "malt-beverage", "material": "glass", "size_ml": 341}, "accepted": true, "cents": 10},
-    {"name": "Smirnoff Ice glass", "in": {"drink": "cooler", "material": "glass", "size_ml": 330}, "accepted": true, "cents": 10},
-    {"name": "White Claw can", "in": {"drink": "seltzer", "material": "aluminum", "size_ml": 355}, "accepted": true, "cents": 5},
-    {"name": "canned cocktail", "in": {"drink": "cocktail", "material": "aluminum", "size_ml": 355}, "accepted": true, "cents": 5},
-    {"name": "canned wine", "in": {"drink": "wine", "material": "aluminum", "size_ml": 250}, "accepted": true, "cents": 5},
-    {"name": "cider in glass", "in": {"drink": "cider", "material": "glass", "size_ml": 500}, "accepted": true, "cents": 10},
-    {"name": "cider in can", "in": {"drink": "cider", "material": "aluminum", "size_ml": 473}, "accepted": true, "cents": 5},
-    {"name": "750 mL wine glass", "in": {"drink": "wine", "material": "glass", "size_ml": 750}, "accepted": true, "cents": 10},
-    {"name": "wine PET bottle", "in": {"drink": "wine", "material": "clear-plastic", "size_ml": 750}, "accepted": true, "cents": 10},
-    {"name": "tetra-pak wine", "in": {"drink": "wine", "material": "tetra", "size_ml": 1000}, "accepted": true, "cents": 5},
-    {"name": "bag-in-box wine 4 L", "in": {"drink": "wine", "material": "bag-in-box", "size_ml": 4000}, "accepted": true, "cents": 5},
-    {"name": "wine pouch", "in": {"drink": "wine", "material": "pouch", "size_ml": 1500}, "accepted": true, "cents": 5},
-    {"name": "champagne glass", "in": {"drink": "wine", "material": "glass", "size_ml": 750}, "accepted": true, "cents": 10},
-    {"name": "sake glass", "in": {"drink": "sake", "material": "glass", "size_ml": 720}, "accepted": true, "cents": 10},
-    {"name": "mead glass", "in": {"drink": "mead", "material": "glass", "size_ml": 500}, "accepted": true, "cents": 10},
-    {"name": "200 mL vodka glass", "in": {"drink": "spirits", "material": "glass", "size_ml": 200}, "accepted": true, "cents": 10},
-    {"name": "375 mL rum plastic", "in": {"drink": "spirits", "material": "other-plastic", "size_ml": 375}, "accepted": true, "cents": 10},
-    {"name": "1.75 L whisky plastic", "in": {"drink": "spirits", "material": "other-plastic", "size_ml": 1750}, "accepted": true, "cents": 10},
-    {"name": "50 mL rum miniature glass", "in": {"drink": "spirits", "material": "glass", "size_ml": 50}, "accepted": true, "cents": 5},
-    {"name": "50 mL vodka miniature plastic", "in": {"drink": "spirits", "material": "clear-plastic", "size_ml": 50}, "accepted": true, "cents": 5},
-    {"name": "hard kombucha glass", "in": {"drink": "hard-kombucha", "material": "glass", "size_ml": 355}, "accepted": true, "cents": 10},
-    {"name": "wine, material unknown", "in": {"drink": "wine", "material": "unknown", "size_ml": 750}, "accepted": null, "cents": null},
-    {"name": "unknown drink", "in": {"drink": "unknown", "material": "glass", "size_ml": 500}, "accepted": null, "cents": null},
-    {"name": "growler (refillable)", "in": {"drink": "beer", "material": "glass", "size_ml": 1890, "refillable": true, "brand": "growler"}, "accepted": true, "cents": 5, "depot_policy": true, "_note": "refillable + beer = brewer class; APCO 5¢ policy. If APCO does NOT take growlers, change this row and RULES.md together."}
+    {
+      "name": "750 mL pop, plastic bottle",
+      "in": { "drink": "soft-drink", "material": "clear-plastic", "size_ml": 750 },
+      "accepted": true,
+      "cents": 5
+    },
+    { "name": "355 mL pop can", "in": { "drink": "soft-drink", "material": "aluminum", "size_ml": 355 }, "accepted": true, "cents": 5 },
+    { "name": "2 L pop", "in": { "drink": "soft-drink", "material": "clear-plastic", "size_ml": 2000 }, "accepted": true, "cents": 5 },
+    { "name": "500 mL water", "in": { "drink": "water", "material": "clear-plastic", "size_ml": 500 }, "accepted": true, "cents": 5 },
+    {
+      "name": "4 L water jug, non-refillable",
+      "in": { "drink": "water", "material": "other-plastic", "size_ml": 4000 },
+      "accepted": true,
+      "cents": 5
+    },
+    {
+      "name": "18.9 L water cooler bottle",
+      "in": { "drink": "water", "material": "other-plastic", "size_ml": 18900, "refillable": true },
+      "accepted": false,
+      "cents": 0
+    },
+    { "name": "6 L water jug", "in": { "drink": "water", "material": "other-plastic", "size_ml": 6000 }, "accepted": false, "cents": 0 },
+    {
+      "name": "distilled water 4 L",
+      "in": { "drink": "distilled-water", "material": "other-plastic", "size_ml": 4000 },
+      "accepted": false,
+      "cents": 0
+    },
+    { "name": "boxed water carton", "in": { "drink": "water", "material": "tetra", "size_ml": 500 }, "accepted": true, "cents": 5 },
+    {
+      "name": "sparkling water can",
+      "in": { "drink": "sparkling-water", "material": "aluminum", "size_ml": 355 },
+      "accepted": true,
+      "cents": 5
+    },
+    { "name": "juice box", "in": { "drink": "juice", "material": "tetra", "size_ml": 200 }, "accepted": true, "cents": 5 },
+    { "name": "juice pouch (Capri Sun)", "in": { "drink": "juice", "material": "pouch", "size_ml": 200 }, "accepted": true, "cents": 5 },
+    { "name": "1.89 L juice carton", "in": { "drink": "juice", "material": "gable", "size_ml": 1890 }, "accepted": true, "cents": 5 },
+    {
+      "name": "vegetable juice glass",
+      "in": { "drink": "vegetable-juice", "material": "glass", "size_ml": 300 },
+      "accepted": true,
+      "cents": 5
+    },
+    {
+      "name": "frozen juice concentrate",
+      "in": { "drink": "concentrate", "material": "other-plastic", "size_ml": 295 },
+      "accepted": false,
+      "cents": 0
+    },
+    { "name": "sports drink", "in": { "drink": "sports", "material": "clear-plastic", "size_ml": 710 }, "accepted": true, "cents": 5 },
+    { "name": "Pedialyte", "in": { "drink": "electrolyte", "material": "clear-plastic", "size_ml": 1000 }, "accepted": true, "cents": 5 },
+    { "name": "energy drink can", "in": { "drink": "energy", "material": "aluminum", "size_ml": 473 }, "accepted": true, "cents": 5 },
+    { "name": "iced tea glass", "in": { "drink": "tea", "material": "glass", "size_ml": 473 }, "accepted": true, "cents": 5 },
+    {
+      "name": "coffee drink glass (not milk-labelled)",
+      "in": { "drink": "coffee", "material": "glass", "size_ml": 281 },
+      "accepted": true,
+      "cents": 5
+    },
+    { "name": "kombucha glass", "in": { "drink": "kombucha", "material": "glass", "size_ml": 414 }, "accepted": true, "cents": 5 },
+    { "name": "coconut water tetra", "in": { "drink": "juice", "material": "tetra", "size_ml": 330 }, "accepted": true, "cents": 5 },
+    {
+      "name": "protein shake not labelled Milk (Milk2Go Sport)",
+      "in": { "drink": "protein-shake", "material": "clear-plastic", "size_ml": 325 },
+      "accepted": true,
+      "cents": 5
+    },
+    {
+      "name": "Nesquik flavoured milk beverage carton",
+      "in": { "drink": "flavoured-milk-beverage", "material": "tetra", "size_ml": 200 },
+      "accepted": true,
+      "cents": 5
+    },
+    {
+      "name": "chocolate milk labelled Milk",
+      "in": { "drink": "milk", "material": "gable", "size_ml": 1000 },
+      "accepted": false,
+      "cents": 0
+    },
+    { "name": "2% milk 2 L", "in": { "drink": "milk", "material": "gable", "size_ml": 2000 }, "accepted": false, "cents": 0 },
+    {
+      "name": "fortified soy beverage (source of protein)",
+      "in": { "drink": "plant-milk", "material": "tetra", "size_ml": 946 },
+      "accepted": false,
+      "cents": 0
+    },
+    {
+      "name": "almond drink labelled not a source of protein",
+      "in": { "drink": "plant-drink-not-protein", "material": "tetra", "size_ml": 946 },
+      "accepted": true,
+      "cents": 5
+    },
+    {
+      "name": "infant formula",
+      "in": { "drink": "infant-formula", "material": "other-plastic", "size_ml": 235 },
+      "accepted": false,
+      "cents": 0
+    },
+    {
+      "name": "Ensure / Boost (Meal Replacement)",
+      "in": { "drink": "meal-replacement", "material": "other-plastic", "size_ml": 235 },
+      "accepted": false,
+      "cents": 0
+    },
+    {
+      "name": "formulated liquid diet",
+      "in": { "drink": "formulated-liquid-diet", "material": "tetra", "size_ml": 235 },
+      "accepted": false,
+      "cents": 0
+    },
+    { "name": "domestic beer can", "in": { "drink": "beer", "material": "aluminum", "size_ml": 355 }, "accepted": true, "cents": 5 },
+    {
+      "name": "imported beer bottle (non-refillable)",
+      "in": { "drink": "beer", "material": "glass", "size_ml": 330 },
+      "accepted": true,
+      "cents": 5
+    },
+    { "name": "beer in steel can", "in": { "drink": "beer", "material": "steel", "size_ml": 500 }, "accepted": true, "cents": 5 },
+    {
+      "name": "5 L mini keg, non-refillable",
+      "in": { "drink": "beer", "material": "steel", "size_ml": 5000 },
+      "accepted": true,
+      "cents": 5
+    },
+    {
+      "name": "refillable keg",
+      "in": { "drink": "beer", "material": "steel", "size_ml": 20000, "refillable": true },
+      "accepted": false,
+      "cents": 0
+    },
+    {
+      "name": "local refillable beer bottle (Molson/Labatt/Quidi Vidi)",
+      "in": { "drink": "beer", "material": "glass", "size_ml": 341, "refillable": true },
+      "accepted": true,
+      "cents": 5,
+      "depot_policy": true
+    },
+    {
+      "name": "Quidi Vidi Iceberg blue bottle",
+      "in": { "drink": "beer", "material": "glass", "size_ml": 341, "refillable": true, "brand": "Quidi Vidi Iceberg" },
+      "accepted": true,
+      "cents": 5,
+      "depot_policy": true
+    },
+    { "name": "non-alcoholic beer glass", "in": { "drink": "na-beer", "material": "glass", "size_ml": 330 }, "accepted": true, "cents": 5 },
+    { "name": "Twisted Tea glass", "in": { "drink": "malt-beverage", "material": "glass", "size_ml": 341 }, "accepted": true, "cents": 10 },
+    { "name": "Smirnoff Ice glass", "in": { "drink": "cooler", "material": "glass", "size_ml": 330 }, "accepted": true, "cents": 10 },
+    { "name": "White Claw can", "in": { "drink": "seltzer", "material": "aluminum", "size_ml": 355 }, "accepted": true, "cents": 5 },
+    { "name": "canned cocktail", "in": { "drink": "cocktail", "material": "aluminum", "size_ml": 355 }, "accepted": true, "cents": 5 },
+    { "name": "canned wine", "in": { "drink": "wine", "material": "aluminum", "size_ml": 250 }, "accepted": true, "cents": 5 },
+    { "name": "cider in glass", "in": { "drink": "cider", "material": "glass", "size_ml": 500 }, "accepted": true, "cents": 10 },
+    { "name": "cider in can", "in": { "drink": "cider", "material": "aluminum", "size_ml": 473 }, "accepted": true, "cents": 5 },
+    { "name": "750 mL wine glass", "in": { "drink": "wine", "material": "glass", "size_ml": 750 }, "accepted": true, "cents": 10 },
+    { "name": "wine PET bottle", "in": { "drink": "wine", "material": "clear-plastic", "size_ml": 750 }, "accepted": true, "cents": 10 },
+    { "name": "tetra-pak wine", "in": { "drink": "wine", "material": "tetra", "size_ml": 1000 }, "accepted": true, "cents": 5 },
+    { "name": "bag-in-box wine 4 L", "in": { "drink": "wine", "material": "bag-in-box", "size_ml": 4000 }, "accepted": true, "cents": 5 },
+    { "name": "wine pouch", "in": { "drink": "wine", "material": "pouch", "size_ml": 1500 }, "accepted": true, "cents": 5 },
+    { "name": "champagne glass", "in": { "drink": "wine", "material": "glass", "size_ml": 750 }, "accepted": true, "cents": 10 },
+    { "name": "sake glass", "in": { "drink": "sake", "material": "glass", "size_ml": 720 }, "accepted": true, "cents": 10 },
+    { "name": "mead glass", "in": { "drink": "mead", "material": "glass", "size_ml": 500 }, "accepted": true, "cents": 10 },
+    { "name": "200 mL vodka glass", "in": { "drink": "spirits", "material": "glass", "size_ml": 200 }, "accepted": true, "cents": 10 },
+    {
+      "name": "375 mL rum plastic",
+      "in": { "drink": "spirits", "material": "other-plastic", "size_ml": 375 },
+      "accepted": true,
+      "cents": 10
+    },
+    {
+      "name": "1.75 L whisky plastic",
+      "in": { "drink": "spirits", "material": "other-plastic", "size_ml": 1750 },
+      "accepted": true,
+      "cents": 10
+    },
+    { "name": "50 mL rum miniature glass", "in": { "drink": "spirits", "material": "glass", "size_ml": 50 }, "accepted": true, "cents": 5 },
+    {
+      "name": "50 mL vodka miniature plastic",
+      "in": { "drink": "spirits", "material": "clear-plastic", "size_ml": 50 },
+      "accepted": true,
+      "cents": 5
+    },
+    {
+      "name": "hard kombucha glass",
+      "in": { "drink": "hard-kombucha", "material": "glass", "size_ml": 355 },
+      "accepted": true,
+      "cents": 10
+    },
+    { "name": "wine, material unknown", "in": { "drink": "wine", "material": "unknown", "size_ml": 750 }, "accepted": null, "cents": null },
+    { "name": "unknown drink", "in": { "drink": "unknown", "material": "glass", "size_ml": 500 }, "accepted": null, "cents": null },
+    {
+      "name": "growler (refillable)",
+      "in": { "drink": "beer", "material": "glass", "size_ml": 1890, "refillable": true, "brand": "growler" },
+      "accepted": true,
+      "cents": 5,
+      "depot_policy": true,
+      "_note": "refillable + beer = brewer class; APCO 5¢ policy. If APCO does NOT take growlers, change this row and RULES.md together."
+    }
   ]
 }
