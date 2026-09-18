@@ -276,3 +276,7 @@ h1:focus {
   background: #fff;
   color: var(--accent);
 }
+
+/* Embedded inside the APCO app (?embedded=1): the shell has its own top bar. */
+html.embedded header.top { display: none; }
+html.embedded body { padding-top: 0; }
