@@ -1,6 +1,7 @@
 // Return Rate — the Worker. Implements docs/API.md. Rules come from ./rules.js only.
 import { classify, DRINKS, MATERIALS } from './rules.js'
 import PREFIXES from './prefixes.json'
+import { fetchProduct, candidate } from './off.js'
 
 const NOTE = "The counter's count is the one that pays."
 // No staff side, no PIN, no confirming: when the barcode alone can't decide, the app tells the customer
@@ -191,11 +192,7 @@ async function readLabel(photo, env, provider) {
     const text =
       typeof out === 'string'
         ? out
-        : (out &&
-            (out.response ||
-              out.description ||
-              (out.choices && out.choices[0] && out.choices[0].message && out.choices[0].message.content))) ||
-          JSON.stringify(out || {})
+        : (out && (out.response || out.description || out.choices?.[0]?.message?.content)) || JSON.stringify(out || {})
     const m = text.match(/\{[\s\S]*\}/)
     if (!m) throw new Error('no json from workers-ai: ' + text.slice(0, 120))
     return JSON.parse(m[0])
@@ -262,14 +259,14 @@ async function postLabel(request, env) {
   try {
     read = await readLabel(photo, env, provider)
   } catch (e) {
-    console.error('label read failed', provider, e && e.message)
+    console.error('label read failed', provider, e?.message)
     // Cloudflare's model down or over its daily allowance → OpenAI once, so the customer still gets an answer.
     if (provider === 'workers-ai' && env.OPENAI_API_KEY) {
       try {
         read = await readLabel(photo, env, 'openai')
         env = { ...env }
       } catch (e2) {
-        console.error('fallback failed', e2 && e2.message)
+        console.error('fallback failed', e2?.message)
       }
     }
   }
@@ -283,25 +280,7 @@ async function postLabel(request, env) {
 
   // Not a beverage container at all (soy sauce, tablets, cleaning products): not accepted, full stop (Alexander, 2026-09-13).
   if (read.is_beverage === false) {
-    const what = String(read.what_it_is || 'this').trim()
-    return json({
-      upc: upc || null,
-      name: read.name || null,
-      brand: read.brand || null,
-      size_ml: null,
-      material: null,
-      source: 'label',
-      model: provider,
-      accepted: false,
-      verdict: "No, we don't take this",
-      class: 'none',
-      refund_cents: 0,
-      depot_policy: false,
-      why: `${what.charAt(0).toUpperCase() + what.slice(1)} ${/s$/i.test(what) && !/(ss|us|is)$/i.test(what) ? "aren't" : "isn't"} a drink. The depot only takes containers that held a beverage.`,
-      evidence: ['not a beverage container'],
-      note: NOTE,
-      nl_only: 'Refund applies to containers bought in Newfoundland and Labrador.',
-    })
+    return json({ ...notDrinkAnswer(upc || null, read.name || null, read.brand || null, read.what_it_is, 'label'), model: provider })
   }
   // Map what the label says to the rules' inputs. The label words outrank the model's category guess.
   let drink = DRINKS.includes(read.drink) ? read.drink : 'unknown'
@@ -400,6 +379,70 @@ async function postLabel(request, env) {
   })
 }
 
+// Not a beverage container at all (soy sauce, tablets, spreads): not accepted, full stop (Alexander, 2026-09-13).
+function notDrinkAnswer(upc, name, brand, whatItIs, source) {
+  const what = String(whatItIs || 'this').trim()
+  return {
+    upc,
+    name,
+    brand,
+    size_ml: null,
+    material: null,
+    source,
+    accepted: false,
+    verdict: "No, we don't take this",
+    class: 'none',
+    refund_cents: 0,
+    depot_policy: false,
+    why: `${what.charAt(0).toUpperCase() + what.slice(1)} ${/s$/i.test(what) && !/(ss|us|is)$/i.test(what) ? "aren't" : "isn't"} a drink. The depot only takes containers that held a beverage.`,
+    evidence: ['not a beverage container'],
+    note: NOTE,
+    nl_only: 'Refund applies to containers bought in Newfoundland and Labrador.',
+  }
+}
+
+// The live Open Food Facts step. Resolves an items row (already inserted) or null. Never throws: any trouble
+// with OFF means "not on our list", which is the honest answer we had before.
+async function lookupOff(upc, env) {
+  let product
+  try {
+    product = await fetchProduct(upc.length === 12 ? '0' + upc : upc, env) // OFF files UPC-A as 13 digits
+  } catch (_e) {
+    return null
+  }
+  if (!product) return null
+  const c = candidate(product)
+  if (!c.row.name) return null
+  // OFF knows it and it is plainly not a drink (spread, sauce, snack, shampoo): answer no without a photo.
+  const tags = product.categories_tags || []
+  const drinkTree = tags.some((t) =>
+    /beverage|drink|milk|water|juice|soda|beer|wine|spirit|cider|kombucha|coffee|tea|dair|formula|lait|boisson/i.test(t),
+  )
+  if (!c.row.drink || c.row.drink === 'unknown') {
+    if (tags.length && !drinkTree)
+      return {
+        notDrink: true,
+        name: c.row.name,
+        brand: c.row.brand,
+        what: tags[tags.length - 1].replace(/^[a-z]{2}:/, '').replace(/-/g, ' '),
+      }
+    return null
+  }
+  const r = classify({ drink: c.row.drink, material: c.row.material, size_ml: c.row.size_ml, refillable: false }, env)
+  // Keep it when the rules give a definite answer, or when we at least know the drink (so the label guide can name it).
+  if (r.class === 'unknown' && !c.row.drink) return null
+  if (c.reasons.some((x) => /not a ready-to-drink|multipack|case|bag-in-box|over 5 L/.test(x)) && r.class !== 'none') return null
+  if (r.class === 'unknown' && c.row.drink === 'unknown') return null
+  try {
+    await env.DB.prepare(
+      'INSERT OR IGNORE INTO items (upc, name, brand, size_ml, drink, material, refillable, class, source) VALUES (?, ?, ?, ?, ?, ?, 0, ?, ?)',
+    )
+      .bind(c.row.upc, c.row.name, c.row.brand, c.row.size_ml, c.row.drink, c.row.material, r.class, c.row.source)
+      .run()
+  } catch (_e) {}
+  return { ...c.row, class: r.class }
+}
+
 async function getItem(request, env, upc) {
   if (!validUpc(upc)) return err(BAD_UPC, 400)
   const hash = await ipHash(request, env)
@@ -410,7 +453,18 @@ async function getItem(request, env, upc) {
     .first()
   if (n >= rateLimit(env)) return err(TOO_MANY, 429)
 
-  const row = await env.DB.prepare('SELECT * FROM items WHERE upc = ?').bind(upc).first()
+  // A phone reports a North American barcode as 12 digits (UPC-A); Open Food Facts and half our list write the same
+  // code as 13 digits with a leading 0 (EAN-13). Both spellings are one product, so both are looked up.
+  const twin = upc.length === 12 ? '0' + upc : upc.length === 13 && upc[0] === '0' ? upc.slice(1) : upc
+  let row = await env.DB.prepare('SELECT * FROM items WHERE upc IN (?, ?) ORDER BY upc = ? DESC').bind(upc, twin, upc).first()
+  // Not on our list: ask Open Food Facts (free, no key) before ever asking for a photo. A definite answer is
+  // remembered in D1 so the next customer gets it straight from the list; a product OFF knows but the rules
+  // can't settle (wine with no stated bottle, milk beverage) is remembered too, so we can name it and say what to read.
+  if (!row && env.OFF_LOOKUP !== '0') row = await lookupOff(upc, env)
+  if (row?.notDrink) {
+    await env.DB.prepare('INSERT INTO lookups (upc, found, ip_hash) VALUES (?, 1, ?)').bind(upc, hash).run()
+    return json(notDrinkAnswer(upc, row.name, row.brand, row.what, 'openfoodfacts-live'))
+  }
   const item = row ? present(row, env) : null
   await env.DB.prepare('INSERT INTO lookups (upc, found, ip_hash) VALUES (?, ?, ?)')
     .bind(upc, item ? 1 : 0, hash)

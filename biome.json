@@ -16,7 +16,8 @@
       "!**/package-lock.json",
       "!**/.wrangler",
       "!app/tests/qa/fixture",
-      "!app/index.html"
+      "!app/index.html",
+      "!tools/scan-bench"
     ]
   },
   "formatter": {

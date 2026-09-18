@@ -49,6 +49,9 @@ Hidden screens may stay in the DOM: the specs only look at what is visible.
 | money words | none of "guaranteed", "you will get", "payout" | `?plant=1` plants "You will get 10¢" |
 | counter line | on every answer and on unknown | remove the line |
 | no numbers | clear message telling you to set the SYNTHETIC barcodes | `QA_TARGET=/PLAN.md` |
+| `tools/scan-bench/bench.mjs` | new reader decodes more of 88 degraded EAN-13 photos than the old (68 vs 63–64 on 2026-09-18; far-away 8/8 vs 4/8) | comparing 13-digit expected to the reader's 12-digit UPC-A output printed NOT BETTER and exit 1 (seen once, then fixed) |
+| `tools/scan-bench/live.mjs` | fake camera stream of a barcode → answer screen in under a second; blank stream → still on start | expected the 13-digit spelling: FAIL (seen once); `dx: 9999` pushes the barcode off-frame for the blank control |
+| `worker/tests/off.test.mjs` (with `off-mock.mjs` on 5903 and `--var OFF_BASE:http://127.0.0.1:5903`) | pop, water without packaging data, milk, not-a-drink answer without a photo; wine without a bottle asks for the label; second lookup does not call OFF; 12↔13 digit spellings both find the row | the spelling test fails 1/1 with the `IN (?, ?)` lookup reverted (proved 2026-09-18) |
 
 ## Live round-trip (`tests/live-roundtrip.mjs`)
 

@@ -2,7 +2,7 @@
 // api.mock.js (loaded with ?mock=1) replaces window.ReturnRateApi with a fake.
 ;(() => {
   var meta = document.querySelector('meta[name="api-base"]')
-  var base = ((meta && meta.content) || '').replace(/\/+$/, '')
+  var base = (meta?.content || '').replace(/\/+$/, '')
 
   var UNKNOWN_TEXT = "We don't have this barcode on our list. Take a photo of the front of it and we'll tell you."
 

@@ -1,0 +1,38 @@
+<!doctype html><meta charset="utf-8"><title>scan bench</title>
+<script>
+// EAN-13 encoder → canvas. Then degrade: scale, tilt, blur, contrast, noise. Photo-shaped output (1280x960).
+const L=['0001101','0011001','0010011','0111101','0100011','0110001','0101111','0111011','0110111','0001011']
+const G=L.map(s=>s.split('').reverse().join('').replace(/[01]/g,c=>c==='0'?'1':'0').split('').reverse().join('')) // G = reversed complement of R; R = complement of L
+const R=L.map(s=>s.replace(/[01]/g,c=>c==='0'?'1':'0'))
+const GG=L.map(s=>R[L.indexOf(s)].split('').reverse().join(''))
+const PAR=['LLLLLL','LLGLGG','LLGGLG','LLGGGL','LGLLGG','LGGLLG','LGGGLL','LGLGLG','LGLGGL','LGGLGL']
+function ean13(d){const p=PAR[+d[0]];let b='101';for(let i=1;i<7;i++)b+=(p[i-1]==='L'?L:GG)[+d[i]];b+='01010';for(let i=7;i<13;i++)b+=R[+d[i]];return b+'101'}
+function check(d12){let s=0;for(let i=0;i<12;i++)s+=+d12[i]*(i%2?3:1);return d12+((10-s%10)%10)}
+function render(digits,o){const W=1280,H=960,c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d')
+ x.fillStyle=o.bg||'#f2efe8';x.fillRect(0,0,W,H)
+ const bits=ean13(digits),mod=o.module||3,bw=bits.length*mod,bh=o.height||110
+ const t=document.createElement('canvas');t.width=bw+16*mod;t.height=bh+30;const tx=t.getContext('2d')
+ tx.fillStyle=o.paper||'#fff';tx.fillRect(0,0,t.width,t.height);tx.fillStyle=o.ink||'#000'
+ for(let i=0;i<bits.length;i++)if(bits[i]==='1')tx.fillRect(8*mod+i*mod,6,mod,bh)
+ tx.font='16px monospace';tx.fillText(digits,8*mod,bh+24)
+ x.save();x.translate(W/2+(o.dx||0),H/2+(o.dy||0));x.rotate((o.tilt||0)*Math.PI/180);x.filter=o.blur?`blur(${o.blur}px)`:'none'
+ x.drawImage(t,-t.width/2,-t.height/2);x.restore()
+ if(o.contrast!==undefined){const id=x.getImageData(0,0,W,H),d=id.data,k=o.contrast;for(let i=0;i<d.length;i+=4){d[i]=128+(d[i]-128)*k;d[i+1]=128+(d[i+1]-128)*k;d[i+2]=128+(d[i+2]-128)*k}x.putImageData(id,0,0)}
+ if(o.noise){const id=x.getImageData(0,0,W,H),d=id.data;for(let i=0;i<d.length;i+=4){const n=(Math.random()-0.5)*o.noise;d[i]+=n;d[i+1]+=n;d[i+2]+=n}x.putImageData(id,0,0)}
+ return new Promise(r=>c.toBlob(r,'image/jpeg',0.85))}
+const CODES=['069000009109','096619756803','066800003007','5449000000996','0062000000010','4000000000009','7702004003508','0005500000001'].map(d=>d.length===12?check('0'+d.slice(0,11)):check(d.slice(0,12)))
+const CASES=[
+ ['clean',{module:3}],
+ ['small (1.5px modules, far away)',{module:1.5,height:40}],
+ ['tiny (1.2px, 30 tall)',{module:1.2,height:30}],
+ ['tilted 8°',{module:2,tilt:8}],
+ ['tilted 20°',{module:2,tilt:20}],
+ ['blur 1.2px',{module:2,blur:1.2}],
+ ['blur 2px small',{module:1.5,blur:2}],
+ ['low contrast',{module:2,contrast:0.35}],
+ ['noise',{module:2,noise:120}],
+ ['off-centre + small',{module:1.5,dx:-380,dy:-260,height:50}],
+ ['dark can (whole frame dark, grey bars)',{module:2,bg:'#3c3c3c',paper:'#6a6a6a',ink:'#151515'}],
+]
+window.runBench=async function(){const out=[];for(const [name,o] of CASES){let ok=0,tot=0,ms=0;for(const d of CODES){const b=await render(d,o);const t0=performance.now();const got=await window.ReturnRateScan.decodeImage(b);ms+=performance.now()-t0;tot++;if(got===d||'0'+got===d)ok++}out.push({name,ok,tot,ms:Math.round(ms/tot)})}return out}
+</script>

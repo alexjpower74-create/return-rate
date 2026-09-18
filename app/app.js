@@ -56,11 +56,22 @@
 
   // The label photo (unknown screen) and the barcode photo (start screen).
   function onLabelPhoto(ev) {
-    var f = ev.target.files && ev.target.files[0]
+    var f = ev.target.files?.[0]
     ev.target.value = ''
     if (!f) return
     show('busy')
     $('busy-text') && ($('busy-text').textContent = 'Reading the label…')
+    // A label photo often has the barcode in it. Read that on the phone first: if the list knows the number,
+    // that is the answer and no photo leaves the phone. Only then is the label itself read.
+    scan
+      .decodeImage(f)
+      .then((upc) => (upc && upc !== lastUpc ? api.lookup(upc).then((r) => (r.status === 'known' ? r : null)) : null))
+      .then((known) => {
+        if (known) return renderAnswer(known.item)
+        return readLabel(f)
+      })
+  }
+  function readLabel(f) {
     api.label(f, lastUpc).then((r) => {
       if (r.status === 'known') return renderAnswer(r.item)
       if (r.status === 'unknown') {
@@ -85,7 +96,7 @@
   $('label-photo').addEventListener('change', onLabelPhoto)
   $('label-photo-start').addEventListener('change', onLabelPhoto)
   $('barcode-photo').addEventListener('change', (ev) => {
-    var f = ev.target.files && ev.target.files[0]
+    var f = ev.target.files?.[0]
     ev.target.value = ''
     if (!f) return
     show('busy')
@@ -143,22 +154,40 @@
       return
     }
     note('')
+    var torchBtn = $('torch')
+    torchBtn.hidden = true
+    torchBtn.setAttribute('aria-pressed', 'false')
     scan
-      .start($('video'), (upc) => {
-        $('upc').value = upc
-        check(upc)
-      })
+      .start(
+        $('video'),
+        (upc) => {
+          $('upc').value = upc
+          check(upc)
+        },
+        {
+          onReady: (info) => {
+            torchBtn.hidden = !info.torch
+          },
+        },
+      )
       .then(() => {
         note('')
       })
       .catch((e) => {
-        var why = e && e.reason
+        var why = e?.reason
         if (why === 'refused') note("Camera is off, and that's fine. Type the number below.")
         else if (why === 'unsupported') note("This browser can't use the camera here. Type the number below.")
         else note("We can't reach the camera. Type the number below.")
         $('upc').focus({ preventScroll: true })
       })
   }
+
+  $('torch').addEventListener('click', () => {
+    var on = $('torch').getAttribute('aria-pressed') !== 'true'
+    scan.torch(on).then((lit) => {
+      $('torch').setAttribute('aria-pressed', lit ? 'true' : 'false')
+    })
+  })
 
   function showStart() {
     typeError('')

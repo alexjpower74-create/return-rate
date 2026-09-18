@@ -89,7 +89,8 @@
           return resolve({ status: 'bad', message: "That doesn't look like a barcode number." })
         }
         if (upc === '0000000000062') return resolve({ status: 'offline' })
-        var item = ITEMS[upc]
+        var twin = upc.length === 12 ? '0' + upc : upc.length === 13 && upc[0] === '0' ? upc.slice(1) : upc
+        var item = ITEMS[upc] || ITEMS[twin] // 12-digit UPC-A and 13-digit 0-padded EAN-13 are the same product, as in the Worker
         if (item) return resolve({ status: 'known', item: item })
         resolve({
           status: 'unknown',
