@@ -20,9 +20,8 @@
 
   <!-- Start -->
   <section id="screen-start" class="screen" data-screen="start">
-    <h1>Take a photo of it, or scan the barcode</h1>
-    <label class="btn-file"><input type="file" id="label-photo-start" accept="image/*" capture="environment" hidden><span class="again">Take a photo of the container</span></label>
-    <p class="lead small">Point it at the front label. We read what the label says and tell you if we take it.</p>
+    <h1>Scan the barcode</h1>
+    <p class="lead small">Hold the barcode inside the box. It reads on its own.</p>
     <div class="camera" id="camera">
       <video id="video" playsinline muted autoplay></video>
       <p class="camera-note" id="camera-note" hidden></p>
@@ -56,11 +55,10 @@
 
   <!-- Unknown -->
   <section id="screen-unknown" class="screen" data-screen="unknown" hidden>
-    <p class="verdict ask" id="unknown-verdict">Take a photo of it</p>
+    <p class="verdict ask" id="unknown-verdict">Ask at the counter</p>
     <p class="product" id="unknown-name"></p>
-    <p class="lead" id="unknown-text">We don't have this barcode on our list. Take a photo of the front of it and we'll tell you.</p>
+    <p class="lead" id="unknown-text">We don't have this barcode on our list yet. Ask at the counter and they'll tell you.</p>
     <p class="product small" id="unknown-upc"></p>
-    <label class="btn-file"><input type="file" id="label-photo" accept="image/*" capture="environment" hidden><span class="again">Take a photo of the front</span></label>
     <p class="money">The counter's count is the one that pays.</p>
     <button type="button" class="again">Scan another</button>
   </section>

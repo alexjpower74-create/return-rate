@@ -49,7 +49,7 @@ test('milk carton: No, no refund, no photo', async () => {
 test('wine with no stated bottle: we know the name but still ask for the label, never guess 10¢', async () => {
   const { status, body } = await call('/item/3760000000001')
   assert.equal(status, 404)
-  assert.equal(body.label_photo, true)
+  assert.equal(body.verdict, 'Ask at the counter')
   assert.match(body.name, /Red Wine/)
   assert.equal(body.accepted, null)
 })
@@ -65,7 +65,7 @@ test('not a drink at all (a spread): No, without a photo', async () => {
 test('barcode OFF has never seen: the honest unknown, photo offered', async () => {
   const { status, body } = await call('/item/4000000000009')
   assert.equal(status, 404)
-  assert.equal(body.label_photo, true)
+  assert.equal(body.verdict, 'Ask at the counter')
   assert.equal(body.accepted, null)
 })
 

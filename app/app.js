@@ -54,47 +54,7 @@
     show('answer')
   }
 
-  // The label photo (unknown screen) and the barcode photo (start screen).
-  function onLabelPhoto(ev) {
-    var f = ev.target.files?.[0]
-    ev.target.value = ''
-    if (!f) return
-    show('busy')
-    $('busy-text') && ($('busy-text').textContent = 'Reading the label…')
-    // A label photo often has the barcode in it. Read that on the phone first: if the list knows the number,
-    // that is the answer and no photo leaves the phone. Only then is the label itself read.
-    scan
-      .decodeImage(f)
-      .then((upc) => (upc && upc !== lastUpc ? api.lookup(upc).then((r) => (r.status === 'known' ? r : null)) : null))
-      .then((known) => {
-        if (known) return renderAnswer(known.item)
-        return readLabel(f)
-      })
-  }
-  function readLabel(f) {
-    api.label(f, lastUpc).then((r) => {
-      if (r.status === 'known') return renderAnswer(r.item)
-      if (r.status === 'unknown') {
-        $('unknown-verdict').textContent = r.verdict || 'Try another photo'
-        $('unknown-name').textContent = r.name || ''
-        $('unknown-text').textContent = r.message
-        $('unknown-upc').textContent = ''
-        return show('unknown')
-      }
-      if (r.status === 'busy') {
-        $('offline-reason').textContent = r.message
-        return show('offline')
-      }
-      if (r.status === 'bad') {
-        $('unknown-text').textContent = r.message
-        return show('unknown')
-      }
-      $('offline-reason').textContent = r.message
-      show('offline')
-    })
-  }
-  $('label-photo').addEventListener('change', onLabelPhoto)
-  $('label-photo-start').addEventListener('change', onLabelPhoto)
+  // The barcode photo (start screen): decoded on the phone, nothing is uploaded.
   $('barcode-photo').addEventListener('change', (ev) => {
     var f = ev.target.files?.[0]
     ev.target.value = ''
@@ -117,7 +77,7 @@
     api.lookup(upc).then((r) => {
       if (r.status === 'known') return renderAnswer(r.item)
       if (r.status === 'unknown') {
-        $('unknown-verdict').textContent = r.verdict || 'Take a photo of it'
+        $('unknown-verdict').textContent = r.verdict || 'Ask at the counter'
         $('unknown-name').textContent = r.name || ''
         $('unknown-text').textContent = r.message || api.UNKNOWN_TEXT
         $('unknown-upc').textContent = 'Number ' + upc

@@ -8,14 +8,14 @@ export const TARGET = process.env.QA_TARGET || '/app/index.html?mock=1'
 
 // Every screen shows one of these as the state; the specs identify a screen by its text.
 export const TEXT = {
-  start: /Take a photo of it, or scan the barcode/i,
+  start: /Scan the barcode/i,
   typeField: /Type the number/i,
   honest: /If we don't know an item, we say so\./i,
   money: /the counter's count is the one that pays/i,
-  unknown: /We don't have this barcode on our list\. Take a photo of the front of it/i,
+  unknown: /We don't have this barcode on our list yet\. Ask at the counter/i,
   scanAnother: /Scan another/i,
   refund: /^(5¢|10¢|No refund)( at APCO)?$/,
-  verdict: /^(Yes, we take this|No, we don't take this|Take a photo of it|Try another photo)$/,
+  verdict: /^(Yes, we take this|No, we don't take this|Ask at the counter)$/,
 }
 
 // SYNTHETIC barcodes. Env wins; otherwise the mock page must expose window.RR_MOCK

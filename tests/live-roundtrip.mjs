@@ -18,7 +18,7 @@ const SEED = {
   cents: Number(arg('cents', process.env.SEED_CENTS || 5)),
 }
 const UNKNOWN = arg('unknown', process.env.UNKNOWN_UPC || '0000000000099') // SYNTHETIC, never seeded
-const HONEST = "We don't have this barcode on our list. Take a photo of the front of it"
+const HONEST = "We don't have this barcode on our list yet. Ask at the counter"
 const MONEY = "The counter's count is the one that pays."
 
 let red = 0

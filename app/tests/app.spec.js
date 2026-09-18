@@ -66,7 +66,7 @@ async function allVisibleButtonsHit(page) {
 
 test.beforeEach(async ({ page }) => {
   await page.goto('/?mock=1&camera=off')
-  await expect(page.getByRole('heading', { name: 'Take a photo of it, or scan the barcode' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Scan the barcode' })).toBeVisible()
 })
 
 test('start screen: camera prompt, typed field and the never-invent sentence', async ({ page }, info) => {
@@ -106,15 +106,15 @@ test('unknown number (SYNTHETIC) says so honestly, with the money line', async (
   await typeNumber(page, '0000000000031')
   await expect(page.locator('#screen-unknown')).toBeVisible()
   await expect(page.getByText(UNKNOWN)).toBeVisible()
-  await expect(page.getByText('Take a photo of the front of it')).toBeVisible()
+  await expect(page.getByText('Ask at the counter', { exact: true })).toBeVisible()
   await expect(page.locator('#screen-unknown .money')).toHaveText(MONEY)
   // No refund figure is shown as the answer on the unknown screen (the label guidance may mention the rates in a sentence).
   await expect(page.locator('#screen-unknown .refund')).toHaveCount(0)
-  await expect(page.locator('#screen-unknown .verdict')).toHaveText('Take a photo of it')
+  await expect(page.locator('#screen-unknown .verdict')).toHaveText('Ask at the counter')
   await allVisibleButtonsHit(page)
   await page.screenshot({ path: path.join(SHOTS, `unknown-${info.project.name}.png`) })
   await page.getByRole('button', { name: 'Scan another' }).click()
-  await expect(page.getByRole('heading', { name: 'Take a photo of it, or scan the barcode' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Scan the barcode' })).toBeVisible()
   await expect(page.getByLabel('Type the number')).toHaveValue('')
 })
 
@@ -169,21 +169,4 @@ test.describe('camera permission (real getUserMedia)', () => {
     expect(live).toBe(true)
     await b.close()
   })
-})
-
-test('label photo (SYNTHETIC): from the unknown screen a readable label answers, a dark one says check the label', async ({
-  page,
-}, info) => {
-  await typeNumber(page, '0000000000031')
-  await expect(page.locator('#screen-unknown')).toBeVisible()
-  const png = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==', 'base64')
-  await page.locator('#label-photo').setInputFiles({ name: 'dark-label.png', mimeType: 'image/png', buffer: png })
-  await expect(page.locator('#screen-unknown')).toBeVisible()
-  await expect(page.locator('#unknown-text')).toContainText('Take another photo closer')
-  await page.locator('#label-photo').setInputFiles({ name: 'front-label.png', mimeType: 'image/png', buffer: png })
-  await expect(page.locator('#screen-answer')).toBeVisible()
-  await expect(page.locator('#verdict')).toHaveText('Yes, we take this')
-  await expect(page.locator('#why')).toContainText('From the label')
-  await expect(page.locator('#screen-answer .money')).toHaveText(MONEY)
-  await page.screenshot({ path: path.join(SHOTS, `label-photo-${info.project.name}.png`) })
 })
